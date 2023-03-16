@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="d4af2453c00f4870a6d31c087df5ce41" Name="Diagram1">
+        <EntityTypeShape EntityType="LibraryAPModel.Checadas" Width="1.5" PointX="3" PointY="6.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="LibraryAPModel.Clientes" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="LibraryAPModel.Libros" Width="1.5" PointX="3" PointY="10.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="LibraryAPModel.Personal" Width="1.5" PointX="0.75" PointY="5.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="LibraryAPModel.Prestamos" Width="1.5" PointX="6" PointY="5.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="LibraryAPModel.sysdiagrams" Width="1.5" PointX="7.75" PointY="1.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="LibraryAPModel.TipoLibros" Width="1.5" PointX="0.75" PointY="11.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="LibraryAPModel.TiposPrestamos" Width="1.5" PointX="3.75" PointY="15.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="LibraryAPModel.Ventas" Width="1.5" PointX="3" PointY="1.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="LibraryAPModel.VentasLibros" Width="1.5" PointX="5.25" PointY="2.25" IsExpanded="true" />
+        <AssociationConnector Association="LibraryAPModel.FK_idPersonal" ManuallyRouted="false" />
+        <AssociationConnector Association="LibraryAPModel.FK_idCliente_PRE" ManuallyRouted="false" />
+        <AssociationConnector Association="LibraryAPModel.FK_iDCliente_VE" ManuallyRouted="false" />
+        <AssociationConnector Association="LibraryAPModel.FK_idlibr_PRE" ManuallyRouted="false" />
+        <AssociationConnector Association="LibraryAPModel.FK_iDlibro_VE" ManuallyRouted="false" />
+        <AssociationConnector Association="LibraryAPModel.FK_idtipolibro" ManuallyRouted="false" />
+        <AssociationConnector Association="LibraryAPModel.FK_idPersonal_PRE" ManuallyRouted="false" />
+        <AssociationConnector Association="LibraryAPModel.FK_iDPersonal_VE" ManuallyRouted="false" />
+        <AssociationConnector Association="LibraryAPModel.FK_idtipolibro_PRE" ManuallyRouted="false" />
+        <AssociationConnector Association="LibraryAPModel.FK_idVentas" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

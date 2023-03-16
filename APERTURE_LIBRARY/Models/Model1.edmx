@@ -1,0 +1,752 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="LibraryAPModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Checadas">
+          <Key>
+            <PropertyRef Name="IdCH" />
+          </Key>
+          <Property Name="IdCH" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FechaDia" Type="datetime" />
+          <Property Name="HoraEntrada" Type="time" Precision="7" />
+          <Property Name="HoraSalida" Type="time" Precision="7" />
+          <Property Name="idPersonal" Type="int" />
+        </EntityType>
+        <EntityType Name="Clientes">
+          <Key>
+            <PropertyRef Name="IdCLI" />
+          </Key>
+          <Property Name="IdCLI" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NombreCli" Type="varchar" MaxLength="50" />
+          <Property Name="ApePat" Type="varchar" MaxLength="50" />
+          <Property Name="ApeMat" Type="varchar" MaxLength="50" />
+          <Property Name="FechaNacimiento" Type="datetime" />
+          <Property Name="correo" Type="varchar" MaxLength="50" />
+          <Property Name="NumTelefono" Type="int" />
+          <Property Name="Domicilio" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Libros">
+          <Key>
+            <PropertyRef Name="IdLibro" />
+          </Key>
+          <Property Name="IdLibro" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NombreLibro" Type="varchar" MaxLength="50" />
+          <Property Name="Autor" Type="varchar" MaxLength="50" />
+          <Property Name="Editorial" Type="varchar" MaxLength="50" />
+          <Property Name="FPublicacion" Type="datetime" />
+          <Property Name="CostoLibros" Type="float" />
+          <Property Name="CantidadLibros" Type="int" />
+          <Property Name="NoPaginas" Type="int" />
+          <Property Name="idtipolibro" Type="int" />
+        </EntityType>
+        <EntityType Name="Personal">
+          <Key>
+            <PropertyRef Name="IdPE" />
+          </Key>
+          <Property Name="IdPE" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdPersonal" Type="int" />
+          <Property Name="NombrePer" Type="varchar" MaxLength="50" />
+          <Property Name="ApePat" Type="varchar" MaxLength="50" />
+          <Property Name="ApeMat" Type="varchar" MaxLength="50" />
+          <Property Name="FechaNacimiento" Type="datetime" />
+          <Property Name="correo" Type="varchar" MaxLength="50" />
+          <Property Name="NumTelefono" Type="int" />
+          <Property Name="Domicilio" Type="varchar" MaxLength="50" />
+          <Property Name="Puesto" Type="varchar" MaxLength="50" />
+          <Property Name="Turno" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Prestamos">
+          <Key>
+            <PropertyRef Name="IdPR" />
+          </Key>
+          <Property Name="IdPR" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FechaPrestamoInicial" Type="datetime" />
+          <Property Name="FechaPrestamoFinal" Type="datetime" />
+          <Property Name="CostoPrestamo" Type="float" />
+          <Property Name="DescripcionLibro" Type="varchar" MaxLength="100" />
+          <Property Name="idCliente" Type="int" />
+          <Property Name="idPersonal" Type="int" />
+          <Property Name="idlibro" Type="int" />
+          <Property Name="idtipoprestamo" Type="int" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="TipoLibros">
+          <Key>
+            <PropertyRef Name="IdTL" />
+          </Key>
+          <Property Name="IdTL" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Genero" Type="varchar" MaxLength="50" />
+          <Property Name="Categoria" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="TiposPrestamos">
+          <Key>
+            <PropertyRef Name="IdTP" />
+          </Key>
+          <Property Name="IdTP" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TipoPrestamo" Type="varchar" MaxLength="50" />
+          <Property Name="Descripcion" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Ventas">
+          <Key>
+            <PropertyRef Name="IdVE" />
+          </Key>
+          <Property Name="IdVE" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CostoVentaSubtotal" Type="float" />
+          <Property Name="IVA" Type="float" />
+          <Property Name="CostoVentaTotal" Type="float" />
+          <Property Name="idPersonal" Type="int" />
+          <Property Name="idCliente" Type="int" />
+        </EntityType>
+        <EntityType Name="VentasLibros">
+          <Key>
+            <PropertyRef Name="IdVELIB" />
+          </Key>
+          <Property Name="IdVELIB" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="idLibro" Type="int" />
+          <Property Name="idVentas" Type="int" />
+        </EntityType>
+        <Association Name="FK_idCliente_PRE">
+          <End Role="Clientes" Type="Self.Clientes" Multiplicity="0..1" />
+          <End Role="Prestamos" Type="Self.Prestamos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Clientes">
+              <PropertyRef Name="IdCLI" />
+            </Principal>
+            <Dependent Role="Prestamos">
+              <PropertyRef Name="idCliente" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_iDCliente_VE">
+          <End Role="Clientes" Type="Self.Clientes" Multiplicity="0..1" />
+          <End Role="Ventas" Type="Self.Ventas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Clientes">
+              <PropertyRef Name="IdCLI" />
+            </Principal>
+            <Dependent Role="Ventas">
+              <PropertyRef Name="idCliente" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_idlibr_PRE">
+          <End Role="Libros" Type="Self.Libros" Multiplicity="0..1" />
+          <End Role="Prestamos" Type="Self.Prestamos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Libros">
+              <PropertyRef Name="IdLibro" />
+            </Principal>
+            <Dependent Role="Prestamos">
+              <PropertyRef Name="idlibro" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_iDlibro_VE">
+          <End Role="Libros" Type="Self.Libros" Multiplicity="0..1" />
+          <End Role="VentasLibros" Type="Self.VentasLibros" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Libros">
+              <PropertyRef Name="IdLibro" />
+            </Principal>
+            <Dependent Role="VentasLibros">
+              <PropertyRef Name="idLibro" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_idPersonal">
+          <End Role="Personal" Type="Self.Personal" Multiplicity="0..1" />
+          <End Role="Checadas" Type="Self.Checadas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Personal">
+              <PropertyRef Name="IdPE" />
+            </Principal>
+            <Dependent Role="Checadas">
+              <PropertyRef Name="idPersonal" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_idPersonal_PRE">
+          <End Role="Personal" Type="Self.Personal" Multiplicity="0..1" />
+          <End Role="Prestamos" Type="Self.Prestamos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Personal">
+              <PropertyRef Name="IdPE" />
+            </Principal>
+            <Dependent Role="Prestamos">
+              <PropertyRef Name="idPersonal" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_iDPersonal_VE">
+          <End Role="Personal" Type="Self.Personal" Multiplicity="0..1" />
+          <End Role="Ventas" Type="Self.Ventas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Personal">
+              <PropertyRef Name="IdPE" />
+            </Principal>
+            <Dependent Role="Ventas">
+              <PropertyRef Name="idPersonal" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_idtipolibro">
+          <End Role="TipoLibros" Type="Self.TipoLibros" Multiplicity="0..1" />
+          <End Role="Libros" Type="Self.Libros" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TipoLibros">
+              <PropertyRef Name="IdTL" />
+            </Principal>
+            <Dependent Role="Libros">
+              <PropertyRef Name="idtipolibro" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_idtipolibro_PRE">
+          <End Role="TiposPrestamos" Type="Self.TiposPrestamos" Multiplicity="0..1" />
+          <End Role="Prestamos" Type="Self.Prestamos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TiposPrestamos">
+              <PropertyRef Name="IdTP" />
+            </Principal>
+            <Dependent Role="Prestamos">
+              <PropertyRef Name="idtipoprestamo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_idVentas">
+          <End Role="Ventas" Type="Self.Ventas" Multiplicity="0..1" />
+          <End Role="VentasLibros" Type="Self.VentasLibros" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Ventas">
+              <PropertyRef Name="IdVE" />
+            </Principal>
+            <Dependent Role="VentasLibros">
+              <PropertyRef Name="idVentas" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="LibraryAPModelStoreContainer">
+          <EntitySet Name="Checadas" EntityType="Self.Checadas" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Clientes" EntityType="Self.Clientes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Libros" EntityType="Self.Libros" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Personal" EntityType="Self.Personal" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Prestamos" EntityType="Self.Prestamos" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TipoLibros" EntityType="Self.TipoLibros" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TiposPrestamos" EntityType="Self.TiposPrestamos" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Ventas" EntityType="Self.Ventas" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="VentasLibros" EntityType="Self.VentasLibros" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_idCliente_PRE" Association="Self.FK_idCliente_PRE">
+            <End Role="Clientes" EntitySet="Clientes" />
+            <End Role="Prestamos" EntitySet="Prestamos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_iDCliente_VE" Association="Self.FK_iDCliente_VE">
+            <End Role="Clientes" EntitySet="Clientes" />
+            <End Role="Ventas" EntitySet="Ventas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_idlibr_PRE" Association="Self.FK_idlibr_PRE">
+            <End Role="Libros" EntitySet="Libros" />
+            <End Role="Prestamos" EntitySet="Prestamos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_iDlibro_VE" Association="Self.FK_iDlibro_VE">
+            <End Role="Libros" EntitySet="Libros" />
+            <End Role="VentasLibros" EntitySet="VentasLibros" />
+          </AssociationSet>
+          <AssociationSet Name="FK_idPersonal" Association="Self.FK_idPersonal">
+            <End Role="Personal" EntitySet="Personal" />
+            <End Role="Checadas" EntitySet="Checadas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_idPersonal_PRE" Association="Self.FK_idPersonal_PRE">
+            <End Role="Personal" EntitySet="Personal" />
+            <End Role="Prestamos" EntitySet="Prestamos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_iDPersonal_VE" Association="Self.FK_iDPersonal_VE">
+            <End Role="Personal" EntitySet="Personal" />
+            <End Role="Ventas" EntitySet="Ventas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_idtipolibro" Association="Self.FK_idtipolibro">
+            <End Role="TipoLibros" EntitySet="TipoLibros" />
+            <End Role="Libros" EntitySet="Libros" />
+          </AssociationSet>
+          <AssociationSet Name="FK_idtipolibro_PRE" Association="Self.FK_idtipolibro_PRE">
+            <End Role="TiposPrestamos" EntitySet="TiposPrestamos" />
+            <End Role="Prestamos" EntitySet="Prestamos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_idVentas" Association="Self.FK_idVentas">
+            <End Role="Ventas" EntitySet="Ventas" />
+            <End Role="VentasLibros" EntitySet="VentasLibros" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="LibraryAPModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Checadas">
+          <Key>
+            <PropertyRef Name="IdCH" />
+          </Key>
+          <Property Name="IdCH" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FechaDia" Type="DateTime" Precision="3" />
+          <Property Name="HoraEntrada" Type="Time" Precision="7" />
+          <Property Name="HoraSalida" Type="Time" Precision="7" />
+          <Property Name="idPersonal" Type="Int32" />
+          <NavigationProperty Name="Personal" Relationship="Self.FK_idPersonal" FromRole="Checadas" ToRole="Personal" />
+        </EntityType>
+        <EntityType Name="Clientes">
+          <Key>
+            <PropertyRef Name="IdCLI" />
+          </Key>
+          <Property Name="IdCLI" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NombreCli" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ApePat" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ApeMat" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="FechaNacimiento" Type="DateTime" Precision="3" />
+          <Property Name="correo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="NumTelefono" Type="Int32" />
+          <Property Name="Domicilio" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Prestamos" Relationship="Self.FK_idCliente_PRE" FromRole="Clientes" ToRole="Prestamos" />
+          <NavigationProperty Name="Ventas" Relationship="Self.FK_iDCliente_VE" FromRole="Clientes" ToRole="Ventas" />
+        </EntityType>
+        <EntityType Name="Libros">
+          <Key>
+            <PropertyRef Name="IdLibro" />
+          </Key>
+          <Property Name="IdLibro" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NombreLibro" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Autor" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Editorial" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="FPublicacion" Type="DateTime" Precision="3" />
+          <Property Name="CostoLibros" Type="Double" />
+          <Property Name="CantidadLibros" Type="Int32" />
+          <Property Name="NoPaginas" Type="Int32" />
+          <Property Name="idtipolibro" Type="Int32" />
+          <NavigationProperty Name="Prestamos" Relationship="Self.FK_idlibr_PRE" FromRole="Libros" ToRole="Prestamos" />
+          <NavigationProperty Name="VentasLibros" Relationship="Self.FK_iDlibro_VE" FromRole="Libros" ToRole="VentasLibros" />
+          <NavigationProperty Name="TipoLibros" Relationship="Self.FK_idtipolibro" FromRole="Libros" ToRole="TipoLibros" />
+        </EntityType>
+        <EntityType Name="Personal">
+          <Key>
+            <PropertyRef Name="IdPE" />
+          </Key>
+          <Property Name="IdPE" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdPersonal" Type="Int32" />
+          <Property Name="NombrePer" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ApePat" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ApeMat" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="FechaNacimiento" Type="DateTime" Precision="3" />
+          <Property Name="correo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="NumTelefono" Type="Int32" />
+          <Property Name="Domicilio" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Puesto" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Turno" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Checadas" Relationship="Self.FK_idPersonal" FromRole="Personal" ToRole="Checadas" />
+          <NavigationProperty Name="Prestamos" Relationship="Self.FK_idPersonal_PRE" FromRole="Personal" ToRole="Prestamos" />
+          <NavigationProperty Name="Ventas" Relationship="Self.FK_iDPersonal_VE" FromRole="Personal" ToRole="Ventas" />
+        </EntityType>
+        <EntityType Name="Prestamos">
+          <Key>
+            <PropertyRef Name="IdPR" />
+          </Key>
+          <Property Name="IdPR" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FechaPrestamoInicial" Type="DateTime" Precision="3" />
+          <Property Name="FechaPrestamoFinal" Type="DateTime" Precision="3" />
+          <Property Name="CostoPrestamo" Type="Double" />
+          <Property Name="DescripcionLibro" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="idCliente" Type="Int32" />
+          <Property Name="idPersonal" Type="Int32" />
+          <Property Name="idlibro" Type="Int32" />
+          <Property Name="idtipoprestamo" Type="Int32" />
+          <NavigationProperty Name="Clientes" Relationship="Self.FK_idCliente_PRE" FromRole="Prestamos" ToRole="Clientes" />
+          <NavigationProperty Name="Libros" Relationship="Self.FK_idlibr_PRE" FromRole="Prestamos" ToRole="Libros" />
+          <NavigationProperty Name="Personal" Relationship="Self.FK_idPersonal_PRE" FromRole="Prestamos" ToRole="Personal" />
+          <NavigationProperty Name="TiposPrestamos" Relationship="Self.FK_idtipolibro_PRE" FromRole="Prestamos" ToRole="TiposPrestamos" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="TipoLibros">
+          <Key>
+            <PropertyRef Name="IdTL" />
+          </Key>
+          <Property Name="IdTL" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Genero" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Categoria" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Libros" Relationship="Self.FK_idtipolibro" FromRole="TipoLibros" ToRole="Libros" />
+        </EntityType>
+        <EntityType Name="TiposPrestamos">
+          <Key>
+            <PropertyRef Name="IdTP" />
+          </Key>
+          <Property Name="IdTP" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TipoPrestamo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Descripcion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Prestamos" Relationship="Self.FK_idtipolibro_PRE" FromRole="TiposPrestamos" ToRole="Prestamos" />
+        </EntityType>
+        <EntityType Name="Ventas">
+          <Key>
+            <PropertyRef Name="IdVE" />
+          </Key>
+          <Property Name="IdVE" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CostoVentaSubtotal" Type="Double" />
+          <Property Name="IVA" Type="Double" />
+          <Property Name="CostoVentaTotal" Type="Double" />
+          <Property Name="idPersonal" Type="Int32" />
+          <Property Name="idCliente" Type="Int32" />
+          <NavigationProperty Name="Clientes" Relationship="Self.FK_iDCliente_VE" FromRole="Ventas" ToRole="Clientes" />
+          <NavigationProperty Name="Personal" Relationship="Self.FK_iDPersonal_VE" FromRole="Ventas" ToRole="Personal" />
+          <NavigationProperty Name="VentasLibros" Relationship="Self.FK_idVentas" FromRole="Ventas" ToRole="VentasLibros" />
+        </EntityType>
+        <EntityType Name="VentasLibros">
+          <Key>
+            <PropertyRef Name="IdVELIB" />
+          </Key>
+          <Property Name="IdVELIB" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="idLibro" Type="Int32" />
+          <Property Name="idVentas" Type="Int32" />
+          <NavigationProperty Name="Libros" Relationship="Self.FK_iDlibro_VE" FromRole="VentasLibros" ToRole="Libros" />
+          <NavigationProperty Name="Ventas" Relationship="Self.FK_idVentas" FromRole="VentasLibros" ToRole="Ventas" />
+        </EntityType>
+        <Association Name="FK_idPersonal">
+          <End Role="Personal" Type="Self.Personal" Multiplicity="0..1" />
+          <End Role="Checadas" Type="Self.Checadas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Personal">
+              <PropertyRef Name="IdPE" />
+            </Principal>
+            <Dependent Role="Checadas">
+              <PropertyRef Name="idPersonal" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_idCliente_PRE">
+          <End Role="Clientes" Type="Self.Clientes" Multiplicity="0..1" />
+          <End Role="Prestamos" Type="Self.Prestamos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Clientes">
+              <PropertyRef Name="IdCLI" />
+            </Principal>
+            <Dependent Role="Prestamos">
+              <PropertyRef Name="idCliente" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_iDCliente_VE">
+          <End Role="Clientes" Type="Self.Clientes" Multiplicity="0..1" />
+          <End Role="Ventas" Type="Self.Ventas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Clientes">
+              <PropertyRef Name="IdCLI" />
+            </Principal>
+            <Dependent Role="Ventas">
+              <PropertyRef Name="idCliente" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_idlibr_PRE">
+          <End Role="Libros" Type="Self.Libros" Multiplicity="0..1" />
+          <End Role="Prestamos" Type="Self.Prestamos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Libros">
+              <PropertyRef Name="IdLibro" />
+            </Principal>
+            <Dependent Role="Prestamos">
+              <PropertyRef Name="idlibro" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_iDlibro_VE">
+          <End Role="Libros" Type="Self.Libros" Multiplicity="0..1" />
+          <End Role="VentasLibros" Type="Self.VentasLibros" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Libros">
+              <PropertyRef Name="IdLibro" />
+            </Principal>
+            <Dependent Role="VentasLibros">
+              <PropertyRef Name="idLibro" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_idtipolibro">
+          <End Role="TipoLibros" Type="Self.TipoLibros" Multiplicity="0..1" />
+          <End Role="Libros" Type="Self.Libros" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TipoLibros">
+              <PropertyRef Name="IdTL" />
+            </Principal>
+            <Dependent Role="Libros">
+              <PropertyRef Name="idtipolibro" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_idPersonal_PRE">
+          <End Role="Personal" Type="Self.Personal" Multiplicity="0..1" />
+          <End Role="Prestamos" Type="Self.Prestamos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Personal">
+              <PropertyRef Name="IdPE" />
+            </Principal>
+            <Dependent Role="Prestamos">
+              <PropertyRef Name="idPersonal" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_iDPersonal_VE">
+          <End Role="Personal" Type="Self.Personal" Multiplicity="0..1" />
+          <End Role="Ventas" Type="Self.Ventas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Personal">
+              <PropertyRef Name="IdPE" />
+            </Principal>
+            <Dependent Role="Ventas">
+              <PropertyRef Name="idPersonal" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_idtipolibro_PRE">
+          <End Role="TiposPrestamos" Type="Self.TiposPrestamos" Multiplicity="0..1" />
+          <End Role="Prestamos" Type="Self.Prestamos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TiposPrestamos">
+              <PropertyRef Name="IdTP" />
+            </Principal>
+            <Dependent Role="Prestamos">
+              <PropertyRef Name="idtipoprestamo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_idVentas">
+          <End Role="Ventas" Type="Self.Ventas" Multiplicity="0..1" />
+          <End Role="VentasLibros" Type="Self.VentasLibros" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Ventas">
+              <PropertyRef Name="IdVE" />
+            </Principal>
+            <Dependent Role="VentasLibros">
+              <PropertyRef Name="idVentas" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="LibraryAPEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Checadas" EntityType="Self.Checadas" />
+          <EntitySet Name="Clientes" EntityType="Self.Clientes" />
+          <EntitySet Name="Libros" EntityType="Self.Libros" />
+          <EntitySet Name="Personal" EntityType="Self.Personal" />
+          <EntitySet Name="Prestamos" EntityType="Self.Prestamos" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+          <EntitySet Name="TipoLibros" EntityType="Self.TipoLibros" />
+          <EntitySet Name="TiposPrestamos" EntityType="Self.TiposPrestamos" />
+          <EntitySet Name="Ventas" EntityType="Self.Ventas" />
+          <EntitySet Name="VentasLibros" EntityType="Self.VentasLibros" />
+          <AssociationSet Name="FK_idPersonal" Association="Self.FK_idPersonal">
+            <End Role="Personal" EntitySet="Personal" />
+            <End Role="Checadas" EntitySet="Checadas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_idCliente_PRE" Association="Self.FK_idCliente_PRE">
+            <End Role="Clientes" EntitySet="Clientes" />
+            <End Role="Prestamos" EntitySet="Prestamos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_iDCliente_VE" Association="Self.FK_iDCliente_VE">
+            <End Role="Clientes" EntitySet="Clientes" />
+            <End Role="Ventas" EntitySet="Ventas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_idlibr_PRE" Association="Self.FK_idlibr_PRE">
+            <End Role="Libros" EntitySet="Libros" />
+            <End Role="Prestamos" EntitySet="Prestamos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_iDlibro_VE" Association="Self.FK_iDlibro_VE">
+            <End Role="Libros" EntitySet="Libros" />
+            <End Role="VentasLibros" EntitySet="VentasLibros" />
+          </AssociationSet>
+          <AssociationSet Name="FK_idtipolibro" Association="Self.FK_idtipolibro">
+            <End Role="TipoLibros" EntitySet="TipoLibros" />
+            <End Role="Libros" EntitySet="Libros" />
+          </AssociationSet>
+          <AssociationSet Name="FK_idPersonal_PRE" Association="Self.FK_idPersonal_PRE">
+            <End Role="Personal" EntitySet="Personal" />
+            <End Role="Prestamos" EntitySet="Prestamos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_iDPersonal_VE" Association="Self.FK_iDPersonal_VE">
+            <End Role="Personal" EntitySet="Personal" />
+            <End Role="Ventas" EntitySet="Ventas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_idtipolibro_PRE" Association="Self.FK_idtipolibro_PRE">
+            <End Role="TiposPrestamos" EntitySet="TiposPrestamos" />
+            <End Role="Prestamos" EntitySet="Prestamos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_idVentas" Association="Self.FK_idVentas">
+            <End Role="Ventas" EntitySet="Ventas" />
+            <End Role="VentasLibros" EntitySet="VentasLibros" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="LibraryAPModelStoreContainer" CdmEntityContainer="LibraryAPEntities">
+          <EntitySetMapping Name="Checadas">
+            <EntityTypeMapping TypeName="LibraryAPModel.Checadas">
+              <MappingFragment StoreEntitySet="Checadas">
+                <ScalarProperty Name="IdCH" ColumnName="IdCH" />
+                <ScalarProperty Name="FechaDia" ColumnName="FechaDia" />
+                <ScalarProperty Name="HoraEntrada" ColumnName="HoraEntrada" />
+                <ScalarProperty Name="HoraSalida" ColumnName="HoraSalida" />
+                <ScalarProperty Name="idPersonal" ColumnName="idPersonal" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Clientes">
+            <EntityTypeMapping TypeName="LibraryAPModel.Clientes">
+              <MappingFragment StoreEntitySet="Clientes">
+                <ScalarProperty Name="IdCLI" ColumnName="IdCLI" />
+                <ScalarProperty Name="NombreCli" ColumnName="NombreCli" />
+                <ScalarProperty Name="ApePat" ColumnName="ApePat" />
+                <ScalarProperty Name="ApeMat" ColumnName="ApeMat" />
+                <ScalarProperty Name="FechaNacimiento" ColumnName="FechaNacimiento" />
+                <ScalarProperty Name="correo" ColumnName="correo" />
+                <ScalarProperty Name="NumTelefono" ColumnName="NumTelefono" />
+                <ScalarProperty Name="Domicilio" ColumnName="Domicilio" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Libros">
+            <EntityTypeMapping TypeName="LibraryAPModel.Libros">
+              <MappingFragment StoreEntitySet="Libros">
+                <ScalarProperty Name="IdLibro" ColumnName="IdLibro" />
+                <ScalarProperty Name="NombreLibro" ColumnName="NombreLibro" />
+                <ScalarProperty Name="Autor" ColumnName="Autor" />
+                <ScalarProperty Name="Editorial" ColumnName="Editorial" />
+                <ScalarProperty Name="FPublicacion" ColumnName="FPublicacion" />
+                <ScalarProperty Name="CostoLibros" ColumnName="CostoLibros" />
+                <ScalarProperty Name="CantidadLibros" ColumnName="CantidadLibros" />
+                <ScalarProperty Name="NoPaginas" ColumnName="NoPaginas" />
+                <ScalarProperty Name="idtipolibro" ColumnName="idtipolibro" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Personal">
+            <EntityTypeMapping TypeName="LibraryAPModel.Personal">
+              <MappingFragment StoreEntitySet="Personal">
+                <ScalarProperty Name="IdPE" ColumnName="IdPE" />
+                <ScalarProperty Name="IdPersonal" ColumnName="IdPersonal" />
+                <ScalarProperty Name="NombrePer" ColumnName="NombrePer" />
+                <ScalarProperty Name="ApePat" ColumnName="ApePat" />
+                <ScalarProperty Name="ApeMat" ColumnName="ApeMat" />
+                <ScalarProperty Name="FechaNacimiento" ColumnName="FechaNacimiento" />
+                <ScalarProperty Name="correo" ColumnName="correo" />
+                <ScalarProperty Name="NumTelefono" ColumnName="NumTelefono" />
+                <ScalarProperty Name="Domicilio" ColumnName="Domicilio" />
+                <ScalarProperty Name="Puesto" ColumnName="Puesto" />
+                <ScalarProperty Name="Turno" ColumnName="Turno" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Prestamos">
+            <EntityTypeMapping TypeName="LibraryAPModel.Prestamos">
+              <MappingFragment StoreEntitySet="Prestamos">
+                <ScalarProperty Name="IdPR" ColumnName="IdPR" />
+                <ScalarProperty Name="FechaPrestamoInicial" ColumnName="FechaPrestamoInicial" />
+                <ScalarProperty Name="FechaPrestamoFinal" ColumnName="FechaPrestamoFinal" />
+                <ScalarProperty Name="CostoPrestamo" ColumnName="CostoPrestamo" />
+                <ScalarProperty Name="DescripcionLibro" ColumnName="DescripcionLibro" />
+                <ScalarProperty Name="idCliente" ColumnName="idCliente" />
+                <ScalarProperty Name="idPersonal" ColumnName="idPersonal" />
+                <ScalarProperty Name="idlibro" ColumnName="idlibro" />
+                <ScalarProperty Name="idtipoprestamo" ColumnName="idtipoprestamo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="LibraryAPModel.sysdiagrams">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TipoLibros">
+            <EntityTypeMapping TypeName="LibraryAPModel.TipoLibros">
+              <MappingFragment StoreEntitySet="TipoLibros">
+                <ScalarProperty Name="IdTL" ColumnName="IdTL" />
+                <ScalarProperty Name="Genero" ColumnName="Genero" />
+                <ScalarProperty Name="Categoria" ColumnName="Categoria" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TiposPrestamos">
+            <EntityTypeMapping TypeName="LibraryAPModel.TiposPrestamos">
+              <MappingFragment StoreEntitySet="TiposPrestamos">
+                <ScalarProperty Name="IdTP" ColumnName="IdTP" />
+                <ScalarProperty Name="TipoPrestamo" ColumnName="TipoPrestamo" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Ventas">
+            <EntityTypeMapping TypeName="LibraryAPModel.Ventas">
+              <MappingFragment StoreEntitySet="Ventas">
+                <ScalarProperty Name="IdVE" ColumnName="IdVE" />
+                <ScalarProperty Name="CostoVentaSubtotal" ColumnName="CostoVentaSubtotal" />
+                <ScalarProperty Name="IVA" ColumnName="IVA" />
+                <ScalarProperty Name="CostoVentaTotal" ColumnName="CostoVentaTotal" />
+                <ScalarProperty Name="idPersonal" ColumnName="idPersonal" />
+                <ScalarProperty Name="idCliente" ColumnName="idCliente" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="VentasLibros">
+            <EntityTypeMapping TypeName="LibraryAPModel.VentasLibros">
+              <MappingFragment StoreEntitySet="VentasLibros">
+                <ScalarProperty Name="IdVELIB" ColumnName="IdVELIB" />
+                <ScalarProperty Name="idLibro" ColumnName="idLibro" />
+                <ScalarProperty Name="idVentas" ColumnName="idVentas" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="true" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
