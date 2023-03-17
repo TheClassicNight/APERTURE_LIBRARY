@@ -1,7 +1,101 @@
-﻿
-@{
-    ViewBag.Title = "BooksForm";
-}
+﻿<script>
+    var UrlGuardarLi = '@Url.Action("guardarLi", "Home")';
+</script>
+<script src="~/Scripts/js_Books.js"></script>
+<div class="bg-secondary text-center rounded p-4">
+    <div class="row">
+        <div class="col-md-3">
+            <label>Nombre del libro</label>
+            @if (ViewBag.li != null)
+            {
+                <input type="text" id="nombre" name="serial" class="form-control" value="@ViewBag.li.NombreLibro" />
+            }
+            else
+            {
+                <input type="text" id="nombre" name="serial" class="form-control" />
+            }
 
-<h2>BooksForm</h2>
+        </div>
+        <div class="col-md-3">
+            <label>Autor</label>
+            @if (ViewBag.li != null)
+            {
+                <input type="text" id="autor" name="name" class="form-control" value="@ViewBag.li.Autor" />
+            }
+            else
+            {
+                <input type="text" id="autor" name="name" class="form-control" />
+            }
+
+        </div>
+        <div class="col-md-3">
+            <label>Editorial</label>
+            @if (ViewBag.li != null)
+            {
+                <input type="text" id="edit" name="model" class="form-control" value="@ViewBag.li.Editorial" />
+            }
+            else
+            {
+                <input type="text" id="edit" name="model" class="form-control" />
+            }
+
+        </div>
+        <div class="col-md-3">
+            <label>Fecha de publicacion</label>
+            @if (ViewBag.li != null)
+            {
+                <input type="text" id="fecha" name="city" class="form-control" value="@ViewBag.li.FPublicacion" />
+            }
+            else
+            {
+                <input type="text" id="fecha" name="city" class="form-control" />
+            }
+
+        </div>
+        <div class="col-md-3">
+            <label>Costo</label>
+            @if (ViewBag.li != null)
+            {
+                <input type="text" id="costo" name="city" class="form-control" value="@ViewBag.li.CostoLibros" />
+            }
+            else
+            {
+                <input type="text" id="costo" name="city" class="form-control" />
+            }
+
+        </div>
+        <div class="col-md-3">
+            <label>Cantidad</label>
+            @if (ViewBag.li != null)
+            {
+                <input type="text" id="cantidad" name="city" class="form-control" value="@ViewBag.li.CantidadLibros" />
+            }
+            else
+            {
+                <input type="text" id="cantidad" name="city" class="form-control" />
+            }
+
+        </div>
+        <div class="col-md-3">
+            <label>Paginas</label>
+            @if (ViewBag.li != null)
+            {
+                <input type="text" id="paginas" name="city" class="form-control" value="@ViewBag.li.NoPaginas" />
+            }
+            else
+            {
+                <input type="text" id="paginas" name="city" class="form-control" />
+            }
+
+        </div>
+
+    </div>
+    <br />
+    <div class="row">
+        <div class="col-md-2">
+            <a href="javascript:guardarLi()" class="btn btn-outline-success">Guardar</a>
+        </div>
+    </div>
+
+</div>
 

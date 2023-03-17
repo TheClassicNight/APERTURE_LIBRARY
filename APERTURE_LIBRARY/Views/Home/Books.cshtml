@@ -1,6 +1,31 @@
-﻿
-@{
-    ViewBag.Title = "Books";
-}
-
-<h2>Books</h2>
+﻿<div class="bg-secondary text-center rounded p-4">
+    <h2>Books</h2>
+    <table class="table table-hover">
+        <tr>
+            <th>Nombre del libro</th>
+            <th>Autor</th>
+            <th>Editorial</th>
+            <th>Fecha de publicacion</th>
+            <th>Costo</th>
+            <th>Cantidad</th>
+            <th>Paginas</th>
+            <th>Editar</th>
+            <th>Eliminar</th>
+        </tr>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.NombreLibro</td>
+                <td>@item.Autor</td>
+                <td>@item.Editorial</td>
+                <td>@item.FPublicacion</td>
+                <td>@item.CostoLibros</td>
+                <td>@item.CantidadLibros</td>
+                <td>@item.NoPaginas</td>
+                <td><a href="~/home/BooksForm?IdLibro=@item.IdLibro" class="btn btn-info">Editar</a></td>
+                <td><a href="~/home/Eliminar?IdLibro=@item.IdLibro" class="btn btn-danger">Eliminar</a></td>
+            </tr>
+        }
+    </table>
+    <a href="~/home/BooksForm" type="button" class="btn btn-dark">Añadir libro</a>
+</div>
