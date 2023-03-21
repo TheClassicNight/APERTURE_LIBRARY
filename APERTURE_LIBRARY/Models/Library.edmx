@@ -10,7 +10,7 @@
             <PropertyRef Name="IdCH" />
           </Key>
           <Property Name="IdCH" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="FechaDia" Type="datetime" />
+          <Property Name="FechaDia" Type="varchar" MaxLength="50" />
           <Property Name="HoraEntrada" Type="time" Precision="7" />
           <Property Name="HoraSalida" Type="time" Precision="7" />
           <Property Name="idPersonal" Type="int" />
@@ -23,7 +23,7 @@
           <Property Name="NombreCli" Type="varchar" MaxLength="50" />
           <Property Name="ApePat" Type="varchar" MaxLength="50" />
           <Property Name="ApeMat" Type="varchar" MaxLength="50" />
-          <Property Name="FechaNacimiento" Type="datetime" />
+          <Property Name="FechaNacimiento" Type="varchar" MaxLength="50" />
           <Property Name="correo" Type="varchar" MaxLength="50" />
           <Property Name="NumTelefono" Type="int" />
           <Property Name="Domicilio" Type="varchar" MaxLength="50" />
@@ -40,6 +40,7 @@
           <Property Name="CostoLibros" Type="float" />
           <Property Name="CantidadLibros" Type="int" />
           <Property Name="NoPaginas" Type="int" />
+          <Property Name="Activo" Type="bit" />
           <Property Name="idtipolibro" Type="int" />
         </EntityType>
         <EntityType Name="Personal">
@@ -51,7 +52,7 @@
           <Property Name="NombrePer" Type="varchar" MaxLength="50" />
           <Property Name="ApePat" Type="varchar" MaxLength="50" />
           <Property Name="ApeMat" Type="varchar" MaxLength="50" />
-          <Property Name="FechaNacimiento" Type="datetime" />
+          <Property Name="FechaNacimiento" Type="varchar" MaxLength="50" />
           <Property Name="correo" Type="varchar" MaxLength="50" />
           <Property Name="NumTelefono" Type="int" />
           <Property Name="Domicilio" Type="varchar" MaxLength="50" />
@@ -63,8 +64,8 @@
             <PropertyRef Name="IdPR" />
           </Key>
           <Property Name="IdPR" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="FechaPrestamoInicial" Type="datetime" />
-          <Property Name="FechaPrestamoFinal" Type="datetime" />
+          <Property Name="FechaPrestamoInicial" Type="varchar" MaxLength="50" />
+          <Property Name="FechaPrestamoFinal" Type="varchar" MaxLength="50" />
           <Property Name="CostoPrestamo" Type="float" />
           <Property Name="DescripcionLibro" Type="varchar" MaxLength="100" />
           <Property Name="idCliente" Type="int" />
@@ -288,7 +289,7 @@
             <PropertyRef Name="IdCH" />
           </Key>
           <Property Name="IdCH" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="FechaDia" Type="DateTime" Precision="3" />
+          <Property Name="FechaDia" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="HoraEntrada" Type="Time" Precision="7" />
           <Property Name="HoraSalida" Type="Time" Precision="7" />
           <Property Name="idPersonal" Type="Int32" />
@@ -302,7 +303,7 @@
           <Property Name="NombreCli" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="ApePat" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="ApeMat" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="FechaNacimiento" Type="DateTime" Precision="3" />
+          <Property Name="FechaNacimiento" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="correo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="NumTelefono" Type="Int32" />
           <Property Name="Domicilio" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
@@ -321,6 +322,7 @@
           <Property Name="CostoLibros" Type="Double" />
           <Property Name="CantidadLibros" Type="Int32" />
           <Property Name="NoPaginas" Type="Int32" />
+          <Property Name="Activo" Type="Boolean" />
           <Property Name="idtipolibro" Type="Int32" />
           <NavigationProperty Name="Prestamos" Relationship="Self.FK_idlibr_PRE" FromRole="Libros" ToRole="Prestamos" />
           <NavigationProperty Name="VentasLibros" Relationship="Self.FK_iDlibro_VE" FromRole="Libros" ToRole="VentasLibros" />
@@ -335,7 +337,7 @@
           <Property Name="NombrePer" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="ApePat" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="ApeMat" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="FechaNacimiento" Type="DateTime" Precision="3" />
+          <Property Name="FechaNacimiento" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="correo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="NumTelefono" Type="Int32" />
           <Property Name="Domicilio" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
@@ -350,8 +352,8 @@
             <PropertyRef Name="IdPR" />
           </Key>
           <Property Name="IdPR" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="FechaPrestamoInicial" Type="DateTime" Precision="3" />
-          <Property Name="FechaPrestamoFinal" Type="DateTime" Precision="3" />
+          <Property Name="FechaPrestamoInicial" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="FechaPrestamoFinal" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="CostoPrestamo" Type="Double" />
           <Property Name="DescripcionLibro" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="idCliente" Type="Int32" />
@@ -618,6 +620,7 @@
                 <ScalarProperty Name="CostoLibros" ColumnName="CostoLibros" />
                 <ScalarProperty Name="CantidadLibros" ColumnName="CantidadLibros" />
                 <ScalarProperty Name="NoPaginas" ColumnName="NoPaginas" />
+                <ScalarProperty Name="Activo" ColumnName="Activo" />
                 <ScalarProperty Name="idtipolibro" ColumnName="idtipolibro" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -710,7 +713,7 @@
         <DesignerProperty Name="EnablePluralization" Value="false" />
         <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
         <DesignerProperty Name="UseLegacyProvider" Value="true" />
-        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
       </DesignerInfoPropertySet>
     </Options>
     <!-- Diagram content (shape and connector positions) -->

@@ -32,7 +32,8 @@ namespace APERTURE_LIBRARY.Controllers
 
         public ActionResult Books()
         {
-            var lst = db.Libros.ToList();
+            //var lst = db.Libros.ToList();
+            var lst = db.Libros.Where(x => x.Activo == true).ToList();
             return View(lst);
         }
 
@@ -72,6 +73,7 @@ namespace APERTURE_LIBRARY.Controllers
                 Art.CostoLibros = CostoLibros;
                 Art.CantidadLibros = CantidadLibros;
                 Art.NoPaginas = NoPaginas;
+                Art.Activo = true;
                 db.Libros.Add(Art);
                 db.SaveChanges();
             }
@@ -81,7 +83,8 @@ namespace APERTURE_LIBRARY.Controllers
         public ActionResult Eliminar(int? IdLibro)
         {
             var book = db.Libros.Where(x => x.IdLibro == IdLibro).FirstOrDefault();
-            db.Libros.Remove(book);
+            //db.Libros.Remove(book);
+            book.Activo = false;
             db.SaveChanges();
             return RedirectToAction("Books", "home");
         }
