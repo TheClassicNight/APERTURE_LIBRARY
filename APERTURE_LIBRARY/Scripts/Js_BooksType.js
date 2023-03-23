@@ -11,27 +11,21 @@
 
 }
 
-function guardarLi() {
-    var id = getParameterByName("IdLibro");
+function guardarTLi() {
+    var id = getParameterByName("IdTL");
     $.ajax({
         type: "POST",
-        url: UrlGuardarLi,
+        url: UrlGuardarTLi,
         async: true,
         data: {
 
-            IdLibro: id,
-            NombreLibro: document.getElementById("nombre").value,
-            Autor: document.getElementById("autor").value,
-            Editorial: document.getElementById("edit").value,
-            FPublicacion: document.getElementById("fecha").value,
-            CostoLibros: document.getElementById("costo").value,
-            CantidadLibros: document.getElementById("cantidad").value,
-            NoPaginas: document.getElementById("paginas").value,
-            tipolibro: document.getElementById("tipolibro").value,
+            IdTL: id,
+            Genero: document.getElementById("Genero").value,
+            Categoria: document.getElementById("Categoria").value,
         },
         success: function (data) {
 
-            location.href = "../home/Books";
+            location.href = "../home/BooksType";
         },
         error: function (xhr, status, error) {
             alert(error);

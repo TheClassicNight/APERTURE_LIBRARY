@@ -1,4 +1,5 @@
 ﻿using APERTURE_LIBRARY.Models;
+using APERTURE_LIBRARY.Models.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,7 +11,6 @@ namespace APERTURE_LIBRARY.Controllers
     public class HomeController : Controller
     {
         LibraryAPEntities db = new LibraryAPEntities();
-
         public ActionResult Index()
         {
             return View();
@@ -30,11 +30,34 @@ namespace APERTURE_LIBRARY.Controllers
             return View();
         }
 
+        /// Modulos
+
         public ActionResult Books()
         {
             //var lst = db.Libros.ToList();
             var lst = db.Libros.Where(x => x.Activo == true).ToList();
             return View(lst);
+        }
+
+        //Modulo en procesos
+        public ActionResult BooksType()
+        {
+            //var lst = db.Libros.ToList();
+            var lst = db.TipoLibros.Where(x => x.Activo == true).ToList();
+            return View(lst);
+        }
+
+        public ActionResult BooksTypeForm()  
+        {
+            var ID = Request.Params["IdTL"];
+            if (ID != null)
+            {
+                int id = int.Parse(ID);
+                var li = db.TipoLibros.Where(x => x.IdTL == id).FirstOrDefault();
+                ViewBag.li = li;
+            }
+
+            return View();
         }
 
         public ActionResult BooksForm()
@@ -46,10 +69,15 @@ namespace APERTURE_LIBRARY.Controllers
                 var li = db.Libros.Where(x => x.IdLibro == id).FirstOrDefault();
                 ViewBag.li = li;
             }
+        
+            ViewBag.TipoLibro = db.TipoLibros.Where(x => x.Activo == true).ToList();
             return View();
+
         }
 
-        public JsonResult guardarLi(int? IdLibro, string NombreLibro, string Autor, string Editorial, string FPublicacion, float CostoLibros, int CantidadLibros, int NoPaginas)
+        /// 
+
+        public JsonResult guardarLi(int? IdLibro, string NombreLibro, string Autor, string Editorial, string FPublicacion, float CostoLibros, int CantidadLibros, int NoPaginas, int? TipoLibro)
         {
             if (IdLibro != null)
             {
@@ -61,6 +89,7 @@ namespace APERTURE_LIBRARY.Controllers
                 Art.CostoLibros = CostoLibros;
                 Art.CantidadLibros = CantidadLibros;
                 Art.NoPaginas = NoPaginas;
+                Art.idtipolibro = TipoLibro;
                 db.SaveChanges();
             }
             else
@@ -74,12 +103,33 @@ namespace APERTURE_LIBRARY.Controllers
                 Art.CantidadLibros = CantidadLibros;
                 Art.NoPaginas = NoPaginas;
                 Art.Activo = true;
+                Art.idtipolibro = TipoLibro;
                 db.Libros.Add(Art);
                 db.SaveChanges();
             }
             return Json("");
         }
 
+        public JsonResult guardarTLi(int? IdTL, string Genero, string Categoria)
+        {
+            if (IdTL != null)
+            {
+                var Art = db.TipoLibros.Where(x => x.IdTL == IdTL).FirstOrDefault();
+                Art.Genero = Genero;
+                Art.Categoria = Categoria;
+                db.SaveChanges();
+            }
+            else
+            {
+                TipoLibros Art = new TipoLibros();
+                Art.Genero = Genero;
+                Art.Categoria = Categoria;
+                Art.Activo = true;
+                db.TipoLibros.Add(Art);
+                db.SaveChanges();
+            }
+            return Json("");
+        }
         public ActionResult Eliminar(int? IdLibro)
         {
             var book = db.Libros.Where(x => x.IdLibro == IdLibro).FirstOrDefault();
@@ -88,5 +138,17 @@ namespace APERTURE_LIBRARY.Controllers
             db.SaveChanges();
             return RedirectToAction("Books", "home");
         }
+
+        public ActionResult EliminarTL(int? IdTL)
+        {
+            var book = db.TipoLibros.Where(x => x.IdTL == IdTL).FirstOrDefault();
+            //db.Libros.Remove(book);
+            book.Activo = false;
+            db.SaveChanges();
+            return RedirectToAction("BooksType", "home");
+        }
+
+        //Drop down list
+
     }
 }
