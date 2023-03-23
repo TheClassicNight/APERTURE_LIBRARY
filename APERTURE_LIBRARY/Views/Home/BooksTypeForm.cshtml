@@ -1,0 +1,42 @@
+﻿<script>
+    var UrlGuardarTLi = '@Url.Action("guardarTLi", "Home")';
+</script>
+<script src="~/Scripts/js_BooksType.js"></script>
+<div class="bg-secondary text-center rounded p-4">
+    <div class="row">
+        <div class="col-md-3">
+            <label>Genero</label>
+            @if (ViewBag.li != null)
+            {
+                <input type="text" id="Genero" name="Genero" class="form-control" value="@ViewBag.li.Genero" />
+            }
+
+            else
+            {
+                <input type="text" id="Genero" name="Genero" class="form-control" />
+            }
+
+        </div>
+        <div class="col-md-3">
+            <label>Categoria</label>
+            @if (ViewBag.li != null)
+            {
+                <input type="text" id="Categoria" name="Categoria" class="form-control" value="@ViewBag.li.Categoria" />
+            }
+            else
+            {
+                <input type="text" id="Categoria" name="Categoria" class="form-control" />
+            }
+
+        </div>   
+
+    </div>
+    <br />
+    <div class="row">
+        <div class="col-md-2">
+            <a href="javascript:guardarTLi()" class="btn btn-outline-success">Guardar</a>
+        </div>
+    </div>
+
+</div>
+

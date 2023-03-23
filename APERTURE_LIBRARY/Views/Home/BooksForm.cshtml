@@ -1,4 +1,8 @@
-﻿<script>
+﻿@{
+    List<SelectListItem> items = (List<SelectListItem>)ViewBag.items;
+}
+
+<script>
     var UrlGuardarLi = '@Url.Action("guardarLi", "Home")';
 </script>
 <script src="~/Scripts/js_Books.js"></script>
@@ -85,6 +89,21 @@
             else
             {
                 <input type="text" id="paginas" name="city" class="form-control" />
+            }
+
+        </div>
+
+        <div class="col-md-3">
+            <label>Tipo Libro</label>
+            @if (ViewBag.li != null)
+            {
+                @Html.DropDownList("TipoLibro", items, "Selecciona Tipo de Libro", new { @class = "form - select form - select - sm mb - 3" })
+                //<input type="text" id="" name="" class="form-control" />
+            }
+            else
+            {
+                @Html.DropDownList("TipoLibro", items, "Selecciona Tipo de Libro", new { @class = "form - select form - select - sm mb - 3" })
+                //<input type="text" id="" name="" class="form-control" />
             }
 
         </div>
