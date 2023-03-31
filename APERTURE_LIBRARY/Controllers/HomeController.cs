@@ -39,13 +39,21 @@ namespace APERTURE_LIBRARY.Controllers
             return View(lst);
         }
 
-        //Modulo en procesos
         public ActionResult BooksType()
         {
             //var lst = db.Libros.ToList();
             var lst = db.TipoLibros.Where(x => x.Activo == true).ToList();
             return View(lst);
         }
+
+        public ActionResult Clients()
+        {
+            //var lst = db.Clients.ToList();
+            var lst = db.Clientes.Where(x => x.Activo == true).ToList();
+            return View(lst);
+        }
+
+        /// Forms
 
         public ActionResult BooksTypeForm()  
         {
@@ -70,12 +78,27 @@ namespace APERTURE_LIBRARY.Controllers
                 ViewBag.li = li;
             }
         
+            //Elementos para llave foranea
             ViewBag.TipoLibro = db.TipoLibros.Where(x => x.Activo == true).ToList();
             return View();
 
         }
 
-        /// 
+        public ActionResult ClientsForm()
+        {
+            var ID = Request.Params["IdCLI"];
+            if (ID != null)
+            {
+                int id = int.Parse(ID);
+                var li = db.Clientes.Where(x => x.IdCLI == id).FirstOrDefault();
+                ViewBag.li = li;
+            }
+
+            return View();
+
+        }
+
+        /// Añadir en BD
 
         public JsonResult guardarLi(int? IdLibro, string NombreLibro, string Autor, string Editorial, string FPublicacion, float CostoLibros, int CantidadLibros, int NoPaginas, int? TipoLibro)
         {
@@ -130,6 +153,39 @@ namespace APERTURE_LIBRARY.Controllers
             }
             return Json("");
         }
+        public JsonResult guardarCLI(int? IdCLI, string NombreCli, string ApePat, string ApeMat, string FechaNacimiento, string correo, int NumTelefono, string Domicilio)
+        {
+            if (IdCLI != null)
+            {
+                var Art = db.Clientes.Where(x => x.IdCLI == IdCLI).FirstOrDefault();
+                Art.NombreCli = NombreCli;
+                Art.ApePat = ApePat;
+                Art.ApeMat = ApeMat;
+                Art.FechaNacimiento = FechaNacimiento;
+                Art.correo = correo;
+                Art.NumTelefono = NumTelefono;
+                Art.Domicilio = Domicilio;
+                db.SaveChanges();
+            }
+            else
+            {
+                Clientes Art = new Clientes();
+                Art.NombreCli = NombreCli;
+                Art.ApePat = ApePat;
+                Art.ApeMat = ApeMat;
+                Art.FechaNacimiento = FechaNacimiento;
+                Art.correo = correo;
+                Art.NumTelefono = NumTelefono;
+                Art.Domicilio = Domicilio;
+                Art.Activo = true;
+                db.Clientes.Add(Art);
+                db.SaveChanges();
+            }
+            return Json("");
+        }
+
+        // "Eliminar" en BD
+
         public ActionResult Eliminar(int? IdLibro)
         {
             var book = db.Libros.Where(x => x.IdLibro == IdLibro).FirstOrDefault();
@@ -148,7 +204,13 @@ namespace APERTURE_LIBRARY.Controllers
             return RedirectToAction("BooksType", "home");
         }
 
-        //Drop down list
+        public ActionResult EliminarCLI(int? IdCLI)
+        {
+            var clients = db.Clientes.Where(x => x.IdCLI == IdCLI).FirstOrDefault();
+            clients.Activo = false;
+            db.SaveChanges();
+            return RedirectToAction("Clients", "home");
+        }
 
     }
 }
