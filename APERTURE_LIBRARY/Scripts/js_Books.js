@@ -27,7 +27,6 @@ function guardarLi() {
             CostoLibros: document.getElementById("costo").value,
             CantidadLibros: document.getElementById("cantidad").value,
             NoPaginas: document.getElementById("paginas").value,
-            tipolibro: document.getElementById("tipolibro").value,
         },
         success: function (data) {
 
