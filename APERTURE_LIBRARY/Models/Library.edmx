@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="LibraryAPModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="LibraryAPModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Checadas">
           <Key>
             <PropertyRef Name="IdCH" />
@@ -13,6 +13,7 @@
           <Property Name="FechaDia" Type="varchar" MaxLength="50" />
           <Property Name="HoraEntrada" Type="time" Precision="7" />
           <Property Name="HoraSalida" Type="time" Precision="7" />
+          <Property Name="Activo" Type="bit" />
           <Property Name="idPersonal" Type="int" />
         </EntityType>
         <EntityType Name="Clientes">
@@ -27,6 +28,7 @@
           <Property Name="correo" Type="varchar" MaxLength="50" />
           <Property Name="NumTelefono" Type="int" />
           <Property Name="Domicilio" Type="varchar" MaxLength="50" />
+          <Property Name="Activo" Type="bit" />
         </EntityType>
         <EntityType Name="Libros">
           <Key>
@@ -58,6 +60,7 @@
           <Property Name="Domicilio" Type="varchar" MaxLength="50" />
           <Property Name="Puesto" Type="varchar" MaxLength="50" />
           <Property Name="Turno" Type="varchar" MaxLength="50" />
+          <Property Name="Activo" Type="bit" />
         </EntityType>
         <EntityType Name="Prestamos">
           <Key>
@@ -72,6 +75,7 @@
           <Property Name="idPersonal" Type="int" />
           <Property Name="idlibro" Type="int" />
           <Property Name="idtipoprestamo" Type="int" />
+          <Property Name="Activo" Type="bit" />
         </EntityType>
         <EntityType Name="TipoLibros">
           <Key>
@@ -89,6 +93,7 @@
           <Property Name="IdTP" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="TipoPrestamo" Type="varchar" MaxLength="50" />
           <Property Name="Descripcion" Type="varchar" MaxLength="50" />
+          <Property Name="Activo" Type="bit" />
         </EntityType>
         <EntityType Name="Ventas">
           <Key>
@@ -98,6 +103,7 @@
           <Property Name="CostoVentaSubtotal" Type="float" />
           <Property Name="IVA" Type="float" />
           <Property Name="CostoVentaTotal" Type="float" />
+          <Property Name="Activo" Type="bit" />
           <Property Name="idPersonal" Type="int" />
           <Property Name="idCliente" Type="int" />
         </EntityType>
@@ -108,6 +114,7 @@
           <Property Name="IdVELIB" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="idLibro" Type="int" />
           <Property Name="idVentas" Type="int" />
+          <Property Name="Activo" Type="bit" />
         </EntityType>
         <Association Name="FK_idCliente_PRE">
           <End Role="Clientes" Type="Self.Clientes" Multiplicity="0..1" />
@@ -280,7 +287,8 @@
             <End Role="VentasLibros" EntitySet="VentasLibros" />
           </AssociationSet>
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="LibraryAPModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -292,6 +300,7 @@
           <Property Name="FechaDia" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="HoraEntrada" Type="Time" Precision="7" />
           <Property Name="HoraSalida" Type="Time" Precision="7" />
+          <Property Name="Activo" Type="Boolean" />
           <Property Name="idPersonal" Type="Int32" />
           <NavigationProperty Name="Personal" Relationship="Self.FK_idPersonal" FromRole="Checadas" ToRole="Personal" />
         </EntityType>
@@ -307,6 +316,7 @@
           <Property Name="correo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="NumTelefono" Type="Int32" />
           <Property Name="Domicilio" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Activo" Type="Boolean" />
           <NavigationProperty Name="Prestamos" Relationship="Self.FK_idCliente_PRE" FromRole="Clientes" ToRole="Prestamos" />
           <NavigationProperty Name="Ventas" Relationship="Self.FK_iDCliente_VE" FromRole="Clientes" ToRole="Ventas" />
         </EntityType>
@@ -343,6 +353,7 @@
           <Property Name="Domicilio" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Puesto" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Turno" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Activo" Type="Boolean" />
           <NavigationProperty Name="Checadas" Relationship="Self.FK_idPersonal" FromRole="Personal" ToRole="Checadas" />
           <NavigationProperty Name="Prestamos" Relationship="Self.FK_idPersonal_PRE" FromRole="Personal" ToRole="Prestamos" />
           <NavigationProperty Name="Ventas" Relationship="Self.FK_iDPersonal_VE" FromRole="Personal" ToRole="Ventas" />
@@ -360,6 +371,7 @@
           <Property Name="idPersonal" Type="Int32" />
           <Property Name="idlibro" Type="Int32" />
           <Property Name="idtipoprestamo" Type="Int32" />
+          <Property Name="Activo" Type="Boolean" />
           <NavigationProperty Name="Clientes" Relationship="Self.FK_idCliente_PRE" FromRole="Prestamos" ToRole="Clientes" />
           <NavigationProperty Name="Libros" Relationship="Self.FK_idlibr_PRE" FromRole="Prestamos" ToRole="Libros" />
           <NavigationProperty Name="Personal" Relationship="Self.FK_idPersonal_PRE" FromRole="Prestamos" ToRole="Personal" />
@@ -372,8 +384,8 @@
           <Property Name="IdTL" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Genero" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Categoria" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="Libros" Relationship="Self.FK_idtipolibro" FromRole="TipoLibros" ToRole="Libros" />
           <Property Name="Activo" Type="Boolean" />
+          <NavigationProperty Name="Libros" Relationship="Self.FK_idtipolibro" FromRole="TipoLibros" ToRole="Libros" />
         </EntityType>
         <EntityType Name="TiposPrestamos">
           <Key>
@@ -382,6 +394,7 @@
           <Property Name="IdTP" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="TipoPrestamo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Descripcion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Activo" Type="Boolean" />
           <NavigationProperty Name="Prestamos" Relationship="Self.FK_idtipolibro_PRE" FromRole="TiposPrestamos" ToRole="Prestamos" />
         </EntityType>
         <EntityType Name="Ventas">
@@ -392,6 +405,7 @@
           <Property Name="CostoVentaSubtotal" Type="Double" />
           <Property Name="IVA" Type="Double" />
           <Property Name="CostoVentaTotal" Type="Double" />
+          <Property Name="Activo" Type="Boolean" />
           <Property Name="idPersonal" Type="Int32" />
           <Property Name="idCliente" Type="Int32" />
           <NavigationProperty Name="Clientes" Relationship="Self.FK_iDCliente_VE" FromRole="Ventas" ToRole="Clientes" />
@@ -405,6 +419,7 @@
           <Property Name="IdVELIB" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="idLibro" Type="Int32" />
           <Property Name="idVentas" Type="Int32" />
+          <Property Name="Activo" Type="Boolean" />
           <NavigationProperty Name="Libros" Relationship="Self.FK_iDlibro_VE" FromRole="VentasLibros" ToRole="Libros" />
           <NavigationProperty Name="Ventas" Relationship="Self.FK_idVentas" FromRole="VentasLibros" ToRole="Ventas" />
         </EntityType>
@@ -592,6 +607,7 @@
                 <ScalarProperty Name="FechaDia" ColumnName="FechaDia" />
                 <ScalarProperty Name="HoraEntrada" ColumnName="HoraEntrada" />
                 <ScalarProperty Name="HoraSalida" ColumnName="HoraSalida" />
+                <ScalarProperty Name="Activo" ColumnName="Activo" />
                 <ScalarProperty Name="idPersonal" ColumnName="idPersonal" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -607,6 +623,7 @@
                 <ScalarProperty Name="correo" ColumnName="correo" />
                 <ScalarProperty Name="NumTelefono" ColumnName="NumTelefono" />
                 <ScalarProperty Name="Domicilio" ColumnName="Domicilio" />
+                <ScalarProperty Name="Activo" ColumnName="Activo" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -640,6 +657,7 @@
                 <ScalarProperty Name="Domicilio" ColumnName="Domicilio" />
                 <ScalarProperty Name="Puesto" ColumnName="Puesto" />
                 <ScalarProperty Name="Turno" ColumnName="Turno" />
+                <ScalarProperty Name="Activo" ColumnName="Activo" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -655,16 +673,17 @@
                 <ScalarProperty Name="idPersonal" ColumnName="idPersonal" />
                 <ScalarProperty Name="idlibro" ColumnName="idlibro" />
                 <ScalarProperty Name="idtipoprestamo" ColumnName="idtipoprestamo" />
+                <ScalarProperty Name="Activo" ColumnName="Activo" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="TipoLibros">
             <EntityTypeMapping TypeName="LibraryAPModel.TipoLibros">
               <MappingFragment StoreEntitySet="TipoLibros">
-                <ScalarProperty Name="Activo" ColumnName="Activo" />
                 <ScalarProperty Name="IdTL" ColumnName="IdTL" />
                 <ScalarProperty Name="Genero" ColumnName="Genero" />
                 <ScalarProperty Name="Categoria" ColumnName="Categoria" />
+                <ScalarProperty Name="Activo" ColumnName="Activo" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -674,6 +693,7 @@
                 <ScalarProperty Name="IdTP" ColumnName="IdTP" />
                 <ScalarProperty Name="TipoPrestamo" ColumnName="TipoPrestamo" />
                 <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="Activo" ColumnName="Activo" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -684,6 +704,7 @@
                 <ScalarProperty Name="CostoVentaSubtotal" ColumnName="CostoVentaSubtotal" />
                 <ScalarProperty Name="IVA" ColumnName="IVA" />
                 <ScalarProperty Name="CostoVentaTotal" ColumnName="CostoVentaTotal" />
+                <ScalarProperty Name="Activo" ColumnName="Activo" />
                 <ScalarProperty Name="idPersonal" ColumnName="idPersonal" />
                 <ScalarProperty Name="idCliente" ColumnName="idCliente" />
               </MappingFragment>
@@ -695,6 +716,7 @@
                 <ScalarProperty Name="IdVELIB" ColumnName="IdVELIB" />
                 <ScalarProperty Name="idLibro" ColumnName="idLibro" />
                 <ScalarProperty Name="idVentas" ColumnName="idVentas" />
+                <ScalarProperty Name="Activo" ColumnName="Activo" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -715,7 +737,7 @@
         <DesignerProperty Name="EnablePluralization" Value="false" />
         <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
         <DesignerProperty Name="UseLegacyProvider" Value="true" />
-        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
       </DesignerInfoPropertySet>
     </Options>
     <!-- Diagram content (shape and connector positions) -->
