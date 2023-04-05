@@ -11,7 +11,6 @@ namespace APERTURE_LIBRARY.Controllers
     public class HomeController : Controller
     {
         LibraryAPEntities db = new LibraryAPEntities();
-
         public ActionResult Index()
         {
             return View();
@@ -40,7 +39,6 @@ namespace APERTURE_LIBRARY.Controllers
             return View(lst);
         }
 
-        //Modulo en procesos
         public ActionResult BooksType()
         {
             //var lst = db.Libros.ToList();
@@ -48,9 +46,18 @@ namespace APERTURE_LIBRARY.Controllers
             return View(lst);
         }
 
+        public ActionResult Clients()
+        {
+            //var lst = db.Clients.ToList();
+            var lst = db.Clientes.Where(x => x.Activo == true).ToList();
+            return View(lst);
+        }
+
+        /// Forms
+
         public ActionResult BooksTypeForm()  
         {
-            var ID = Request.Params["IdLibro"];
+            var ID = Request.Params["IdTL"];
             if (ID != null)
             {
                 int id = int.Parse(ID);
@@ -70,37 +77,30 @@ namespace APERTURE_LIBRARY.Controllers
                 var li = db.Libros.Where(x => x.IdLibro == id).FirstOrDefault();
                 ViewBag.li = li;
             }
-
-            List<BooksTypeClass> lstb =
-               (from d in db.TipoLibros
-                select new BooksTypeClass
-                {
-                    IdTL = d.IdTL,
-                    Genero = d.Genero
-                }).ToList();
-
-            List<SelectListItem> items = lstb.ConvertAll(d =>
-            {
-
-                return new SelectListItem()
-                {
-
-                    Text = d.Genero.ToString(),
-                    Value = d.IdTL.ToString(),
-                    Selected = false
-
-                };
-
-            });
-
-            ViewBag.items = items;
+        
+            //Elementos para llave foranea
+            ViewBag.TipoLibro = db.TipoLibros.Where(x => x.Activo == true).ToList();
             return View();
 
         }
 
-        /// 
+        public ActionResult ClientsForm()
+        {
+            var ID = Request.Params["IdCLI"];
+            if (ID != null)
+            {
+                int id = int.Parse(ID);
+                var li = db.Clientes.Where(x => x.IdCLI == id).FirstOrDefault();
+                ViewBag.li = li;
+            }
 
-        public JsonResult guardarLi(int? IdLibro, string NombreLibro, string Autor, string Editorial, string FPublicacion, float CostoLibros, int CantidadLibros, int NoPaginas)
+            return View();
+
+        }
+
+        /// Añadir en BD
+
+        public JsonResult guardarLi(int? IdLibro, string NombreLibro, string Autor, string Editorial, string FPublicacion, float CostoLibros, int CantidadLibros, int NoPaginas, int? TipoLibro)
         {
             if (IdLibro != null)
             {
@@ -112,6 +112,7 @@ namespace APERTURE_LIBRARY.Controllers
                 Art.CostoLibros = CostoLibros;
                 Art.CantidadLibros = CantidadLibros;
                 Art.NoPaginas = NoPaginas;
+                Art.idtipolibro = TipoLibro;
                 db.SaveChanges();
             }
             else
@@ -125,19 +126,11 @@ namespace APERTURE_LIBRARY.Controllers
                 Art.CantidadLibros = CantidadLibros;
                 Art.NoPaginas = NoPaginas;
                 Art.Activo = true;
+                Art.idtipolibro = TipoLibro;
                 db.Libros.Add(Art);
                 db.SaveChanges();
             }
             return Json("");
-        }
-
-        public ActionResult Eliminar(int? IdLibro)
-        {
-            var book = db.Libros.Where(x => x.IdLibro == IdLibro).FirstOrDefault();
-            //db.Libros.Remove(book);
-            book.Activo = false;
-            db.SaveChanges();
-            return RedirectToAction("Books", "home");
         }
 
         public JsonResult guardarTLi(int? IdTL, string Genero, string Categoria)
@@ -160,6 +153,47 @@ namespace APERTURE_LIBRARY.Controllers
             }
             return Json("");
         }
+        public JsonResult guardarCLI(int? IdCLI, string NombreCli, string ApePat, string ApeMat, string FechaNacimiento, string correo, int NumTelefono, string Domicilio)
+        {
+            if (IdCLI != null)
+            {
+                var Art = db.Clientes.Where(x => x.IdCLI == IdCLI).FirstOrDefault();
+                Art.NombreCli = NombreCli;
+                Art.ApePat = ApePat;
+                Art.ApeMat = ApeMat;
+                Art.FechaNacimiento = FechaNacimiento;
+                Art.correo = correo;
+                Art.NumTelefono = NumTelefono;
+                Art.Domicilio = Domicilio;
+                db.SaveChanges();
+            }
+            else
+            {
+                Clientes Art = new Clientes();
+                Art.NombreCli = NombreCli;
+                Art.ApePat = ApePat;
+                Art.ApeMat = ApeMat;
+                Art.FechaNacimiento = FechaNacimiento;
+                Art.correo = correo;
+                Art.NumTelefono = NumTelefono;
+                Art.Domicilio = Domicilio;
+                Art.Activo = true;
+                db.Clientes.Add(Art);
+                db.SaveChanges();
+            }
+            return Json("");
+        }
+
+        // "Eliminar" en BD
+
+        public ActionResult Eliminar(int? IdLibro)
+        {
+            var book = db.Libros.Where(x => x.IdLibro == IdLibro).FirstOrDefault();
+            //db.Libros.Remove(book);
+            book.Activo = false;
+            db.SaveChanges();
+            return RedirectToAction("Books", "home");
+        }
 
         public ActionResult EliminarTL(int? IdTL)
         {
@@ -170,7 +204,13 @@ namespace APERTURE_LIBRARY.Controllers
             return RedirectToAction("BooksType", "home");
         }
 
-        //Drop down list
+        public ActionResult EliminarCLI(int? IdCLI)
+        {
+            var clients = db.Clientes.Where(x => x.IdCLI == IdCLI).FirstOrDefault();
+            clients.Activo = false;
+            db.SaveChanges();
+            return RedirectToAction("Clients", "home");
+        }
 
     }
 }

@@ -11,27 +11,25 @@
 
 }
 
-function guardarLi() {
-    var id = getParameterByName("IdLibro");
+function guardarCLI() {
+    var id = getParameterByName("IdCLI");
     $.ajax({
         type: "POST",
-        url: UrlGuardarLi,
+        url: UrlGuardarCLI,
         async: true,
         data: {
-
-            IdLibro: id,
-            NombreLibro: document.getElementById("nombre").value,
-            Autor: document.getElementById("autor").value,
-            Editorial: document.getElementById("edit").value,
-            FPublicacion: document.getElementById("fecha").value,
-            CostoLibros: document.getElementById("costo").value,
-            CantidadLibros: document.getElementById("cantidad").value,
-            NoPaginas: document.getElementById("paginas").value,
-            tipolibro: document.getElementById("tipolibro").value,
+            IdCLI: id,
+            NombreCli: document.getElementById("NombreCli").value,
+            ApePat: document.getElementById("ApePat").value,
+            ApeMat: document.getElementById("ApeMat").value,
+            FechaNacimiento: document.getElementById("FechaNacimiento").value,
+            correo: document.getElementById("correo").value,
+            NumTelefono: document.getElementById("NumTelefono").value,
+            Domicilio: document.getElementById("Domicilio").value,
         },
         success: function (data) {
 
-            location.href = "../home/Books";
+            location.href = "../home/Clients";
         },
         error: function (xhr, status, error) {
             alert(error);
