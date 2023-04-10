@@ -1,0 +1,42 @@
+﻿<script>
+    var UrlGuardarTPr = '@Url.Action("guardarTPr", "Home")';
+</script>
+
+<script src="~/Scripts/js_LoanType.js"></script>
+<div class="bg-secondary text-center rounded p-4">
+    <div class="row">
+        <div class="col-md-3">
+            <label>Tipo</label>
+            @if (ViewBag.li != null)
+            {
+                <input type="text" id="Tipo" name="Tipo" class="form-control" value="@ViewBag.li.TipoPrestamo" />
+            }
+
+            else
+            {
+                <input type="text" id="Tipo" name="Tipo" class="form-control" />
+            }
+
+        </div>
+        <div class="col-md-3">
+            <label>Descripcion</label>
+            @if (ViewBag.li != null)
+            {
+                <input type="text" id="Descripcion" name="Descripcion" class="form-control" value="@ViewBag.li.Descripcion" />
+            }
+            else
+            {
+                <input type="text" id="Descripcion" name="Descripcion" class="form-control" />
+            }
+
+        </div>
+
+    </div>
+    <br />
+    <div class="row">
+        <div class="col-md-2">
+            <a href="javascript:guardarTPr()" class="btn btn-outline-success">Guardar</a>
+        </div>
+    </div>
+
+</div>

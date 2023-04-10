@@ -16,9 +16,9 @@ namespace APERTURE_LIBRARY.Models
     {
         public Personal()
         {
-            this.Checadas = new HashSet<Checadas>();
-            this.Prestamos = new HashSet<Prestamos>();
-            this.Ventas = new HashSet<Ventas>();
+            this.Checadas = new HashSet<Checada>();
+            this.Prestamos = new HashSet<Prestamo>();
+            this.Ventas = new HashSet<Venta>();
         }
     
         public int IdPE { get; set; }
@@ -34,8 +34,8 @@ namespace APERTURE_LIBRARY.Models
         public string Turno { get; set; }
         public Nullable<bool> Activo { get; set; }
     
-        public virtual ICollection<Checadas> Checadas { get; set; }
-        public virtual ICollection<Prestamos> Prestamos { get; set; }
-        public virtual ICollection<Ventas> Ventas { get; set; }
+        public virtual ICollection<Checada> Checadas { get; set; }
+        public virtual ICollection<Prestamo> Prestamos { get; set; }
+        public virtual ICollection<Venta> Ventas { get; set; }
     }
 }

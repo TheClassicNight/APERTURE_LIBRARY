@@ -53,6 +53,12 @@ namespace APERTURE_LIBRARY.Controllers
             return View(lst);
         }
 
+        public ActionResult LoanType()
+        {
+            var lst = db.TiposPrestamos.Where(x => x.Activo == true).ToList();
+            return View(lst);
+        }
+
         /// Forms
 
         public ActionResult BooksTypeForm()  
@@ -97,6 +103,19 @@ namespace APERTURE_LIBRARY.Controllers
             return View();
 
         }
+        public ActionResult LoanTypeForm()
+        {
+
+            var ID = Request.Params["IdTP"];
+            if (ID != null)
+            {
+                int id = int.Parse(ID);
+                var li = db.TiposPrestamos.Where(x => x.IdTP == id).FirstOrDefault();
+                ViewBag.li = li;
+            }
+            return View();
+
+        }
 
         /// Añadir en BD
 
@@ -117,7 +136,7 @@ namespace APERTURE_LIBRARY.Controllers
             }
             else
             {
-                Libros Art = new Libros();
+                Libro Art = new Libro();
                 Art.NombreLibro = NombreLibro;
                 Art.Autor = Autor;
                 Art.Editorial = Editorial;
@@ -144,7 +163,7 @@ namespace APERTURE_LIBRARY.Controllers
             }
             else
             {
-                TipoLibros Art = new TipoLibros();
+                TipoLibro Art = new TipoLibro();
                 Art.Genero = Genero;
                 Art.Categoria = Categoria;
                 Art.Activo = true;
@@ -169,7 +188,7 @@ namespace APERTURE_LIBRARY.Controllers
             }
             else
             {
-                Clientes Art = new Clientes();
+                Cliente Art = new Cliente();
                 Art.NombreCli = NombreCli;
                 Art.ApePat = ApePat;
                 Art.ApeMat = ApeMat;
@@ -179,6 +198,26 @@ namespace APERTURE_LIBRARY.Controllers
                 Art.Domicilio = Domicilio;
                 Art.Activo = true;
                 db.Clientes.Add(Art);
+                db.SaveChanges();
+            }
+            return Json("");
+        }
+        public JsonResult guardarTPr(int? IdTP, string TipoPrestamo, string Descripcion)
+        {
+            if (IdTP != null)
+            {
+                var Art = db.TiposPrestamos.Where(x => x.IdTP == IdTP).FirstOrDefault();
+                Art.TipoPrestamo = TipoPrestamo;
+                Art.Descripcion = Descripcion;
+                db.SaveChanges();
+            }
+            else
+            {
+                TiposPrestamo Art = new TiposPrestamo();
+                Art.TipoPrestamo = TipoPrestamo;
+                Art.Descripcion = Descripcion;
+                Art.Activo = true;
+                db.TiposPrestamos.Add(Art);
                 db.SaveChanges();
             }
             return Json("");
@@ -210,6 +249,14 @@ namespace APERTURE_LIBRARY.Controllers
             clients.Activo = false;
             db.SaveChanges();
             return RedirectToAction("Clients", "home");
+        }
+
+        public ActionResult EliminarTPr(int? IdTP)
+        {
+            var LoanType = db.TiposPrestamos.Where(x => x.IdTP == IdTP).FirstOrDefault();
+            LoanType.Activo = false;
+            db.SaveChanges();
+            return RedirectToAction("LoanType", "home");
         }
 
     }

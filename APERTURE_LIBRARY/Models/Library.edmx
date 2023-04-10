@@ -292,7 +292,7 @@
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="LibraryAPModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityType Name="Checadas">
+        <EntityType Name="Checada">
           <Key>
             <PropertyRef Name="IdCH" />
           </Key>
@@ -304,7 +304,7 @@
           <Property Name="idPersonal" Type="Int32" />
           <NavigationProperty Name="Personal" Relationship="Self.FK_idPersonal" FromRole="Checadas" ToRole="Personal" />
         </EntityType>
-        <EntityType Name="Clientes">
+        <EntityType Name="Cliente">
           <Key>
             <PropertyRef Name="IdCLI" />
           </Key>
@@ -320,7 +320,7 @@
           <NavigationProperty Name="Prestamos" Relationship="Self.FK_idCliente_PRE" FromRole="Clientes" ToRole="Prestamos" />
           <NavigationProperty Name="Ventas" Relationship="Self.FK_iDCliente_VE" FromRole="Clientes" ToRole="Ventas" />
         </EntityType>
-        <EntityType Name="Libros">
+        <EntityType Name="Libro">
           <Key>
             <PropertyRef Name="IdLibro" />
           </Key>
@@ -336,7 +336,7 @@
           <Property Name="idtipolibro" Type="Int32" />
           <NavigationProperty Name="Prestamos" Relationship="Self.FK_idlibr_PRE" FromRole="Libros" ToRole="Prestamos" />
           <NavigationProperty Name="VentasLibros" Relationship="Self.FK_iDlibro_VE" FromRole="Libros" ToRole="VentasLibros" />
-          <NavigationProperty Name="TipoLibros" Relationship="Self.FK_idtipolibro" FromRole="Libros" ToRole="TipoLibros" />
+          <NavigationProperty Name="TipoLibro" Relationship="Self.FK_idtipolibro" FromRole="Libros" ToRole="TipoLibros" />
         </EntityType>
         <EntityType Name="Personal">
           <Key>
@@ -358,7 +358,7 @@
           <NavigationProperty Name="Prestamos" Relationship="Self.FK_idPersonal_PRE" FromRole="Personal" ToRole="Prestamos" />
           <NavigationProperty Name="Ventas" Relationship="Self.FK_iDPersonal_VE" FromRole="Personal" ToRole="Ventas" />
         </EntityType>
-        <EntityType Name="Prestamos">
+        <EntityType Name="Prestamo">
           <Key>
             <PropertyRef Name="IdPR" />
           </Key>
@@ -372,12 +372,12 @@
           <Property Name="idlibro" Type="Int32" />
           <Property Name="idtipoprestamo" Type="Int32" />
           <Property Name="Activo" Type="Boolean" />
-          <NavigationProperty Name="Clientes" Relationship="Self.FK_idCliente_PRE" FromRole="Prestamos" ToRole="Clientes" />
-          <NavigationProperty Name="Libros" Relationship="Self.FK_idlibr_PRE" FromRole="Prestamos" ToRole="Libros" />
+          <NavigationProperty Name="Cliente" Relationship="Self.FK_idCliente_PRE" FromRole="Prestamos" ToRole="Clientes" />
+          <NavigationProperty Name="Libro" Relationship="Self.FK_idlibr_PRE" FromRole="Prestamos" ToRole="Libros" />
           <NavigationProperty Name="Personal" Relationship="Self.FK_idPersonal_PRE" FromRole="Prestamos" ToRole="Personal" />
-          <NavigationProperty Name="TiposPrestamos" Relationship="Self.FK_idtipolibro_PRE" FromRole="Prestamos" ToRole="TiposPrestamos" />
+          <NavigationProperty Name="TiposPrestamo" Relationship="Self.FK_idtipolibro_PRE" FromRole="Prestamos" ToRole="TiposPrestamos" />
         </EntityType>
-        <EntityType Name="TipoLibros">
+        <EntityType Name="TipoLibro">
           <Key>
             <PropertyRef Name="IdTL" />
           </Key>
@@ -387,7 +387,7 @@
           <Property Name="Activo" Type="Boolean" />
           <NavigationProperty Name="Libros" Relationship="Self.FK_idtipolibro" FromRole="TipoLibros" ToRole="Libros" />
         </EntityType>
-        <EntityType Name="TiposPrestamos">
+        <EntityType Name="TiposPrestamo">
           <Key>
             <PropertyRef Name="IdTP" />
           </Key>
@@ -397,7 +397,7 @@
           <Property Name="Activo" Type="Boolean" />
           <NavigationProperty Name="Prestamos" Relationship="Self.FK_idtipolibro_PRE" FromRole="TiposPrestamos" ToRole="Prestamos" />
         </EntityType>
-        <EntityType Name="Ventas">
+        <EntityType Name="Venta">
           <Key>
             <PropertyRef Name="IdVE" />
           </Key>
@@ -408,11 +408,11 @@
           <Property Name="Activo" Type="Boolean" />
           <Property Name="idPersonal" Type="Int32" />
           <Property Name="idCliente" Type="Int32" />
-          <NavigationProperty Name="Clientes" Relationship="Self.FK_iDCliente_VE" FromRole="Ventas" ToRole="Clientes" />
+          <NavigationProperty Name="Cliente" Relationship="Self.FK_iDCliente_VE" FromRole="Ventas" ToRole="Clientes" />
           <NavigationProperty Name="Personal" Relationship="Self.FK_iDPersonal_VE" FromRole="Ventas" ToRole="Personal" />
           <NavigationProperty Name="VentasLibros" Relationship="Self.FK_idVentas" FromRole="Ventas" ToRole="VentasLibros" />
         </EntityType>
-        <EntityType Name="VentasLibros">
+        <EntityType Name="VentasLibro">
           <Key>
             <PropertyRef Name="IdVELIB" />
           </Key>
@@ -420,12 +420,12 @@
           <Property Name="idLibro" Type="Int32" />
           <Property Name="idVentas" Type="Int32" />
           <Property Name="Activo" Type="Boolean" />
-          <NavigationProperty Name="Libros" Relationship="Self.FK_iDlibro_VE" FromRole="VentasLibros" ToRole="Libros" />
-          <NavigationProperty Name="Ventas" Relationship="Self.FK_idVentas" FromRole="VentasLibros" ToRole="Ventas" />
+          <NavigationProperty Name="Libro" Relationship="Self.FK_iDlibro_VE" FromRole="VentasLibros" ToRole="Libros" />
+          <NavigationProperty Name="Venta" Relationship="Self.FK_idVentas" FromRole="VentasLibros" ToRole="Ventas" />
         </EntityType>
         <Association Name="FK_idPersonal">
           <End Role="Personal" Type="Self.Personal" Multiplicity="0..1" />
-          <End Role="Checadas" Type="Self.Checadas" Multiplicity="*" />
+          <End Role="Checadas" Type="Self.Checada" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Personal">
               <PropertyRef Name="IdPE" />
@@ -436,8 +436,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_idCliente_PRE">
-          <End Role="Clientes" Type="Self.Clientes" Multiplicity="0..1" />
-          <End Role="Prestamos" Type="Self.Prestamos" Multiplicity="*" />
+          <End Role="Clientes" Type="Self.Cliente" Multiplicity="0..1" />
+          <End Role="Prestamos" Type="Self.Prestamo" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Clientes">
               <PropertyRef Name="IdCLI" />
@@ -448,8 +448,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_iDCliente_VE">
-          <End Role="Clientes" Type="Self.Clientes" Multiplicity="0..1" />
-          <End Role="Ventas" Type="Self.Ventas" Multiplicity="*" />
+          <End Role="Clientes" Type="Self.Cliente" Multiplicity="0..1" />
+          <End Role="Ventas" Type="Self.Venta" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Clientes">
               <PropertyRef Name="IdCLI" />
@@ -460,8 +460,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_idlibr_PRE">
-          <End Role="Libros" Type="Self.Libros" Multiplicity="0..1" />
-          <End Role="Prestamos" Type="Self.Prestamos" Multiplicity="*" />
+          <End Role="Libros" Type="Self.Libro" Multiplicity="0..1" />
+          <End Role="Prestamos" Type="Self.Prestamo" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Libros">
               <PropertyRef Name="IdLibro" />
@@ -472,8 +472,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_iDlibro_VE">
-          <End Role="Libros" Type="Self.Libros" Multiplicity="0..1" />
-          <End Role="VentasLibros" Type="Self.VentasLibros" Multiplicity="*" />
+          <End Role="Libros" Type="Self.Libro" Multiplicity="0..1" />
+          <End Role="VentasLibros" Type="Self.VentasLibro" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Libros">
               <PropertyRef Name="IdLibro" />
@@ -484,8 +484,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_idtipolibro">
-          <End Role="TipoLibros" Type="Self.TipoLibros" Multiplicity="0..1" />
-          <End Role="Libros" Type="Self.Libros" Multiplicity="*" />
+          <End Role="TipoLibros" Type="Self.TipoLibro" Multiplicity="0..1" />
+          <End Role="Libros" Type="Self.Libro" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="TipoLibros">
               <PropertyRef Name="IdTL" />
@@ -497,7 +497,7 @@
         </Association>
         <Association Name="FK_idPersonal_PRE">
           <End Role="Personal" Type="Self.Personal" Multiplicity="0..1" />
-          <End Role="Prestamos" Type="Self.Prestamos" Multiplicity="*" />
+          <End Role="Prestamos" Type="Self.Prestamo" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Personal">
               <PropertyRef Name="IdPE" />
@@ -509,7 +509,7 @@
         </Association>
         <Association Name="FK_iDPersonal_VE">
           <End Role="Personal" Type="Self.Personal" Multiplicity="0..1" />
-          <End Role="Ventas" Type="Self.Ventas" Multiplicity="*" />
+          <End Role="Ventas" Type="Self.Venta" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Personal">
               <PropertyRef Name="IdPE" />
@@ -520,8 +520,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_idtipolibro_PRE">
-          <End Role="TiposPrestamos" Type="Self.TiposPrestamos" Multiplicity="0..1" />
-          <End Role="Prestamos" Type="Self.Prestamos" Multiplicity="*" />
+          <End Role="TiposPrestamos" Type="Self.TiposPrestamo" Multiplicity="0..1" />
+          <End Role="Prestamos" Type="Self.Prestamo" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="TiposPrestamos">
               <PropertyRef Name="IdTP" />
@@ -532,8 +532,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_idVentas">
-          <End Role="Ventas" Type="Self.Ventas" Multiplicity="0..1" />
-          <End Role="VentasLibros" Type="Self.VentasLibros" Multiplicity="*" />
+          <End Role="Ventas" Type="Self.Venta" Multiplicity="0..1" />
+          <End Role="VentasLibros" Type="Self.VentasLibro" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Ventas">
               <PropertyRef Name="IdVE" />
@@ -544,17 +544,17 @@
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="LibraryAPEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="Checadas" EntityType="Self.Checadas" />
-          <EntitySet Name="Clientes" EntityType="Self.Clientes" />
-          <EntitySet Name="Libros" EntityType="Self.Libros" />
-          <EntitySet Name="Personal" EntityType="Self.Personal" />
-          <EntitySet Name="Prestamos" EntityType="Self.Prestamos" />
-          <EntitySet Name="TipoLibros" EntityType="Self.TipoLibros" />
-          <EntitySet Name="TiposPrestamos" EntityType="Self.TiposPrestamos" />
-          <EntitySet Name="Ventas" EntityType="Self.Ventas" />
-          <EntitySet Name="VentasLibros" EntityType="Self.VentasLibros" />
+          <EntitySet Name="Checadas" EntityType="Self.Checada" />
+          <EntitySet Name="Clientes" EntityType="Self.Cliente" />
+          <EntitySet Name="Libros" EntityType="Self.Libro" />
+          <EntitySet Name="Personals" EntityType="Self.Personal" />
+          <EntitySet Name="Prestamos" EntityType="Self.Prestamo" />
+          <EntitySet Name="TipoLibros" EntityType="Self.TipoLibro" />
+          <EntitySet Name="TiposPrestamos" EntityType="Self.TiposPrestamo" />
+          <EntitySet Name="Ventas" EntityType="Self.Venta" />
+          <EntitySet Name="VentasLibros" EntityType="Self.VentasLibro" />
           <AssociationSet Name="FK_idPersonal" Association="Self.FK_idPersonal">
-            <End Role="Personal" EntitySet="Personal" />
+            <End Role="Personal" EntitySet="Personals" />
             <End Role="Checadas" EntitySet="Checadas" />
           </AssociationSet>
           <AssociationSet Name="FK_idCliente_PRE" Association="Self.FK_idCliente_PRE">
@@ -578,11 +578,11 @@
             <End Role="Libros" EntitySet="Libros" />
           </AssociationSet>
           <AssociationSet Name="FK_idPersonal_PRE" Association="Self.FK_idPersonal_PRE">
-            <End Role="Personal" EntitySet="Personal" />
+            <End Role="Personal" EntitySet="Personals" />
             <End Role="Prestamos" EntitySet="Prestamos" />
           </AssociationSet>
           <AssociationSet Name="FK_iDPersonal_VE" Association="Self.FK_iDPersonal_VE">
-            <End Role="Personal" EntitySet="Personal" />
+            <End Role="Personal" EntitySet="Personals" />
             <End Role="Ventas" EntitySet="Ventas" />
           </AssociationSet>
           <AssociationSet Name="FK_idtipolibro_PRE" Association="Self.FK_idtipolibro_PRE">
@@ -601,7 +601,7 @@
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="LibraryAPModelStoreContainer" CdmEntityContainer="LibraryAPEntities">
           <EntitySetMapping Name="Checadas">
-            <EntityTypeMapping TypeName="LibraryAPModel.Checadas">
+            <EntityTypeMapping TypeName="LibraryAPModel.Checada">
               <MappingFragment StoreEntitySet="Checadas">
                 <ScalarProperty Name="IdCH" ColumnName="IdCH" />
                 <ScalarProperty Name="FechaDia" ColumnName="FechaDia" />
@@ -613,7 +613,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Clientes">
-            <EntityTypeMapping TypeName="LibraryAPModel.Clientes">
+            <EntityTypeMapping TypeName="LibraryAPModel.Cliente">
               <MappingFragment StoreEntitySet="Clientes">
                 <ScalarProperty Name="IdCLI" ColumnName="IdCLI" />
                 <ScalarProperty Name="NombreCli" ColumnName="NombreCli" />
@@ -628,7 +628,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Libros">
-            <EntityTypeMapping TypeName="LibraryAPModel.Libros">
+            <EntityTypeMapping TypeName="LibraryAPModel.Libro">
               <MappingFragment StoreEntitySet="Libros">
                 <ScalarProperty Name="IdLibro" ColumnName="IdLibro" />
                 <ScalarProperty Name="NombreLibro" ColumnName="NombreLibro" />
@@ -643,7 +643,7 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Personal">
+          <EntitySetMapping Name="Personals">
             <EntityTypeMapping TypeName="LibraryAPModel.Personal">
               <MappingFragment StoreEntitySet="Personal">
                 <ScalarProperty Name="IdPE" ColumnName="IdPE" />
@@ -662,7 +662,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Prestamos">
-            <EntityTypeMapping TypeName="LibraryAPModel.Prestamos">
+            <EntityTypeMapping TypeName="LibraryAPModel.Prestamo">
               <MappingFragment StoreEntitySet="Prestamos">
                 <ScalarProperty Name="IdPR" ColumnName="IdPR" />
                 <ScalarProperty Name="FechaPrestamoInicial" ColumnName="FechaPrestamoInicial" />
@@ -678,7 +678,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="TipoLibros">
-            <EntityTypeMapping TypeName="LibraryAPModel.TipoLibros">
+            <EntityTypeMapping TypeName="LibraryAPModel.TipoLibro">
               <MappingFragment StoreEntitySet="TipoLibros">
                 <ScalarProperty Name="IdTL" ColumnName="IdTL" />
                 <ScalarProperty Name="Genero" ColumnName="Genero" />
@@ -688,7 +688,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="TiposPrestamos">
-            <EntityTypeMapping TypeName="LibraryAPModel.TiposPrestamos">
+            <EntityTypeMapping TypeName="LibraryAPModel.TiposPrestamo">
               <MappingFragment StoreEntitySet="TiposPrestamos">
                 <ScalarProperty Name="IdTP" ColumnName="IdTP" />
                 <ScalarProperty Name="TipoPrestamo" ColumnName="TipoPrestamo" />
@@ -698,7 +698,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Ventas">
-            <EntityTypeMapping TypeName="LibraryAPModel.Ventas">
+            <EntityTypeMapping TypeName="LibraryAPModel.Venta">
               <MappingFragment StoreEntitySet="Ventas">
                 <ScalarProperty Name="IdVE" ColumnName="IdVE" />
                 <ScalarProperty Name="CostoVentaSubtotal" ColumnName="CostoVentaSubtotal" />
@@ -711,7 +711,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="VentasLibros">
-            <EntityTypeMapping TypeName="LibraryAPModel.VentasLibros">
+            <EntityTypeMapping TypeName="LibraryAPModel.VentasLibro">
               <MappingFragment StoreEntitySet="VentasLibros">
                 <ScalarProperty Name="IdVELIB" ColumnName="IdVELIB" />
                 <ScalarProperty Name="idLibro" ColumnName="idLibro" />
@@ -734,7 +734,7 @@
     <Options>
       <DesignerInfoPropertySet>
         <DesignerProperty Name="ValidateOnBuild" Value="true" />
-        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
         <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
         <DesignerProperty Name="UseLegacyProvider" Value="true" />
         <DesignerProperty Name="CodeGenerationStrategy" Value="None" />

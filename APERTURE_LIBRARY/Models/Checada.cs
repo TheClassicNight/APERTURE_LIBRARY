@@ -12,7 +12,7 @@ namespace APERTURE_LIBRARY.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Checadas
+    public partial class Checada
     {
         public int IdCH { get; set; }
         public string FechaDia { get; set; }

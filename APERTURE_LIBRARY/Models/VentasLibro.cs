@@ -12,18 +12,14 @@ namespace APERTURE_LIBRARY.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class TiposPrestamos
+    public partial class VentasLibro
     {
-        public TiposPrestamos()
-        {
-            this.Prestamos = new HashSet<Prestamos>();
-        }
-    
-        public int IdTP { get; set; }
-        public string TipoPrestamo { get; set; }
-        public string Descripcion { get; set; }
+        public int IdVELIB { get; set; }
+        public Nullable<int> idLibro { get; set; }
+        public Nullable<int> idVentas { get; set; }
         public Nullable<bool> Activo { get; set; }
     
-        public virtual ICollection<Prestamos> Prestamos { get; set; }
+        public virtual Libro Libro { get; set; }
+        public virtual Venta Venta { get; set; }
     }
 }

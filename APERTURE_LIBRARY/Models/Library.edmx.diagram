@@ -4,16 +4,16 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="5a13eba5ff2d4c82aaa50bcb6237fd58" Name="Diagram1">
-        <EntityTypeShape EntityType="LibraryAPModel.Checadas" Width="1.5" PointX="3" PointY="6.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="LibraryAPModel.Clientes" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="LibraryAPModel.Libros" Width="1.5" PointX="3" PointY="10.5" IsExpanded="true" />
+      <Diagram DiagramId="71945fc6014c4f72a3e717a20064e29e" Name="Diagram1">
+        <EntityTypeShape EntityType="LibraryAPModel.Checada" Width="1.5" PointX="3" PointY="6.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="LibraryAPModel.Cliente" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="LibraryAPModel.Libro" Width="1.5" PointX="3" PointY="10.5" IsExpanded="true" />
         <EntityTypeShape EntityType="LibraryAPModel.Personal" Width="1.5" PointX="0.75" PointY="5.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="LibraryAPModel.Prestamos" Width="1.5" PointX="6" PointY="5.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="LibraryAPModel.TipoLibros" Width="1.5" PointX="0.75" PointY="11.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="LibraryAPModel.TiposPrestamos" Width="1.5" PointX="3.75" PointY="15.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="LibraryAPModel.Ventas" Width="1.5" PointX="3" PointY="1.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="LibraryAPModel.VentasLibros" Width="1.5" PointX="5.25" PointY="2.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="LibraryAPModel.Prestamo" Width="1.5" PointX="6" PointY="5.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="LibraryAPModel.TipoLibro" Width="1.5" PointX="0.75" PointY="11.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="LibraryAPModel.TiposPrestamo" Width="1.5" PointX="3.75" PointY="15.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="LibraryAPModel.Venta" Width="1.5" PointX="3" PointY="1.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="LibraryAPModel.VentasLibro" Width="1.5" PointX="5.25" PointY="2.25" IsExpanded="true" />
         <AssociationConnector Association="LibraryAPModel.FK_idPersonal" ManuallyRouted="false" />
         <AssociationConnector Association="LibraryAPModel.FK_idCliente_PRE" ManuallyRouted="false" />
         <AssociationConnector Association="LibraryAPModel.FK_iDCliente_VE" ManuallyRouted="false" />

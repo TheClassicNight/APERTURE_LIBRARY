@@ -12,7 +12,7 @@ namespace APERTURE_LIBRARY.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Prestamos
+    public partial class Prestamo
     {
         public int IdPR { get; set; }
         public string FechaPrestamoInicial { get; set; }
@@ -25,9 +25,9 @@ namespace APERTURE_LIBRARY.Models
         public Nullable<int> idtipoprestamo { get; set; }
         public Nullable<bool> Activo { get; set; }
     
-        public virtual Clientes Clientes { get; set; }
-        public virtual Libros Libros { get; set; }
+        public virtual Cliente Cliente { get; set; }
+        public virtual Libro Libro { get; set; }
         public virtual Personal Personal { get; set; }
-        public virtual TiposPrestamos TiposPrestamos { get; set; }
+        public virtual TiposPrestamo TiposPrestamo { get; set; }
     }
 }

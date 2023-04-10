@@ -1,0 +1,20 @@
+﻿<div class="bg-secondary text-center rounded p-4">
+    <h2>Tipo de prestamo</h2>
+    <table class="table table-hover" id="MyTable">
+        <tr>
+            <th>Tipo de prestamo</th>
+            <th>Descripcion</th>
+        </tr>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.TipoPrestamo</td>
+                <td>@item.Descripcion</td>
+                <td><a href="~/home/LoanTypeForm?IdTP=@item.IdTP" class="btn btn-info">Editar</a></td>
+                <td><a href="~/home/EliminarTPr?IdTP=@item.IdTP" class="btn btn-danger">Eliminar</a></td>
+            </tr>
+        }
+    </table>
+    <a href="~/home/LoanTypeForm" type="button" class="btn btn-dark">Añadir Tipo de prestamo</a>
+</div>
+

@@ -130,10 +130,10 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\Checadas.cs">
+    <Compile Include="Models\Checada.cs">
       <DependentUpon>Library.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Clientes.cs">
+    <Compile Include="Models\Cliente.cs">
       <DependentUpon>Library.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Library.Context.cs">
@@ -151,25 +151,25 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Library.edmx</DependentUpon>
     </Compile>
-    <Compile Include="Models\Libros.cs">
+    <Compile Include="Models\Libro.cs">
       <DependentUpon>Library.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Personal.cs">
       <DependentUpon>Library.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Prestamos.cs">
+    <Compile Include="Models\Prestamo.cs">
       <DependentUpon>Library.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\TipoLibros.cs">
+    <Compile Include="Models\TipoLibro.cs">
       <DependentUpon>Library.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\TiposPrestamos.cs">
+    <Compile Include="Models\TiposPrestamo.cs">
       <DependentUpon>Library.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Ventas.cs">
+    <Compile Include="Models\Venta.cs">
       <DependentUpon>Library.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\VentasLibros.cs">
+    <Compile Include="Models\VentasLibro.cs">
       <DependentUpon>Library.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\ViewModel\BooksTypeClass.cs" />
@@ -216,6 +216,7 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\Js_BooksType.js" />
     <Content Include="Scripts\Js_Clients.js" />
+    <Content Include="Scripts\js_LoanType.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
     <Content Include="Template\css\bootstrap.min.css" />
     <Content Include="Template\css\style.css" />
@@ -262,6 +263,8 @@
     <Content Include="Views\Home\BooksTypeForm.cshtml" />
     <Content Include="Views\Home\Clients.cshtml" />
     <Content Include="Views\Home\ClientsForm.cshtml" />
+    <Content Include="Views\Home\LoanType.cshtml" />
+    <Content Include="Views\Home\LoanTypeForm.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
