@@ -1,0 +1,38 @@
+﻿
+<div class="bg-secondary text-center rounded p-4">
+    <h2>Personal</h2>
+    <table class="table table-hover" id="MyTable">
+        <tr>
+            <th>Nombre Empleado</th>
+            <th>Apellido Paterno</th>
+            <th>Apellido Materno</th>
+            <th>Fecha Nacimiento</th>
+            <th>Correo</th>
+            <th>Numero Telefono</th>
+            <th>Domicilio</th>
+            <th>Puesto</th>
+            <th>Turno</th>
+            <th>Editar</th>
+            <th>Eliminar</th>
+
+
+        </tr>
+        @foreach (var item in Model)
+        {
+    <tr>
+        <td>@item.NombrePer</td>
+        <td>@item.ApePat</td>
+        <td>@item.ApeMat</td>
+        <td>@item.FechaNacimiento</td>
+        <td>@item.correo</td>
+        <td>@item.NumTelefono</td>
+        <td>@item.Domicilio</td>
+        <td>@item.Puesto</td>
+        <td>@item.Turno</td>
+        <td><a href="~/home/EmployeeForm?IdPE=@item.IdPE" class="btn btn-info">Editar</a></td>
+        <td><a href="~/home/EliminarPer?IdPE=@item.IdPE" class="btn btn-danger">Eliminar</a></td>
+    </tr>
+        }
+    </table>
+    <a href="~/home/EmployeeForm" type="button" class="btn btn-dark">Añadir Empleado</a>
+</div>

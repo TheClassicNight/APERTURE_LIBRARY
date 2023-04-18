@@ -204,6 +204,7 @@
       <DependentUpon>Library.edmx</DependentUpon>
     </Content>
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
+    <Content Include="Scripts\js_Employees.js" />
     <Content Include="Scripts\js_Books.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -265,6 +266,8 @@
     <Content Include="Views\Home\ClientsForm.cshtml" />
     <Content Include="Views\Home\LoanType.cshtml" />
     <Content Include="Views\Home\LoanTypeForm.cshtml" />
+    <Content Include="Views\Home\Employees.cshtml" />
+    <Content Include="Views\Home\EmployeeForm.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

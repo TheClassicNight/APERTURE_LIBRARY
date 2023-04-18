@@ -53,6 +53,14 @@ namespace APERTURE_LIBRARY.Controllers
             return View(lst);
         }
 
+        public ActionResult Employees()
+        {
+            //var lst = db.Clients.ToList();
+            var lst = db.Personals.Where(x => x.Activo == true).ToList();
+            return View(lst);
+        }
+
+
         public ActionResult LoanType()
         {
             var lst = db.TiposPrestamos.Where(x => x.Activo == true).ToList();
@@ -61,7 +69,7 @@ namespace APERTURE_LIBRARY.Controllers
 
         /// Forms
 
-        public ActionResult BooksTypeForm()  
+        public ActionResult BooksTypeForm()
         {
             var ID = Request.Params["IdTL"];
             if (ID != null)
@@ -83,7 +91,7 @@ namespace APERTURE_LIBRARY.Controllers
                 var li = db.Libros.Where(x => x.IdLibro == id).FirstOrDefault();
                 ViewBag.li = li;
             }
-        
+
             //Elementos para llave foranea
             ViewBag.TipoLibro = db.TipoLibros.Where(x => x.Activo == true).ToList();
             return View();
@@ -103,6 +111,21 @@ namespace APERTURE_LIBRARY.Controllers
             return View();
 
         }
+
+        public ActionResult EmployeeForm()
+        {
+            var ID = Request.Params["IdPE"];
+            if (ID != null)
+            {
+                int id = int.Parse(ID);
+                var li = db.Personals.Where(x => x.IdPE == id).FirstOrDefault();
+                ViewBag.li = li;
+            }
+
+            return View();
+
+        }
+
         public ActionResult LoanTypeForm()
         {
 
@@ -202,6 +225,41 @@ namespace APERTURE_LIBRARY.Controllers
             }
             return Json("");
         }
+
+        public JsonResult guardarPer(int? IdPE, string NombrePer, string ApePat, string ApeMat, string FechaNacimiento, string correo, int NumTelefono, string Domicilio, string Puesto, string Turno)
+        {
+            if (IdPE != null)
+            {
+                var Art = db.Personals.Where(x => x.IdPE == IdPE).FirstOrDefault();
+                Art.NombrePer = NombrePer;
+                Art.ApePat = ApePat;
+                Art.ApeMat = ApeMat;
+                Art.FechaNacimiento = FechaNacimiento;
+                Art.correo = correo;
+                Art.NumTelefono = NumTelefono;
+                Art.Domicilio = Domicilio;
+                Art.Puesto = Puesto;
+                Art.Turno = Turno;
+                db.SaveChanges();
+            }
+            else
+            {
+                Personal Art = new Personal();
+                Art.NombrePer = NombrePer;
+                Art.ApePat = ApePat;
+                Art.ApeMat = ApeMat;
+                Art.FechaNacimiento = FechaNacimiento;
+                Art.correo = correo;
+                Art.NumTelefono = NumTelefono;
+                Art.Domicilio = Domicilio;
+                Art.Puesto = Puesto;
+                Art.Turno = Turno;
+                Art.Activo = true;
+                db.Personals.Add(Art);
+                db.SaveChanges();
+            }
+            return Json("");
+        }
         public JsonResult guardarTPr(int? IdTP, string TipoPrestamo, string Descripcion)
         {
             if (IdTP != null)
@@ -249,6 +307,14 @@ namespace APERTURE_LIBRARY.Controllers
             clients.Activo = false;
             db.SaveChanges();
             return RedirectToAction("Clients", "home");
+        }
+
+        public ActionResult EliminarPer(int? IdPE)
+        {
+            var clients = db.Personals.Where(x => x.IdPE == IdPE).FirstOrDefault();
+            clients.Activo = false;
+            db.SaveChanges();
+            return RedirectToAction("Employees", "home");
         }
 
         public ActionResult EliminarTPr(int? IdTP)
