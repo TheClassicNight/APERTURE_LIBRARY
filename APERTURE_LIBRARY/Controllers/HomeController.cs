@@ -56,7 +56,7 @@ namespace APERTURE_LIBRARY.Controllers
         public ActionResult Employees()
         {
             //var lst = db.Clients.ToList();
-            var lst = db.Personals.Where(x => x.Activo == true).ToList();
+            var lst = db.Personal.Where(x => x.Activo == true).ToList();
             return View(lst);
         }
 
@@ -64,6 +64,12 @@ namespace APERTURE_LIBRARY.Controllers
         public ActionResult LoanType()
         {
             var lst = db.TiposPrestamos.Where(x => x.Activo == true).ToList();
+            return View(lst);
+        }
+
+        public ActionResult EntracesAndExits()
+        {
+            var lst = db.Checadas.Where(x => x.Activo == true).ToList();
             return View(lst);
         }
 
@@ -118,7 +124,7 @@ namespace APERTURE_LIBRARY.Controllers
             if (ID != null)
             {
                 int id = int.Parse(ID);
-                var li = db.Personals.Where(x => x.IdPE == id).FirstOrDefault();
+                var li = db.Personal.Where(x => x.IdPE == id).FirstOrDefault();
                 ViewBag.li = li;
             }
 
@@ -140,6 +146,21 @@ namespace APERTURE_LIBRARY.Controllers
 
         }
 
+        public ActionResult EntracesAndExitsForm()
+        {
+            var ID = Request.Params["IdCH"];
+            if (ID != null)
+            {
+                int id = int.Parse(ID);
+                var li = db.Checadas.Where(x => x.IdCH == id).FirstOrDefault();
+                ViewBag.li = li;
+            }
+
+            //Elementos para llave foranea
+            ViewBag.Personal = db.Personal.Where(x => x.Activo == true).ToList();
+            return View();
+        }
+
         /// Añadir en BD
 
         public JsonResult guardarLi(int? IdLibro, string NombreLibro, string Autor, string Editorial, string FPublicacion, float CostoLibros, int CantidadLibros, int NoPaginas, int? TipoLibro)
@@ -159,7 +180,7 @@ namespace APERTURE_LIBRARY.Controllers
             }
             else
             {
-                Libro Art = new Libro();
+                Libros Art = new Libros();
                 Art.NombreLibro = NombreLibro;
                 Art.Autor = Autor;
                 Art.Editorial = Editorial;
@@ -186,7 +207,7 @@ namespace APERTURE_LIBRARY.Controllers
             }
             else
             {
-                TipoLibro Art = new TipoLibro();
+                TipoLibros Art = new TipoLibros();
                 Art.Genero = Genero;
                 Art.Categoria = Categoria;
                 Art.Activo = true;
@@ -195,7 +216,7 @@ namespace APERTURE_LIBRARY.Controllers
             }
             return Json("");
         }
-        public JsonResult guardarCLI(int? IdCLI, string NombreCli, string ApePat, string ApeMat, string FechaNacimiento, string correo, int NumTelefono, string Domicilio)
+        public JsonResult guardarCLI(int? IdCLI, string NombreCli, string ApePat, string ApeMat, string FechaNacimiento, string correo, string NumTelefono, string Domicilio)
         {
             if (IdCLI != null)
             {
@@ -211,7 +232,7 @@ namespace APERTURE_LIBRARY.Controllers
             }
             else
             {
-                Cliente Art = new Cliente();
+                Clientes Art = new Clientes();
                 Art.NombreCli = NombreCli;
                 Art.ApePat = ApePat;
                 Art.ApeMat = ApeMat;
@@ -226,11 +247,11 @@ namespace APERTURE_LIBRARY.Controllers
             return Json("");
         }
 
-        public JsonResult guardarPer(int? IdPE, string NombrePer, string ApePat, string ApeMat, string FechaNacimiento, string correo, int NumTelefono, string Domicilio, string Puesto, string Turno)
+        public JsonResult guardarPer(int? IdPE, string NombrePer, string ApePat, string ApeMat, string FechaNacimiento, string correo, string NumTelefono, string Domicilio, string Puesto, string Turno)
         {
             if (IdPE != null)
             {
-                var Art = db.Personals.Where(x => x.IdPE == IdPE).FirstOrDefault();
+                var Art = db.Personal.Where(x => x.IdPE == IdPE).FirstOrDefault();
                 Art.NombrePer = NombrePer;
                 Art.ApePat = ApePat;
                 Art.ApeMat = ApeMat;
@@ -255,7 +276,7 @@ namespace APERTURE_LIBRARY.Controllers
                 Art.Puesto = Puesto;
                 Art.Turno = Turno;
                 Art.Activo = true;
-                db.Personals.Add(Art);
+                db.Personal.Add(Art);
                 db.SaveChanges();
             }
             return Json("");
@@ -271,11 +292,36 @@ namespace APERTURE_LIBRARY.Controllers
             }
             else
             {
-                TiposPrestamo Art = new TiposPrestamo();
+                TiposPrestamos Art = new TiposPrestamos();
                 Art.TipoPrestamo = TipoPrestamo;
                 Art.Descripcion = Descripcion;
                 Art.Activo = true;
                 db.TiposPrestamos.Add(Art);
+                db.SaveChanges();
+            }
+            return Json("");
+        }
+
+        public JsonResult guardarCh(int? IdCH, string FechaDia, string HoraEntrada, string HoraSalida,  int? Empleado)
+        {
+            if (IdCH != null)
+            {
+                var Art = db.Checadas.Where(x => x.IdCH == IdCH).FirstOrDefault();
+                Art.FechaDia = FechaDia;
+                Art.HoraEntrada = HoraEntrada;
+                Art.HoraSalida = HoraSalida;
+                Art.idPersonal = Empleado;
+                db.SaveChanges();
+            }
+            else
+            {
+                Checadas Art = new Checadas();
+                Art.FechaDia = FechaDia;
+                Art.HoraEntrada = HoraEntrada;
+                Art.HoraSalida = HoraSalida;
+                Art.Activo = true;
+                Art.idPersonal = Empleado;
+                db.Checadas.Add(Art);
                 db.SaveChanges();
             }
             return Json("");
@@ -311,7 +357,7 @@ namespace APERTURE_LIBRARY.Controllers
 
         public ActionResult EliminarPer(int? IdPE)
         {
-            var clients = db.Personals.Where(x => x.IdPE == IdPE).FirstOrDefault();
+            var clients = db.Personal.Where(x => x.IdPE == IdPE).FirstOrDefault();
             clients.Activo = false;
             db.SaveChanges();
             return RedirectToAction("Employees", "home");
@@ -323,6 +369,14 @@ namespace APERTURE_LIBRARY.Controllers
             LoanType.Activo = false;
             db.SaveChanges();
             return RedirectToAction("LoanType", "home");
+        }
+
+        public ActionResult EliminarEAE(int? IdCH)
+        {
+            var Chec = db.Checadas.Where(x => x.IdCH == IdCH).FirstOrDefault();
+            Chec.Activo = false;
+            db.SaveChanges();
+            return RedirectToAction("EntracesAndExits", "home");
         }
 
     }

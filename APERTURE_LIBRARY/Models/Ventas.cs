@@ -12,11 +12,11 @@ namespace APERTURE_LIBRARY.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Venta
+    public partial class Ventas
     {
-        public Venta()
+        public Ventas()
         {
-            this.VentasLibros = new HashSet<VentasLibro>();
+            this.VentasLibros = new HashSet<VentasLibros>();
         }
     
         public int IdVE { get; set; }
@@ -27,8 +27,8 @@ namespace APERTURE_LIBRARY.Models
         public Nullable<int> idPersonal { get; set; }
         public Nullable<int> idCliente { get; set; }
     
-        public virtual Cliente Cliente { get; set; }
+        public virtual Clientes Clientes { get; set; }
         public virtual Personal Personal { get; set; }
-        public virtual ICollection<VentasLibro> VentasLibros { get; set; }
+        public virtual ICollection<VentasLibros> VentasLibros { get; set; }
     }
 }

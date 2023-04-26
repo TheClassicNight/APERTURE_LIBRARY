@@ -130,10 +130,10 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\Checada.cs">
+    <Compile Include="Models\Checadas.cs">
       <DependentUpon>Library.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Cliente.cs">
+    <Compile Include="Models\Clientes.cs">
       <DependentUpon>Library.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Library.Context.cs">
@@ -151,25 +151,25 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Library.edmx</DependentUpon>
     </Compile>
-    <Compile Include="Models\Libro.cs">
+    <Compile Include="Models\Libros.cs">
       <DependentUpon>Library.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Personal.cs">
       <DependentUpon>Library.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Prestamo.cs">
+    <Compile Include="Models\Prestamos.cs">
       <DependentUpon>Library.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\TipoLibro.cs">
+    <Compile Include="Models\TipoLibros.cs">
       <DependentUpon>Library.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\TiposPrestamo.cs">
+    <Compile Include="Models\TiposPrestamos.cs">
       <DependentUpon>Library.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Venta.cs">
+    <Compile Include="Models\Ventas.cs">
       <DependentUpon>Library.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\VentasLibro.cs">
+    <Compile Include="Models\VentasLibros.cs">
       <DependentUpon>Library.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\ViewModel\BooksTypeClass.cs" />
@@ -204,6 +204,7 @@
       <DependentUpon>Library.edmx</DependentUpon>
     </Content>
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
+    <Content Include="Scripts\js_Checadas.js" />
     <Content Include="Scripts\js_Employees.js" />
     <Content Include="Scripts\js_Books.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
@@ -268,6 +269,8 @@
     <Content Include="Views\Home\LoanTypeForm.cshtml" />
     <Content Include="Views\Home\Employees.cshtml" />
     <Content Include="Views\Home\EmployeeForm.cshtml" />
+    <Content Include="Views\Home\EntracesAndExitsForm.cshtml" />
+    <Content Include="Views\Home\EntracesAndExits.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

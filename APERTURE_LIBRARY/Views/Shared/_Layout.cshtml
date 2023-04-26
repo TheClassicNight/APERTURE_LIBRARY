@@ -43,16 +43,35 @@
         <!-- Sidebar Start -->
         <div class="sidebar pe-4 pb-3">
             <nav class="navbar bg-secondary navbar-dark">
-                <a href="index.html" class="navbar-brand mx-4 mb-3">
+                <a href="~/home/index" class="navbar-brand mx-4 mb-3">
                     <h3 class="text-primary">Aperture Library</h3>
                 </a>
                 <div class="navbar-nav w-100">
-                    <a href="~/home/books" class="nav-item nav-link"><i class="fa fa-book me-2"></i>Books</a>
-                    <a href="~/home/bookstype" class="nav-item nav-link"><i class="fa fa-book me-2"></i>Books Type</a>
-                    <a href="~/home/LoanType" class="nav-item nav-link"><i class="fa fa-calendar me-2"></i>Lendigs</a>
-                    <a href="~/home/Employees" class="nav-item nav-link"><i class="fa bi-person me-2"></i>Employees</a>
-                    <a href="~/home/clients" class="nav-item nav-link"><i class="fa bi-people me-2"></i>Clients</a>
-                    <a href="chart.html" class="nav-item nav-link"><i class="fa fa-wallet me-2"></i>Sales</a>
+                    <div class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa fa-book me-2"></i>Books Details</a>
+                        <div class="dropdown-menu bg-transparent border-0">
+                            <a href="~/home/books" class="dropdown-item">Books</a>
+                            <a href="~/home/bookstype" class="dropdown-item">Books Type</a>
+                        </div>
+                    </div>
+                    <div class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa bi-person me-2"></i>Clients Details</a>
+                        <div class="dropdown-menu bg-transparent border-0">
+                            <a href="~/home/clients" class="dropdown-item">Clients</a>
+                            
+                        </div>
+                    </div>
+                    <div class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa fa-wallet me-2"></i>Store Details</a>
+                        <div class="dropdown-menu bg-transparent border-0">
+                            <a href="~/home/employees" class="dropdown-item">Employees</a>
+                            <a href="~/home/entracesandexits" class="dropdown-item">Entraces & exits</a>
+                            <a href="#" class="dropdown-item">Sales</a>
+                            <a href="#" class="dropdown-item">Lendigs</a>
+                            <a href="~/home/loantype" class="dropdown-item">Lendigs Type</a>
+                            <a href="#" class="dropdown-item">Reports</a>
+                        </div>
+                    </div>
                 </div>
             </nav>
         </div>
@@ -67,13 +86,6 @@
                 <a href="#" class="sidebar-toggler flex-shrink-0">
                     <i class="fa fa-bars"></i>
                 </a>
-                <div class="navbar-nav align-items-center ms-auto">
-                    <div class="nav-item dropdown">
-                        <a href="#" class="nav-link">
-                            <span class="d-none d-lg-inline-flex">John Doe</span>
-                        </a>
-                    </div>
-                </div>
             </nav>
             <!-- Navbar End -->
             <!-- Sale & Revenue Start -->

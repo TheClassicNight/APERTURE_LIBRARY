@@ -12,12 +12,12 @@ namespace APERTURE_LIBRARY.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Cliente
+    public partial class Clientes
     {
-        public Cliente()
+        public Clientes()
         {
-            this.Prestamos = new HashSet<Prestamo>();
-            this.Ventas = new HashSet<Venta>();
+            this.Prestamos = new HashSet<Prestamos>();
+            this.Ventas = new HashSet<Ventas>();
         }
     
         public int IdCLI { get; set; }
@@ -26,11 +26,11 @@ namespace APERTURE_LIBRARY.Models
         public string ApeMat { get; set; }
         public string FechaNacimiento { get; set; }
         public string correo { get; set; }
-        public Nullable<int> NumTelefono { get; set; }
+        public string NumTelefono { get; set; }
         public string Domicilio { get; set; }
         public Nullable<bool> Activo { get; set; }
     
-        public virtual ICollection<Prestamo> Prestamos { get; set; }
-        public virtual ICollection<Venta> Ventas { get; set; }
+        public virtual ICollection<Prestamos> Prestamos { get; set; }
+        public virtual ICollection<Ventas> Ventas { get; set; }
     }
 }

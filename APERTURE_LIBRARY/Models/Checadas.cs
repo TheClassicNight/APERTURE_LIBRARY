@@ -12,12 +12,12 @@ namespace APERTURE_LIBRARY.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Checada
+    public partial class Checadas
     {
         public int IdCH { get; set; }
         public string FechaDia { get; set; }
-        public Nullable<System.TimeSpan> HoraEntrada { get; set; }
-        public Nullable<System.TimeSpan> HoraSalida { get; set; }
+        public string HoraEntrada { get; set; }
+        public string HoraSalida { get; set; }
         public Nullable<bool> Activo { get; set; }
         public Nullable<int> idPersonal { get; set; }
     

@@ -1,0 +1,82 @@
+﻿<script>
+    var UrlGuardarCh = '@Url.Action("guardarCh", "Home")';
+</script>
+
+<script src="~/Scripts/js_Checadas.js"></script>
+<div class="bg-secondary text-center rounded p-4">
+    <div class="row">
+        <div class="col-md-3">
+            <label>Fecha</label>
+            @if (ViewBag.li != null)
+            {
+                <input type="text" id="fecha" name="serial" class="form-control" value="@ViewBag.li.FechaDia" />
+            }
+            else
+            {
+                <input type="text" id="fecha" name="serial" class="form-control" />
+            }
+
+        </div>
+        <div class="col-md-3">
+            <label>Empleado</label>
+            <select class="form-select mb-3" id="empleado" name="empleado">
+                <option value="0"> Seleccionar </option>
+                @foreach (var item in ViewBag.Personal)
+                {
+
+                    if (ViewBag.li != null)
+                    {
+
+                        if (ViewBag.li.idPersonal == item.IdPE)
+                        {
+                            <option value="@item.IdPE" selected>@item.NombrePer</option>
+                        }
+
+                        else
+                        {
+                            <option value="@item.IdPE">@item.NombrePer</option>
+                        }
+
+                    }
+                    else
+                    {
+                        <option value="@item.IdPE">@item.NombrePer</option>
+                    }
+
+                }
+            </select>
+        </div>
+        <div class="col-md-3">
+            <label>Hora de entrada</label>
+            @if (ViewBag.li != null)
+            {
+                <input type="text" id="entrada" name="name" class="form-control" value="@ViewBag.li.HoraEntrada" />
+            }
+            else
+            {
+                <input type="text" id="entrada" name="name" class="form-control" />
+            }
+
+        </div>
+        <div class="col-md-3">
+            <label>Hora de salida</label>
+            @if (ViewBag.li != null)
+            {
+                <input type="text" id="salida" name="model" class="form-control" value="@ViewBag.li.HoraSalida" />
+            }
+            else
+            {
+                <input type="text" id="salida" name="model" class="form-control" />
+            }
+
+        </div>
+    </div>
+    <br />
+    <div class="row">
+        <div class="col-md-2">
+            <a href="javascript:guardarCh()" class="btn btn-outline-success">Guardar</a>
+        </div>
+    </div>
+
+</div>
+

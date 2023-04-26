@@ -1,0 +1,25 @@
+﻿<div class="bg-secondary text-center rounded p-4">
+    <h2>Books</h2>
+    <table class="table table-hover" id="MyTable">
+        <tr>
+            <th>Fecha</th>
+            <th>Empleado</th>
+            <th>Hora de entrada</th>
+            <th>Hora de salida</th>
+            <th>Editar</th>
+            <th>Eliminar</th>
+        </tr>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.FechaDia</td>
+                <td>@item.Personal.NombrePer</td>
+                <td>@item.HoraEntrada</td>
+                <td>@item.HoraSalida</td>
+                <td><a href="~/home/EntracesAndExitsForm?IdCH=@item.IdCH" class="btn btn-info">Editar</a></td>
+                <td><a href="~/home/EliminarEAE?IdCH=@item.IdCH" class="btn btn-danger">Eliminar</a></td>
+            </tr>
+        }
+    </table>
+    <a href="~/home/EntracesAndExitsForm" type="button" class="btn btn-dark">Checar entrada y salida</a>
+</div>

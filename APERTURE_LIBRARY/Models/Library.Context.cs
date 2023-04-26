@@ -25,14 +25,14 @@ namespace APERTURE_LIBRARY.Models
             throw new UnintentionalCodeFirstException();
         }
     
-        public DbSet<Checada> Checadas { get; set; }
-        public DbSet<Cliente> Clientes { get; set; }
-        public DbSet<Libro> Libros { get; set; }
-        public DbSet<Personal> Personals { get; set; }
-        public DbSet<Prestamo> Prestamos { get; set; }
-        public DbSet<TipoLibro> TipoLibros { get; set; }
-        public DbSet<TiposPrestamo> TiposPrestamos { get; set; }
-        public DbSet<Venta> Ventas { get; set; }
-        public DbSet<VentasLibro> VentasLibros { get; set; }
+        public DbSet<Checadas> Checadas { get; set; }
+        public DbSet<Clientes> Clientes { get; set; }
+        public DbSet<Libros> Libros { get; set; }
+        public DbSet<Personal> Personal { get; set; }
+        public DbSet<Prestamos> Prestamos { get; set; }
+        public DbSet<TipoLibros> TipoLibros { get; set; }
+        public DbSet<TiposPrestamos> TiposPrestamos { get; set; }
+        public DbSet<Ventas> Ventas { get; set; }
+        public DbSet<VentasLibros> VentasLibros { get; set; }
     }
 }
