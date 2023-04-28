@@ -16,20 +16,6 @@ namespace APERTURE_LIBRARY.Controllers
             return View();
         }
 
-        public ActionResult About()
-        {
-            ViewBag.Message = "Your application description page.";
-
-            return View();
-        }
-
-        public ActionResult Contact()
-        {
-            ViewBag.Message = "Your contact page.";
-
-            return View();
-        }
-
         /// Modulos
 
         public ActionResult Books()
@@ -70,6 +56,21 @@ namespace APERTURE_LIBRARY.Controllers
         public ActionResult EntracesAndExits()
         {
             var lst = db.Checadas.Where(x => x.Activo == true).ToList();
+            return View(lst);
+        }
+
+        public ActionResult Sales()
+        {
+            var lst = db.Checadas.Where(x => x.Activo == true).ToList();
+
+            var ID = Request.Params["IdTL"];
+            if (ID != null)
+            {
+                int id = int.Parse(ID);
+                var li = db.TipoLibros.Where(x => x.IdTL == id).FirstOrDefault();
+                ViewBag.li = li;
+            }
+
             return View(lst);
         }
 

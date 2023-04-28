@@ -1,0 +1,101 @@
+﻿<script>
+    var UrlGuardarSa = '@Url.Action("guardarSa", "Home")';
+</script>
+
+<script src="~/Scripts/js_Sa.js"></script>
+<div class="bg-secondary text-center rounded p-4">
+    <div class="row">
+        <div class="col-md-3">
+            <label>Empleado</label>
+            <select class="form-select mb-3" id="empleado" name="empleado">
+                <option value="0"> Seleccionar </option>
+                @foreach (var item in ViewBag.Personal)
+                {
+
+                    if (ViewBag.li != null)
+                    {
+
+                        if (ViewBag.li.idPersonal == item.IdPE)
+                        {
+                            <option value="@item.IdPE" selected>@item.NombrePer</option>
+                        }
+
+                        else
+                        {
+                            <option value="@item.IdPE">@item.NombrePer</option>
+                        }
+
+                    }
+                    else
+                    {
+                        <option value="@item.IdPE">@item.NombrePer</option>
+                    }
+
+                }
+            </select>
+        </div>
+        <div class="col-md-3">
+            <label>Clientes</label>
+            <select class="form-select mb-3" id="cliente" name="cliente">
+                <option value="0"> Seleccionar </option>
+                @foreach (var item in ViewBag.Clientes)
+                {
+
+                    if (ViewBag.li != null)
+                    {
+
+                        if (ViewBag.li.idCliente == item.IdCLI)
+                        {
+                            <option value="@item.IdCLI" selected>@item.NombreCli</option>
+                        }
+
+                        else
+                        {
+                            <option value="@item.IdCLI">@item.NombreCli</option>
+                        }
+
+                    }
+                    else
+                    {
+                        <option value="@item.IdCLI">@item.NombreCli</option>
+                    }
+
+                }
+            </select>
+        </div>
+    </div>
+    <br />
+    <div class="row">
+        <div class="col-md-2">
+            <a href="javascript:guardarSa()" class="btn btn-outline-success">Realizar Venta</a>
+        </div>
+    </div>
+
+</div>
+
+
+<div class="bg-secondary text-center rounded p-4">
+    <h2>Books</h2>
+    <table class="table table-hover" id="MyTable">
+        <tr>
+            <th>Empleado</th>
+            <th>Cliente</th>
+            <th>Subtotal</th>
+            <th>IVA</th>
+            <th>Total</th>
+        </tr>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Personal.NombrePer</td>
+                <td>@item.Clientes.NombreCli</td>
+                <td>@item.CostoVentaSubtotal</td>
+                <td>@item.IVA</td>
+                <td>@item.CostoVentaTotal</td>
+                <td><a href="~/home/Sales?IdVE=@item.IdVE" class="btn btn-info">Editar</a></td>
+                <td><a href="~/home/EliminarSA?IdVE=@item.IdVE" class="btn btn-danger">Eliminar</a></td>
+            </tr>
+        }
+    </table>
+    <a href="~/home/EntracesAndExitsForm" type="button" class="btn btn-dark">Checar entrada y salida</a>
+</div>

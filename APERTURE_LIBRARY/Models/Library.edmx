@@ -71,11 +71,11 @@
           <Property Name="FechaPrestamoFinal" Type="varchar" MaxLength="50" />
           <Property Name="CostoPrestamo" Type="float" />
           <Property Name="DescripcionLibro" Type="varchar" MaxLength="100" />
+          <Property Name="Activo" Type="bit" />
           <Property Name="idCliente" Type="int" />
           <Property Name="idPersonal" Type="int" />
           <Property Name="idlibro" Type="int" />
           <Property Name="idtipoprestamo" Type="int" />
-          <Property Name="Activo" Type="bit" />
         </EntityType>
         <EntityType Name="TipoLibros">
           <Key>
@@ -367,11 +367,11 @@
           <Property Name="FechaPrestamoFinal" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="CostoPrestamo" Type="Double" />
           <Property Name="DescripcionLibro" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Activo" Type="Boolean" />
           <Property Name="idCliente" Type="Int32" />
           <Property Name="idPersonal" Type="Int32" />
           <Property Name="idlibro" Type="Int32" />
           <Property Name="idtipoprestamo" Type="Int32" />
-          <Property Name="Activo" Type="Boolean" />
           <NavigationProperty Name="Clientes" Relationship="Self.FK_idCliente_PRE" FromRole="Prestamos" ToRole="Clientes" />
           <NavigationProperty Name="Libros" Relationship="Self.FK_idlibr_PRE" FromRole="Prestamos" ToRole="Libros" />
           <NavigationProperty Name="Personal" Relationship="Self.FK_idPersonal_PRE" FromRole="Prestamos" ToRole="Personal" />
@@ -669,11 +669,11 @@
                 <ScalarProperty Name="FechaPrestamoFinal" ColumnName="FechaPrestamoFinal" />
                 <ScalarProperty Name="CostoPrestamo" ColumnName="CostoPrestamo" />
                 <ScalarProperty Name="DescripcionLibro" ColumnName="DescripcionLibro" />
+                <ScalarProperty Name="Activo" ColumnName="Activo" />
                 <ScalarProperty Name="idCliente" ColumnName="idCliente" />
                 <ScalarProperty Name="idPersonal" ColumnName="idPersonal" />
                 <ScalarProperty Name="idlibro" ColumnName="idlibro" />
                 <ScalarProperty Name="idtipoprestamo" ColumnName="idtipoprestamo" />
-                <ScalarProperty Name="Activo" ColumnName="Activo" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

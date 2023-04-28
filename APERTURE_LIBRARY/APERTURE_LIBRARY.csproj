@@ -218,6 +218,7 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\Js_BooksType.js" />
     <Content Include="Scripts\Js_Clients.js" />
+    <Content Include="Scripts\js_Sales.js" />
     <Content Include="Scripts\js_LoanType.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
     <Content Include="Template\css\bootstrap.min.css" />
@@ -271,6 +272,7 @@
     <Content Include="Views\Home\EmployeeForm.cshtml" />
     <Content Include="Views\Home\EntracesAndExitsForm.cshtml" />
     <Content Include="Views\Home\EntracesAndExits.cshtml" />
+    <Content Include="Views\Home\Sales.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
