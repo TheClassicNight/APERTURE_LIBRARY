@@ -70,12 +70,21 @@
           <Property Name="FechaPrestamoInicial" Type="varchar" MaxLength="50" />
           <Property Name="FechaPrestamoFinal" Type="varchar" MaxLength="50" />
           <Property Name="CostoPrestamo" Type="float" />
-          <Property Name="DescripcionLibro" Type="varchar" MaxLength="100" />
           <Property Name="Activo" Type="bit" />
           <Property Name="idCliente" Type="int" />
           <Property Name="idPersonal" Type="int" />
-          <Property Name="idlibro" Type="int" />
-          <Property Name="idtipoprestamo" Type="int" />
+          <Property Name="idLibro" Type="int" />
+          <Property Name="idTipoPrestamo" Type="int" />
+        </EntityType>
+        <EntityType Name="Reporte">
+          <Key>
+            <PropertyRef Name="IdRE" />
+          </Key>
+          <Property Name="IdRE" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="VentasTotalDelDia" Type="float" />
+          <Property Name="PrestamosTotalDelDia" Type="float" />
+          <Property Name="FechaDia" Type="varchar" MaxLength="50" />
+          <Property Name="idPersonal" Type="int" />
         </EntityType>
         <EntityType Name="TipoLibros">
           <Key>
@@ -100,21 +109,13 @@
             <PropertyRef Name="IdVE" />
           </Key>
           <Property Name="IdVE" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CantidadLibroVenta" Type="int" />
           <Property Name="CostoVentaSubtotal" Type="float" />
-          <Property Name="IVA" Type="float" />
           <Property Name="CostoVentaTotal" Type="float" />
           <Property Name="Activo" Type="bit" />
           <Property Name="idPersonal" Type="int" />
           <Property Name="idCliente" Type="int" />
-        </EntityType>
-        <EntityType Name="VentasLibros">
-          <Key>
-            <PropertyRef Name="IdVELIB" />
-          </Key>
-          <Property Name="IdVELIB" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="idLibro" Type="int" />
-          <Property Name="idVentas" Type="int" />
-          <Property Name="Activo" Type="bit" />
         </EntityType>
         <Association Name="FK_idCliente_PRE">
           <End Role="Clientes" Type="Self.Clientes" Multiplicity="0..1" />
@@ -148,18 +149,18 @@
               <PropertyRef Name="IdLibro" />
             </Principal>
             <Dependent Role="Prestamos">
-              <PropertyRef Name="idlibro" />
+              <PropertyRef Name="idLibro" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_iDlibro_VE">
           <End Role="Libros" Type="Self.Libros" Multiplicity="0..1" />
-          <End Role="VentasLibros" Type="Self.VentasLibros" Multiplicity="*" />
+          <End Role="Ventas" Type="Self.Ventas" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Libros">
               <PropertyRef Name="IdLibro" />
             </Principal>
-            <Dependent Role="VentasLibros">
+            <Dependent Role="Ventas">
               <PropertyRef Name="idLibro" />
             </Dependent>
           </ReferentialConstraint>
@@ -184,6 +185,18 @@
               <PropertyRef Name="IdPE" />
             </Principal>
             <Dependent Role="Prestamos">
+              <PropertyRef Name="idPersonal" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_iDPersonal_RE">
+          <End Role="Personal" Type="Self.Personal" Multiplicity="0..1" />
+          <End Role="Reporte" Type="Self.Reporte" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Personal">
+              <PropertyRef Name="IdPE" />
+            </Principal>
+            <Dependent Role="Reporte">
               <PropertyRef Name="idPersonal" />
             </Dependent>
           </ReferentialConstraint>
@@ -220,19 +233,7 @@
               <PropertyRef Name="IdTP" />
             </Principal>
             <Dependent Role="Prestamos">
-              <PropertyRef Name="idtipoprestamo" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_idVentas">
-          <End Role="Ventas" Type="Self.Ventas" Multiplicity="0..1" />
-          <End Role="VentasLibros" Type="Self.VentasLibros" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Ventas">
-              <PropertyRef Name="IdVE" />
-            </Principal>
-            <Dependent Role="VentasLibros">
-              <PropertyRef Name="idVentas" />
+              <PropertyRef Name="idTipoPrestamo" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -242,10 +243,10 @@
           <EntitySet Name="Libros" EntityType="Self.Libros" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Personal" EntityType="Self.Personal" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Prestamos" EntityType="Self.Prestamos" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Reporte" EntityType="Self.Reporte" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TipoLibros" EntityType="Self.TipoLibros" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TiposPrestamos" EntityType="Self.TiposPrestamos" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Ventas" EntityType="Self.Ventas" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="VentasLibros" EntityType="Self.VentasLibros" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_idCliente_PRE" Association="Self.FK_idCliente_PRE">
             <End Role="Clientes" EntitySet="Clientes" />
             <End Role="Prestamos" EntitySet="Prestamos" />
@@ -260,7 +261,7 @@
           </AssociationSet>
           <AssociationSet Name="FK_iDlibro_VE" Association="Self.FK_iDlibro_VE">
             <End Role="Libros" EntitySet="Libros" />
-            <End Role="VentasLibros" EntitySet="VentasLibros" />
+            <End Role="Ventas" EntitySet="Ventas" />
           </AssociationSet>
           <AssociationSet Name="FK_idPersonal" Association="Self.FK_idPersonal">
             <End Role="Personal" EntitySet="Personal" />
@@ -269,6 +270,10 @@
           <AssociationSet Name="FK_idPersonal_PRE" Association="Self.FK_idPersonal_PRE">
             <End Role="Personal" EntitySet="Personal" />
             <End Role="Prestamos" EntitySet="Prestamos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_iDPersonal_RE" Association="Self.FK_iDPersonal_RE">
+            <End Role="Personal" EntitySet="Personal" />
+            <End Role="Reporte" EntitySet="Reporte" />
           </AssociationSet>
           <AssociationSet Name="FK_iDPersonal_VE" Association="Self.FK_iDPersonal_VE">
             <End Role="Personal" EntitySet="Personal" />
@@ -281,10 +286,6 @@
           <AssociationSet Name="FK_idtipolibro_PRE" Association="Self.FK_idtipolibro_PRE">
             <End Role="TiposPrestamos" EntitySet="TiposPrestamos" />
             <End Role="Prestamos" EntitySet="Prestamos" />
-          </AssociationSet>
-          <AssociationSet Name="FK_idVentas" Association="Self.FK_idVentas">
-            <End Role="Ventas" EntitySet="Ventas" />
-            <End Role="VentasLibros" EntitySet="VentasLibros" />
           </AssociationSet>
         </EntityContainer>
       </Schema>
@@ -335,7 +336,7 @@
           <Property Name="Activo" Type="Boolean" />
           <Property Name="idtipolibro" Type="Int32" />
           <NavigationProperty Name="Prestamos" Relationship="Self.FK_idlibr_PRE" FromRole="Libros" ToRole="Prestamos" />
-          <NavigationProperty Name="VentasLibros" Relationship="Self.FK_iDlibro_VE" FromRole="Libros" ToRole="VentasLibros" />
+          <NavigationProperty Name="Ventas" Relationship="Self.FK_iDlibro_VE" FromRole="Libros" ToRole="Ventas" />
           <NavigationProperty Name="TipoLibros" Relationship="Self.FK_idtipolibro" FromRole="Libros" ToRole="TipoLibros" />
         </EntityType>
         <EntityType Name="Personal">
@@ -356,6 +357,7 @@
           <Property Name="Activo" Type="Boolean" />
           <NavigationProperty Name="Checadas" Relationship="Self.FK_idPersonal" FromRole="Personal" ToRole="Checadas" />
           <NavigationProperty Name="Prestamos" Relationship="Self.FK_idPersonal_PRE" FromRole="Personal" ToRole="Prestamos" />
+          <NavigationProperty Name="Reporte" Relationship="Self.FK_iDPersonal_RE" FromRole="Personal" ToRole="Reporte" />
           <NavigationProperty Name="Ventas" Relationship="Self.FK_iDPersonal_VE" FromRole="Personal" ToRole="Ventas" />
         </EntityType>
         <EntityType Name="Prestamos">
@@ -366,16 +368,26 @@
           <Property Name="FechaPrestamoInicial" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="FechaPrestamoFinal" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="CostoPrestamo" Type="Double" />
-          <Property Name="DescripcionLibro" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="Activo" Type="Boolean" />
           <Property Name="idCliente" Type="Int32" />
           <Property Name="idPersonal" Type="Int32" />
-          <Property Name="idlibro" Type="Int32" />
-          <Property Name="idtipoprestamo" Type="Int32" />
+          <Property Name="idLibro" Type="Int32" />
+          <Property Name="idTipoPrestamo" Type="Int32" />
           <NavigationProperty Name="Clientes" Relationship="Self.FK_idCliente_PRE" FromRole="Prestamos" ToRole="Clientes" />
           <NavigationProperty Name="Libros" Relationship="Self.FK_idlibr_PRE" FromRole="Prestamos" ToRole="Libros" />
           <NavigationProperty Name="Personal" Relationship="Self.FK_idPersonal_PRE" FromRole="Prestamos" ToRole="Personal" />
           <NavigationProperty Name="TiposPrestamos" Relationship="Self.FK_idtipolibro_PRE" FromRole="Prestamos" ToRole="TiposPrestamos" />
+        </EntityType>
+        <EntityType Name="Reporte">
+          <Key>
+            <PropertyRef Name="IdRE" />
+          </Key>
+          <Property Name="IdRE" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="VentasTotalDelDia" Type="Double" />
+          <Property Name="PrestamosTotalDelDia" Type="Double" />
+          <Property Name="FechaDia" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="idPersonal" Type="Int32" />
+          <NavigationProperty Name="Personal" Relationship="Self.FK_iDPersonal_RE" FromRole="Reporte" ToRole="Personal" />
         </EntityType>
         <EntityType Name="TipoLibros">
           <Key>
@@ -402,26 +414,16 @@
             <PropertyRef Name="IdVE" />
           </Key>
           <Property Name="IdVE" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CantidadLibroVenta" Type="Int32" />
           <Property Name="CostoVentaSubtotal" Type="Double" />
-          <Property Name="IVA" Type="Double" />
           <Property Name="CostoVentaTotal" Type="Double" />
           <Property Name="Activo" Type="Boolean" />
           <Property Name="idPersonal" Type="Int32" />
           <Property Name="idCliente" Type="Int32" />
-          <NavigationProperty Name="Clientes" Relationship="Self.FK_iDCliente_VE" FromRole="Ventas" ToRole="Clientes" />
-          <NavigationProperty Name="Personal" Relationship="Self.FK_iDPersonal_VE" FromRole="Ventas" ToRole="Personal" />
-          <NavigationProperty Name="VentasLibros" Relationship="Self.FK_idVentas" FromRole="Ventas" ToRole="VentasLibros" />
-        </EntityType>
-        <EntityType Name="VentasLibros">
-          <Key>
-            <PropertyRef Name="IdVELIB" />
-          </Key>
-          <Property Name="IdVELIB" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="idLibro" Type="Int32" />
-          <Property Name="idVentas" Type="Int32" />
-          <Property Name="Activo" Type="Boolean" />
-          <NavigationProperty Name="Libros" Relationship="Self.FK_iDlibro_VE" FromRole="VentasLibros" ToRole="Libros" />
-          <NavigationProperty Name="Ventas" Relationship="Self.FK_idVentas" FromRole="VentasLibros" ToRole="Ventas" />
+          <NavigationProperty Name="Clientes" Relationship="Self.FK_iDCliente_VE" FromRole="Ventas" ToRole="Clientes" />
+          <NavigationProperty Name="Libros" Relationship="Self.FK_iDlibro_VE" FromRole="Ventas" ToRole="Libros" />
+          <NavigationProperty Name="Personal" Relationship="Self.FK_iDPersonal_VE" FromRole="Ventas" ToRole="Personal" />
         </EntityType>
         <Association Name="FK_idPersonal">
           <End Role="Personal" Type="Self.Personal" Multiplicity="0..1" />
@@ -467,18 +469,18 @@
               <PropertyRef Name="IdLibro" />
             </Principal>
             <Dependent Role="Prestamos">
-              <PropertyRef Name="idlibro" />
+              <PropertyRef Name="idLibro" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_iDlibro_VE">
           <End Role="Libros" Type="Self.Libros" Multiplicity="0..1" />
-          <End Role="VentasLibros" Type="Self.VentasLibros" Multiplicity="*" />
+          <End Role="Ventas" Type="Self.Ventas" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Libros">
               <PropertyRef Name="IdLibro" />
             </Principal>
-            <Dependent Role="VentasLibros">
+            <Dependent Role="Ventas">
               <PropertyRef Name="idLibro" />
             </Dependent>
           </ReferentialConstraint>
@@ -507,6 +509,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_iDPersonal_RE">
+          <End Role="Personal" Type="Self.Personal" Multiplicity="0..1" />
+          <End Role="Reporte" Type="Self.Reporte" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Personal">
+              <PropertyRef Name="IdPE" />
+            </Principal>
+            <Dependent Role="Reporte">
+              <PropertyRef Name="idPersonal" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_iDPersonal_VE">
           <End Role="Personal" Type="Self.Personal" Multiplicity="0..1" />
           <End Role="Ventas" Type="Self.Ventas" Multiplicity="*" />
@@ -527,19 +541,7 @@
               <PropertyRef Name="IdTP" />
             </Principal>
             <Dependent Role="Prestamos">
-              <PropertyRef Name="idtipoprestamo" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_idVentas">
-          <End Role="Ventas" Type="Self.Ventas" Multiplicity="0..1" />
-          <End Role="VentasLibros" Type="Self.VentasLibros" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Ventas">
-              <PropertyRef Name="IdVE" />
-            </Principal>
-            <Dependent Role="VentasLibros">
-              <PropertyRef Name="idVentas" />
+              <PropertyRef Name="idTipoPrestamo" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -549,10 +551,10 @@
           <EntitySet Name="Libros" EntityType="Self.Libros" />
           <EntitySet Name="Personal" EntityType="Self.Personal" />
           <EntitySet Name="Prestamos" EntityType="Self.Prestamos" />
+          <EntitySet Name="Reporte" EntityType="Self.Reporte" />
           <EntitySet Name="TipoLibros" EntityType="Self.TipoLibros" />
           <EntitySet Name="TiposPrestamos" EntityType="Self.TiposPrestamos" />
           <EntitySet Name="Ventas" EntityType="Self.Ventas" />
-          <EntitySet Name="VentasLibros" EntityType="Self.VentasLibros" />
           <AssociationSet Name="FK_idPersonal" Association="Self.FK_idPersonal">
             <End Role="Personal" EntitySet="Personal" />
             <End Role="Checadas" EntitySet="Checadas" />
@@ -571,7 +573,7 @@
           </AssociationSet>
           <AssociationSet Name="FK_iDlibro_VE" Association="Self.FK_iDlibro_VE">
             <End Role="Libros" EntitySet="Libros" />
-            <End Role="VentasLibros" EntitySet="VentasLibros" />
+            <End Role="Ventas" EntitySet="Ventas" />
           </AssociationSet>
           <AssociationSet Name="FK_idtipolibro" Association="Self.FK_idtipolibro">
             <End Role="TipoLibros" EntitySet="TipoLibros" />
@@ -581,6 +583,10 @@
             <End Role="Personal" EntitySet="Personal" />
             <End Role="Prestamos" EntitySet="Prestamos" />
           </AssociationSet>
+          <AssociationSet Name="FK_iDPersonal_RE" Association="Self.FK_iDPersonal_RE">
+            <End Role="Personal" EntitySet="Personal" />
+            <End Role="Reporte" EntitySet="Reporte" />
+          </AssociationSet>
           <AssociationSet Name="FK_iDPersonal_VE" Association="Self.FK_iDPersonal_VE">
             <End Role="Personal" EntitySet="Personal" />
             <End Role="Ventas" EntitySet="Ventas" />
@@ -588,10 +594,6 @@
           <AssociationSet Name="FK_idtipolibro_PRE" Association="Self.FK_idtipolibro_PRE">
             <End Role="TiposPrestamos" EntitySet="TiposPrestamos" />
             <End Role="Prestamos" EntitySet="Prestamos" />
-          </AssociationSet>
-          <AssociationSet Name="FK_idVentas" Association="Self.FK_idVentas">
-            <End Role="Ventas" EntitySet="Ventas" />
-            <End Role="VentasLibros" EntitySet="VentasLibros" />
           </AssociationSet>
         </EntityContainer>
       </Schema>
@@ -668,12 +670,22 @@
                 <ScalarProperty Name="FechaPrestamoInicial" ColumnName="FechaPrestamoInicial" />
                 <ScalarProperty Name="FechaPrestamoFinal" ColumnName="FechaPrestamoFinal" />
                 <ScalarProperty Name="CostoPrestamo" ColumnName="CostoPrestamo" />
-                <ScalarProperty Name="DescripcionLibro" ColumnName="DescripcionLibro" />
                 <ScalarProperty Name="Activo" ColumnName="Activo" />
                 <ScalarProperty Name="idCliente" ColumnName="idCliente" />
                 <ScalarProperty Name="idPersonal" ColumnName="idPersonal" />
-                <ScalarProperty Name="idlibro" ColumnName="idlibro" />
-                <ScalarProperty Name="idtipoprestamo" ColumnName="idtipoprestamo" />
+                <ScalarProperty Name="idLibro" ColumnName="idLibro" />
+                <ScalarProperty Name="idTipoPrestamo" ColumnName="idTipoPrestamo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Reporte">
+            <EntityTypeMapping TypeName="LibraryAPModel.Reporte">
+              <MappingFragment StoreEntitySet="Reporte">
+                <ScalarProperty Name="IdRE" ColumnName="IdRE" />
+                <ScalarProperty Name="VentasTotalDelDia" ColumnName="VentasTotalDelDia" />
+                <ScalarProperty Name="PrestamosTotalDelDia" ColumnName="PrestamosTotalDelDia" />
+                <ScalarProperty Name="FechaDia" ColumnName="FechaDia" />
+                <ScalarProperty Name="idPersonal" ColumnName="idPersonal" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -701,22 +713,13 @@
             <EntityTypeMapping TypeName="LibraryAPModel.Ventas">
               <MappingFragment StoreEntitySet="Ventas">
                 <ScalarProperty Name="IdVE" ColumnName="IdVE" />
+                <ScalarProperty Name="CantidadLibroVenta" ColumnName="CantidadLibroVenta" />
                 <ScalarProperty Name="CostoVentaSubtotal" ColumnName="CostoVentaSubtotal" />
-                <ScalarProperty Name="IVA" ColumnName="IVA" />
                 <ScalarProperty Name="CostoVentaTotal" ColumnName="CostoVentaTotal" />
                 <ScalarProperty Name="Activo" ColumnName="Activo" />
                 <ScalarProperty Name="idPersonal" ColumnName="idPersonal" />
                 <ScalarProperty Name="idCliente" ColumnName="idCliente" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="VentasLibros">
-            <EntityTypeMapping TypeName="LibraryAPModel.VentasLibros">
-              <MappingFragment StoreEntitySet="VentasLibros">
-                <ScalarProperty Name="IdVELIB" ColumnName="IdVELIB" />
                 <ScalarProperty Name="idLibro" ColumnName="idLibro" />
-                <ScalarProperty Name="idVentas" ColumnName="idVentas" />
-                <ScalarProperty Name="Activo" ColumnName="Activo" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

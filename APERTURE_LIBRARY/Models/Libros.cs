@@ -17,7 +17,7 @@ namespace APERTURE_LIBRARY.Models
         public Libros()
         {
             this.Prestamos = new HashSet<Prestamos>();
-            this.VentasLibros = new HashSet<VentasLibros>();
+            this.Ventas = new HashSet<Ventas>();
         }
     
         public int IdLibro { get; set; }
@@ -32,7 +32,7 @@ namespace APERTURE_LIBRARY.Models
         public Nullable<int> idtipolibro { get; set; }
     
         public virtual ICollection<Prestamos> Prestamos { get; set; }
-        public virtual ICollection<VentasLibros> VentasLibros { get; set; }
+        public virtual ICollection<Ventas> Ventas { get; set; }
         public virtual TipoLibros TipoLibros { get; set; }
     }
 }

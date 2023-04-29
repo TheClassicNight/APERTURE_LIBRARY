@@ -160,6 +160,9 @@
     <Compile Include="Models\Prestamos.cs">
       <DependentUpon>Library.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Reporte.cs">
+      <DependentUpon>Library.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\TipoLibros.cs">
       <DependentUpon>Library.tt</DependentUpon>
     </Compile>
@@ -167,9 +170,6 @@
       <DependentUpon>Library.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Ventas.cs">
-      <DependentUpon>Library.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\VentasLibros.cs">
       <DependentUpon>Library.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\ViewModel\BooksTypeClass.cs" />
@@ -218,6 +218,7 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\Js_BooksType.js" />
     <Content Include="Scripts\Js_Clients.js" />
+    <Content Include="Scripts\js_Lendings.js" />
     <Content Include="Scripts\js_Sales.js" />
     <Content Include="Scripts\js_LoanType.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
@@ -273,6 +274,8 @@
     <Content Include="Views\Home\EntracesAndExitsForm.cshtml" />
     <Content Include="Views\Home\EntracesAndExits.cshtml" />
     <Content Include="Views\Home\Sales.cshtml" />
+    <Content Include="Views\Home\Lendings.cshtml" />
+    <Content Include="Views\Home\LendingsForm.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

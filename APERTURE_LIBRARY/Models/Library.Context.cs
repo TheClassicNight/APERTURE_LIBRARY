@@ -30,9 +30,9 @@ namespace APERTURE_LIBRARY.Models
         public DbSet<Libros> Libros { get; set; }
         public DbSet<Personal> Personal { get; set; }
         public DbSet<Prestamos> Prestamos { get; set; }
+        public DbSet<Reporte> Reporte { get; set; }
         public DbSet<TipoLibros> TipoLibros { get; set; }
         public DbSet<TiposPrestamos> TiposPrestamos { get; set; }
         public DbSet<Ventas> Ventas { get; set; }
-        public DbSet<VentasLibros> VentasLibros { get; set; }
     }
 }

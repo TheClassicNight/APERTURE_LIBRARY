@@ -1,0 +1,31 @@
+﻿<div class="bg-secondary text-center rounded p-4">
+    <h2>Prestamos</h2>
+    <table class="table table-hover" id="MyTable">
+        <tr>
+            <th>Cliente</th>
+            <th>Libro</th>
+            <th>Empleado</th>
+            <th>Tipo de prestamo</th>
+            <th>Fecha inicial</th>
+            <th>Fecha final</th>
+            <th>Costo prestamo</th>
+            <th>Editar</th>
+            <th>Eliminar</th>
+        </tr>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Clientes.NombreCli</td>
+                <td>@item.Libros.NombreLibro</td>
+                <td>@item.Personal.NombrePer</td>
+                <td>@item.TiposPrestamos.TipoPrestamo</td>
+                <td>@item.FechaPrestamoInicial</td>
+                <td>@item.FechaPrestamoFinal</td>
+                <td>@item.CostoPrestamo</td>
+                <td><a href="~/home/LendingsForm?IdPR=@item.IdPR" class="btn btn-info">Editar</a></td>
+                <td><a href="~/home/EliminarPR?IdPR=@item.IdPR" class="btn btn-danger">Eliminar</a></td>
+            </tr>
+        }
+    </table>
+    <a href="~/home/lendingsform" type="button" class="btn btn-dark">Pedir prestamo</a>
+</div>

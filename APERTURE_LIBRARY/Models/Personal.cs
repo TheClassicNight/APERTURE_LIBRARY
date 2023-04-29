@@ -18,6 +18,7 @@ namespace APERTURE_LIBRARY.Models
         {
             this.Checadas = new HashSet<Checadas>();
             this.Prestamos = new HashSet<Prestamos>();
+            this.Reporte = new HashSet<Reporte>();
             this.Ventas = new HashSet<Ventas>();
         }
     
@@ -36,6 +37,7 @@ namespace APERTURE_LIBRARY.Models
     
         public virtual ICollection<Checadas> Checadas { get; set; }
         public virtual ICollection<Prestamos> Prestamos { get; set; }
+        public virtual ICollection<Reporte> Reporte { get; set; }
         public virtual ICollection<Ventas> Ventas { get; set; }
     }
 }

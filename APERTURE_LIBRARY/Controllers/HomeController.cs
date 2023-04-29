@@ -74,6 +74,12 @@ namespace APERTURE_LIBRARY.Controllers
             return View(lst);
         }
 
+        public ActionResult Lendings()
+        {
+            var lst = db.Prestamos.Where(x => x.Activo == true).ToList();
+            return View(lst);
+        }
+
         /// Forms
 
         public ActionResult BooksTypeForm()
@@ -159,6 +165,24 @@ namespace APERTURE_LIBRARY.Controllers
 
             //Elementos para llave foranea
             ViewBag.Personal = db.Personal.Where(x => x.Activo == true).ToList();
+            return View();
+        }
+
+        public ActionResult LendingsForm()
+        {
+            var ID = Request.Params["IdPR"];
+            if (ID != null)
+            {
+                int id = int.Parse(ID);
+                var li = db.Prestamos.Where(x => x.IdPR == id).FirstOrDefault();
+                ViewBag.li = li;
+            }
+
+            //Elementos para llave foranea
+            ViewBag.Clientes = db.Clientes.Where(x => x.Activo == true).ToList();
+            ViewBag.Libros = db.Libros.Where(x => x.Activo == true).ToList();
+            ViewBag.Personal = db.Personal.Where(x => x.Activo == true).ToList();
+            ViewBag.TiposPrestamos = db.TiposPrestamos.Where(x => x.Activo == true).ToList();
             return View();
         }
 
@@ -328,6 +352,39 @@ namespace APERTURE_LIBRARY.Controllers
             return Json("");
         }
 
+        public JsonResult guardarPR(int? IdPR, string FechaPrestamoInicial, string FechaPrestamoFinal, float CostoPrestamo, int? cliente, int? empleado, int? libro, int? tipoPR)
+        {
+            if (IdPR != null)
+            {
+                var Art = db.Prestamos.Where(x => x.IdPR == IdPR).FirstOrDefault();
+                Art.idCliente = cliente;
+                Art.idPersonal = empleado;
+                Art.idLibro = libro;
+                Art.idTipoPrestamo = tipoPR;
+                Art.FechaPrestamoInicial = FechaPrestamoInicial;
+                Art.FechaPrestamoFinal = FechaPrestamoFinal;
+                Art.CostoPrestamo = CostoPrestamo;
+                db.SaveChanges();
+            }
+            else
+            {
+                Prestamos Art = new Prestamos();
+                Art.idCliente = cliente;
+                Art.idPersonal = empleado;
+                Art.idLibro = libro;
+                Art.idTipoPrestamo = tipoPR;
+                Art.FechaPrestamoInicial = FechaPrestamoInicial;
+                Art.FechaPrestamoFinal = FechaPrestamoFinal;
+                Art.CostoPrestamo = CostoPrestamo;
+                Art.Activo = true;
+                db.Prestamos.Add(Art);
+                var RE = db.Libros.Find(libro);
+                RE.CantidadLibros--;
+                db.SaveChanges();
+            }
+            return Json("");
+        }
+
         // "Eliminar" en BD
 
         public ActionResult Eliminar(int? IdLibro)
@@ -378,6 +435,16 @@ namespace APERTURE_LIBRARY.Controllers
             Chec.Activo = false;
             db.SaveChanges();
             return RedirectToAction("EntracesAndExits", "home");
+        }
+
+        public ActionResult EliminarPR(int? IdPR)
+        {
+            var Pre = db.Prestamos.Where(x => x.IdPR == IdPR).FirstOrDefault();
+            Pre.Activo = false;
+            var SUM = db.Libros.Find(Pre.idLibro);
+            SUM.CantidadLibros++;
+            db.SaveChanges();
+            return RedirectToAction("Lendings", "home");
         }
 
     }

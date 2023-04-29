@@ -12,14 +12,14 @@ namespace APERTURE_LIBRARY.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class VentasLibros
+    public partial class Reporte
     {
-        public int IdVELIB { get; set; }
-        public Nullable<int> idLibro { get; set; }
-        public Nullable<int> idVentas { get; set; }
-        public Nullable<bool> Activo { get; set; }
+        public int IdRE { get; set; }
+        public Nullable<double> VentasTotalDelDia { get; set; }
+        public Nullable<double> PrestamosTotalDelDia { get; set; }
+        public string FechaDia { get; set; }
+        public Nullable<int> idPersonal { get; set; }
     
-        public virtual Libros Libros { get; set; }
-        public virtual Ventas Ventas { get; set; }
+        public virtual Personal Personal { get; set; }
     }
 }

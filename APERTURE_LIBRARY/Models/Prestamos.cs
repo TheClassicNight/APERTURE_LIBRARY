@@ -18,12 +18,11 @@ namespace APERTURE_LIBRARY.Models
         public string FechaPrestamoInicial { get; set; }
         public string FechaPrestamoFinal { get; set; }
         public Nullable<double> CostoPrestamo { get; set; }
-        public string DescripcionLibro { get; set; }
         public Nullable<bool> Activo { get; set; }
         public Nullable<int> idCliente { get; set; }
         public Nullable<int> idPersonal { get; set; }
-        public Nullable<int> idlibro { get; set; }
-        public Nullable<int> idtipoprestamo { get; set; }
+        public Nullable<int> idLibro { get; set; }
+        public Nullable<int> idTipoPrestamo { get; set; }
     
         public virtual Clientes Clientes { get; set; }
         public virtual Libros Libros { get; set; }

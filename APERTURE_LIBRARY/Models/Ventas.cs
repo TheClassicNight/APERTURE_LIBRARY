@@ -14,21 +14,17 @@ namespace APERTURE_LIBRARY.Models
     
     public partial class Ventas
     {
-        public Ventas()
-        {
-            this.VentasLibros = new HashSet<VentasLibros>();
-        }
-    
         public int IdVE { get; set; }
+        public Nullable<int> CantidadLibroVenta { get; set; }
         public Nullable<double> CostoVentaSubtotal { get; set; }
-        public Nullable<double> IVA { get; set; }
         public Nullable<double> CostoVentaTotal { get; set; }
         public Nullable<bool> Activo { get; set; }
         public Nullable<int> idPersonal { get; set; }
         public Nullable<int> idCliente { get; set; }
+        public Nullable<int> idLibro { get; set; }
     
         public virtual Clientes Clientes { get; set; }
+        public virtual Libros Libros { get; set; }
         public virtual Personal Personal { get; set; }
-        public virtual ICollection<VentasLibros> VentasLibros { get; set; }
     }
 }

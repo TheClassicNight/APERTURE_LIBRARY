@@ -1,0 +1,169 @@
+﻿<script>
+    var UrlGuardarPR = '@Url.Action("guardarPR", "Home")';
+</script>
+
+<script src="~/Scripts/js_Lendings.js"></script>
+<div class="bg-secondary text-center rounded p-4">
+    <div class="row">
+        <div class="col-md-3">
+            <label>Cliente</label>
+            <select class="form-select mb-3" id="cliente" name="cliente">
+                <option value="0"> Seleccionar </option>
+                @foreach (var item in ViewBag.Clientes)
+                {
+
+                    if (ViewBag.li != null)
+                    {
+
+                        if (ViewBag.li.idCliente == item.IdCLI)
+                        {
+                            <option value="@item.IdCLI" selected>@item.NombreCli</option>
+                        }
+
+                        else
+                        {
+                            <option value="@item.IdCLI">@item.NombreCli</option>
+                        }
+
+                    }
+                    else
+                    {
+                        <option value="@item.IdCLI">@item.NombreCli</option>
+                    }
+
+                }
+            </select>
+        </div>
+        <div class="col-md-3">
+            <label>Libro</label>
+            <select class="form-select mb-3" id="libro" name="tipolibro">
+                <option value="0"> Seleccionar </option>
+                @foreach (var item in ViewBag.Libros)
+                {
+
+                    if (ViewBag.li != null)
+                    {
+
+                        if (ViewBag.li.idLibro == item.IdLibro)
+                        {
+                            <option value="@item.IdLibro" selected>@item.NombreLibro</option>
+                        }
+
+                        else
+                        {
+                            <option value="@item.IdLibro">@item.NombreLibro</option>
+                        }
+
+                    }
+                    else
+                    {
+                        <option value="@item.IdLibro">@item.NombreLibro</option>
+                    }
+
+                }
+            </select>
+        </div>
+        <div class="col-md-3">
+            <label>Empleado</label>
+            <select class="form-select mb-3" id="empleado" name="empleado">
+                <option value="0"> Seleccionar </option>
+                @foreach (var item in ViewBag.Personal)
+                {
+
+                    if (ViewBag.li != null)
+                    {
+
+                        if (ViewBag.li.idPersonal == item.IdPE)
+                        {
+                            <option value="@item.IdPE" selected>@item.NombrePer</option>
+                        }
+
+                        else
+                        {
+                            <option value="@item.IdPE">@item.NombrePer</option>
+                        }
+
+                    }
+                    else
+                    {
+                        <option value="@item.IdPE">@item.NombrePer</option>
+                    }
+
+                }
+            </select>
+        </div>
+        <div class="col-md-3">
+            <label>Tipo de prestamo</label>
+            <select class="form-select mb-3" id="tipoPR" name="empleado">
+                <option value="0"> Seleccionar </option>
+                @foreach (var item in ViewBag.TiposPrestamos)
+                {
+
+                    if (ViewBag.li != null)
+                    {
+
+                        if (ViewBag.li.idTipoPrestamo == item.IdTP)
+                        {
+                            <option value="@item.IdTP" selected>@item.TipoPrestamo</option>
+                        }
+
+                        else
+                        {
+                            <option value="@item.IdTP">@item.TipoPrestamo</option>
+                        }
+
+                    }
+                    else
+                    {
+                        <option value="@item.IdTP">@item.TipoPrestamo</option>
+                    }
+
+                }
+            </select>
+        </div>
+        <div class="col-md-3">
+            <label>Fecha inicial</label>
+            @if (ViewBag.li != null)
+            {
+                <input type="text" id="fechai" name="serial" class="form-control" value="@ViewBag.li.FechaPrestamoInicial" />
+            }
+            else
+            {
+                <input type="text" id="fechai" name="serial" class="form-control" />
+            }
+
+        </div>
+        <div class="col-md-3">
+            <label>Fecha final</label>
+            @if (ViewBag.li != null)
+            {
+                <input type="text" id="fechaf" name="serial" class="form-control" value="@ViewBag.li.FechaPrestamoFinal" />
+            }
+            else
+            {
+                <input type="text" id="fechaf" name="serial" class="form-control" />
+            }
+
+        </div>
+        <div class="col-md-3">
+            <label>Costo prestamo</label>
+            @if (ViewBag.li != null)
+            {
+                <input type="text" id="costop" name="serial" class="form-control" value="@ViewBag.li.CostoPrestamo" />
+            }
+            else
+            {
+                <input type="text" id="costop" name="serial" class="form-control" />
+            }
+
+        </div>
+    </div>
+    <br />
+    <div class="row">
+        <div class="col-md-2">
+            <a href="javascript:guardarPR()" class="btn btn-outline-success">Realizar prestamo</a>
+        </div>
+    </div>
+
+</div>
+
