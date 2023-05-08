@@ -18,15 +18,17 @@ function guardarSa() {
         url: UrlGuardarSa,
         async: true,
         data: {
-            IdTP: id,
-            empleado: document.getElementById("empleado").value,
-            cliente: document.getElementById("cliente").value,
-            libro: document.getElementById("libro").value,
-            cantidad: document.getElementById("cantidad").value
+            IdVE: id,
+            Empleado: document.getElementById("empleado").value,
+            Cliente: document.getElementById("cliente").value,
+            Libro: document.getElementById("libro").value,
+            CantidadLibroVenta: document.getElementById("cantidad").value,
+            CostoVentaSubTotal: document.getElementById("subtotal").value,
+            CostoVentaTotal: document.getElementById("total").value,
         },
         success: function (data) {
 
-            location.href = "../home/sales";
+            location.href = "../home/Sales";
         },
         error: function (xhr, status, error) {
             alert(error);

@@ -1,0 +1,139 @@
+﻿<script>
+    var UrlGuardarSa = '@Url.Action("guardarSa", "Home")';
+</script>
+
+<script src="~/Scripts/js_Sales.js"></script>
+<div class="bg-secondary text-center rounded p-4">
+    <div class="row">
+        <div class="col-md-3">
+            <label>Empleado</label>
+            <select class="form-select mb-3" id="empleado" name="empleado">
+                <option value="0"> Seleccionar </option>
+                @foreach (var item in ViewBag.Personal)
+                {
+
+                    if (ViewBag.li != null)
+                    {
+
+                        if (ViewBag.li.idPersonal == item.IdPE)
+                        {
+                            <option value="@item.IdPE" selected>@item.NombrePer</option>
+                        }
+
+                        else
+                        {
+                            <option value="@item.IdPE">@item.NombrePer</option>
+                        }
+
+                    }
+                    else
+                    {
+                        <option value="@item.IdPE">@item.NombrePer</option>
+                    }
+
+                }
+            </select>
+        </div>
+        <div class="col-md-3">
+            <label>Clientes</label>
+            <select class="form-select mb-3" id="cliente" name="cliente">
+                <option value="0"> Seleccionar </option>
+                @foreach (var item in ViewBag.Clientes)
+                {
+
+                    if (ViewBag.li != null)
+                    {
+
+                        if (ViewBag.li.idCliente == item.IdCLI)
+                        {
+                            <option value="@item.IdCLI" selected>@item.NombreCli</option>
+                        }
+
+                        else
+                        {
+                            <option value="@item.IdCLI">@item.NombreCli</option>
+                        }
+
+                    }
+                    else
+                    {
+                        <option value="@item.IdCLI">@item.NombreCli</option>
+                    }
+
+                }
+            </select>
+        </div>
+        <div class="col-md-3">
+            <label>Libros</label>
+            <select class="form-select mb-3" id="libro" name="libro">
+                <option value="0"> Seleccionar </option>
+                @foreach (var item in ViewBag.Libros)
+                {
+
+                    if (ViewBag.li != null)
+                    {
+
+                        if (ViewBag.li.idLibro == item.IdLibro)
+                        {
+                            <option value="@item.IdLibro" selected>@item.NombreLibro</option>
+                        }
+
+                        else
+                        {
+                            <option value="@item.IdLibro">@item.NombreLibro</option>
+                        }
+
+                    }
+                    else
+                    {
+                        <option value="@item.IdLibro">@item.NombreLibro</option>
+                    }
+
+                }
+            </select>
+        </div>
+        <div class="col-md-3">
+            <label>Cantidad</label>
+            @if (ViewBag.li != null)
+            {
+                <input type="text" id="cantidad" name="cantidad" class="form-control" value="@ViewBag.li.CantidadLibroVenta" />
+            }
+            else
+            {
+                <input type="text" id="cantidad" name="cantidad" class="form-control" />
+            }
+
+        </div>
+
+        <div class="col-md-3">
+            @if (ViewBag.li != null)
+            {
+                <input type="text" id="subtotal" name="subtotal" class="form-control" style="display: none" value="@ViewBag.li.CostoVentaSubtotal" />
+            }
+            else
+            {
+                <input type="text" id="subtotal" name="subtotal" style="display: none" class="form-control" />
+            }
+
+        </div>
+
+        <div class="col-md-3">
+            @if (ViewBag.li != null)
+            {
+                <input type="text" id="total" name="total" class="form-control" style="display: none" value="@ViewBag.li.CostoVentaTotal" />
+            }
+            else
+            {
+                <input type="text" id="total" name="total" style="display: none" class="form-control" />
+            }
+
+        </div>
+    </div>
+    <br />
+    <div class="row">
+        <div class="col-md-2">
+            <a href="javascript:guardarSa()" class="btn btn-outline-success">Realizar Venta</a>
+        </div>
+    </div>
+
+</div>

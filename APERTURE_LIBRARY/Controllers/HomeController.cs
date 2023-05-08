@@ -61,16 +61,7 @@ namespace APERTURE_LIBRARY.Controllers
 
         public ActionResult Sales()
         {
-            var lst = db.Checadas.Where(x => x.Activo == true).ToList();
-
-            var ID = Request.Params["IdTL"];
-            if (ID != null)
-            {
-                int id = int.Parse(ID);
-                var li = db.TipoLibros.Where(x => x.IdTL == id).FirstOrDefault();
-                ViewBag.li = li;
-            }
-
+            var lst = db.Ventas.Where(x => x.Activo == true).ToList();
             return View(lst);
         }
 
@@ -79,7 +70,7 @@ namespace APERTURE_LIBRARY.Controllers
             var lst = db.Prestamos.Where(x => x.Activo == true).ToList();
             return View(lst);
         }
-
+        
         /// Forms
 
         public ActionResult BooksTypeForm()
@@ -167,6 +158,24 @@ namespace APERTURE_LIBRARY.Controllers
             ViewBag.Personal = db.Personal.Where(x => x.Activo == true).ToList();
             return View();
         }
+
+        public ActionResult SalesForm()
+        {
+            var ID = Request.Params["IdVE"];
+            if (ID != null)
+            {
+                int id = int.Parse(ID);
+                var li = db.Ventas.Where(x => x.IdVE == id).FirstOrDefault();
+                ViewBag.li = li;
+            }
+
+            //Elementos para llave foranea
+            ViewBag.Clientes = db.Clientes.Where(x => x.Activo == true).ToList();
+            ViewBag.Libros = db.Libros.Where(x => x.Activo == true).ToList();
+            ViewBag.Personal = db.Personal.Where(x => x.Activo == true).ToList();
+            return View();
+        }
+
 
         public ActionResult LendingsForm()
         {
@@ -352,6 +361,41 @@ namespace APERTURE_LIBRARY.Controllers
             return Json("");
         }
 
+        public JsonResult guardarSa(int? IdVE, int CantidadLibroVenta, int? Empleado, int? Cliente, int? Libro)
+        {
+            if (IdVE != null)
+            {
+                var Art = db.Ventas.Where(x => x.IdVE == IdVE).FirstOrDefault();
+                Art.CantidadLibroVenta = CantidadLibroVenta;
+                //Calculo de Ventas
+                var RE = db.Libros.Find(Libro);
+                Art.CostoVentaSubtotal = CantidadLibroVenta * RE.CostoLibros;
+                Art.CostoVentaTotal = Art.CostoVentaSubtotal + (Art.CostoVentaSubtotal * 0.08);
+                RE.CantidadLibros = RE.CantidadLibros - CantidadLibroVenta;
+                Art.idPersonal = Empleado;
+                Art.idCliente = Cliente;
+                Art.idLibro = Libro;
+                db.SaveChanges();
+            }
+            else
+            {
+                Ventas Art = new Ventas();
+                var RE = db.Libros.Find(Libro);
+                //Calculo de Ventas
+                Art.CantidadLibroVenta = CantidadLibroVenta;
+                Art.CostoVentaSubtotal = CantidadLibroVenta * RE.CostoLibros;
+                Art.CostoVentaTotal = Art.CostoVentaSubtotal + (Art.CostoVentaSubtotal * 0.08);
+                RE.CantidadLibros = RE.CantidadLibros - CantidadLibroVenta;
+                Art.Activo = true;
+                Art.idPersonal = Empleado;
+                Art.idCliente = Cliente;
+                Art.idLibro = Libro;
+                db.Ventas.Add(Art);
+                db.SaveChanges();
+            }
+            return Json("");
+        }
+
         public JsonResult guardarPR(int? IdPR, string FechaPrestamoInicial, string FechaPrestamoFinal, float CostoPrestamo, int? cliente, int? empleado, int? libro, int? tipoPR)
         {
             if (IdPR != null)
@@ -436,6 +480,15 @@ namespace APERTURE_LIBRARY.Controllers
             db.SaveChanges();
             return RedirectToAction("EntracesAndExits", "home");
         }
+
+        public ActionResult EliminarSa(int? IdVE)
+        {
+            var Venta = db.Ventas.Where(x => x.IdVE == IdVE).FirstOrDefault();
+            Venta.Activo = false;
+            db.SaveChanges();
+            return RedirectToAction("Sales", "home");
+        }
+
 
         public ActionResult EliminarPR(int? IdPR)
         {

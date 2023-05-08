@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="f11011dbf6304f34a9e770080e3ef078" Name="Diagram1">
+      <Diagram DiagramId="2f9f969b3f5c4880a40390e299a85015" Name="Diagram1">
         <EntityTypeShape EntityType="LibraryAPModel.Checadas" Width="1.5" PointX="3" PointY="5.625" IsExpanded="true" />
         <EntityTypeShape EntityType="LibraryAPModel.Clientes" Width="1.5" PointX="0.75" PointY="11.125" IsExpanded="true" />
         <EntityTypeShape EntityType="LibraryAPModel.Libros" Width="1.5" PointX="0.75" PointY="15" IsExpanded="true" />
@@ -13,7 +13,7 @@
         <EntityTypeShape EntityType="LibraryAPModel.Reporte" Width="1.5" PointX="3" PointY="13" IsExpanded="true" />
         <EntityTypeShape EntityType="LibraryAPModel.TipoLibros" Width="1.5" PointX="1.5" PointY="19.75" IsExpanded="true" />
         <EntityTypeShape EntityType="LibraryAPModel.TiposPrestamos" Width="1.5" PointX="3.75" PointY="9.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="LibraryAPModel.Ventas" Width="1.5" PointX="3" PointY="1.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="LibraryAPModel.Ventas" Width="2.5" PointX="3" PointY="1.625" IsExpanded="true" />
         <AssociationConnector Association="LibraryAPModel.FK_idPersonal" ManuallyRouted="false" />
         <AssociationConnector Association="LibraryAPModel.FK_idCliente_PRE" ManuallyRouted="false" />
         <AssociationConnector Association="LibraryAPModel.FK_iDCliente_VE" ManuallyRouted="false" />

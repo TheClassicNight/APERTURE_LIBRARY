@@ -1,4 +1,5 @@
-﻿<div class="bg-secondary text-center rounded p-4">
+﻿
+<div class="bg-secondary text-center rounded p-4">
     <h2>Entradas y salidas</h2>
     <table class="table table-hover" id="MyTable">
         <tr>
@@ -16,8 +17,8 @@
                 <td>@item.Personal.NombrePer</td>
                 <td>@item.HoraEntrada</td>
                 <td>@item.HoraSalida</td>
-                <td><a href="~/home/EntracesAndExitsForm?IdCH=@item.IdCH" class="btn btn-info">Editar</a></td>
-                <td><a href="~/home/EliminarEAE?IdCH=@item.IdCH" class="btn btn-danger">Eliminar</a></td>
+                <td><a href="~/home/SalesForm?IdCH=@item.IdCH" class="btn btn-info">Editar</a></td>
+                <td><a href="~/home/EliminarSa?IdCH=@item.IdCH" class="btn btn-danger">Eliminar</a></td>
             </tr>
         }
     </table>
