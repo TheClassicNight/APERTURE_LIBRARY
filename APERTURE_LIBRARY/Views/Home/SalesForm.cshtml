@@ -1,139 +1,135 @@
 ﻿<script>
     var UrlGuardarSa = '@Url.Action("guardarSa", "Home")';
 </script>
+<script>
+    function mas(i) {
+        var cantidad = document.getElementById("cantidad_" + i);
+        var maxCantidad = parseInt(cantidad.getAttribute("max"));
+        var actualCantidad = parseInt(cantidad.getAttribute("data-cantidad"));
+        if (actualCantidad < maxCantidad) {
+            actualCantidad++;
+            cantidad.setAttribute("data-cantidad", actualCantidad);
+            cantidad.innerHTML = actualCantidad;
+            calcularTotal();
+        }
+    }
+
+    function menos(i) {
+        var cantidad = document.getElementById("cantidad_" + i);
+        var actualCantidad = parseInt(cantidad.getAttribute("data-cantidad"));
+        if (actualCantidad > 0) {
+            actualCantidad--;
+            cantidad.setAttribute("data-cantidad", actualCantidad);
+            cantidad.innerHTML = actualCantidad;
+            calcularTotal();
+        }
+    }
+
+
+    document.addEventListener('DOMContentLoaded', function () {
+        var sel = document.querySelectorAll('select');
+        var instances = M.FormSelect.init(sel);
+    });
+
+    function calcularTotal() {
+        var total = 0;
+        var libros = document.querySelectorAll('tbody tr');
+        libros.forEach(function (libro) {
+            var precio = parseFloat(libro.querySelector('td:nth-child(2)').innerText);
+            var cantidad = parseInt(libro.querySelector('label').getAttribute("data-cantidad"));
+            total += precio * cantidad;
+        });
+        document.getElementById("total").innerText = total.toFixed(2);
+    }
+
+</script>
 
 <script src="~/Scripts/js_Sales.js"></script>
 <div class="bg-secondary text-center rounded p-4">
     <div class="row">
         <div class="col-md-3">
             <label>Empleado</label>
-            <select class="form-select mb-3" id="empleado" name="empleado">
+            <select class="form-select mb-3" id="idPersonal" name="empleado">
                 <option value="0"> Seleccionar </option>
                 @foreach (var item in ViewBag.Personal)
                 {
-
-                    if (ViewBag.li != null)
+                    if (item.Activo == true)
                     {
-
-                        if (ViewBag.li.idPersonal == item.IdPE)
-                        {
-                            <option value="@item.IdPE" selected>@item.NombrePer</option>
-                        }
-
-                        else
-                        {
-                            <option value="@item.IdPE">@item.NombrePer</option>
-                        }
-
+                        <option value="@item.IdPE">@item.NombrePer @item.ApePat</option>
                     }
-                    else
-                    {
-                        <option value="@item.IdPE">@item.NombrePer</option>
-                    }
-
                 }
             </select>
         </div>
         <div class="col-md-3">
             <label>Clientes</label>
-            <select class="form-select mb-3" id="cliente" name="cliente">
+            <select class="form-select mb-3" id="idCliente" name="cliente">
                 <option value="0"> Seleccionar </option>
                 @foreach (var item in ViewBag.Clientes)
                 {
-
-                    if (ViewBag.li != null)
+                    if (item.Activo == true)
                     {
-
-                        if (ViewBag.li.idCliente == item.IdCLI)
-                        {
-                            <option value="@item.IdCLI" selected>@item.NombreCli</option>
-                        }
-
-                        else
-                        {
-                            <option value="@item.IdCLI">@item.NombreCli</option>
-                        }
-
+                        <option value="@item.IdCLI">@item.NombreCli @item.ApePat</option>
                     }
-                    else
-                    {
-                        <option value="@item.IdCLI">@item.NombreCli</option>
-                    }
-
                 }
             </select>
         </div>
-        <div class="col-md-3">
-            <label>Libros</label>
-            <select class="form-select mb-3" id="libro" name="libro">
-                <option value="0"> Seleccionar </option>
-                @foreach (var item in ViewBag.Libros)
-                {
+    </div>
+</div>
 
-                    if (ViewBag.li != null)
+<div class="bg-secondary text-center rounded p-4">
+    <div class="row">
+        <div class="col s12 m10 l10">
+            <table class="table table-striped table-bordered">
+                <thead>
+                    <tr>
+                        <th>Nombre Libro</th>
+                        <th>Precio</th>
+                        <th>Cantidad</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    @{ int i = 0;}
+                    @foreach (var item in ViewBag.Libros)
                     {
-
-                        if (ViewBag.li.idLibro == item.IdLibro)
+                        if (item.Activo == true)
                         {
-                            <option value="@item.IdLibro" selected>@item.NombreLibro</option>
+                            var maxCantidad = item.CantidadLibros;
+                            <tr>
+                                <td id="id_@i" value="@item.IdLibro">@item.NombreLibro</td>
+                                <td>@item.CostoLibros</td>
+                                <td>
+                                    <div>
+                                        <button class="btn amber accent-3 black-text" id="menos_@i" name="menos_@i" onclick="menos(@i)">-</button>
+                                        <label id="cantidad_@i" name="cantidad_@i" max="@maxCantidad" class="center-align white-text" data-cantidad="0">0</label>
+                                        <button class="btn amber accent-3 black-text" id="mas_@i" name="mas_@i" onclick="mas(@i)">+</button>
+                                    </div>
+                                </td>
+
+                            </tr>
+                            i++;
                         }
-
-                        else
-                        {
-                            <option value="@item.IdLibro">@item.NombreLibro</option>
-                        }
-
                     }
-                    else
-                    {
-                        <option value="@item.IdLibro">@item.NombreLibro</option>
-                    }
-
-                }
-            </select>
+                </tbody>
+            </table>
         </div>
-        <div class="col-md-3">
-            <label>Cantidad</label>
-            @if (ViewBag.li != null)
-            {
-                <input type="text" id="cantidad" name="cantidad" class="form-control" value="@ViewBag.li.CantidadLibroVenta" />
-            }
-            else
-            {
-                <input type="text" id="cantidad" name="cantidad" class="form-control" />
-            }
+        <div class="col s12 m10 l2">
+            <div style="text-align: center;">
+                <div>Total de la venta:</div>
+                <div>
+                    <span style="font-size: larger;">$</span>
+                    <span id="total" style="font-size: larger;">0</span>
+                    <span style="font-size: larger;"> pesos</span>
+                </div>
 
-        </div>
-
-        <div class="col-md-3">
-            @if (ViewBag.li != null)
-            {
-                <input type="text" id="subtotal" name="subtotal" class="form-control" style="display: none" value="@ViewBag.li.CostoVentaSubtotal" />
-            }
-            else
-            {
-                <input type="text" id="subtotal" name="subtotal" style="display: none" class="form-control" />
-            }
-
-        </div>
-
-        <div class="col-md-3">
-            @if (ViewBag.li != null)
-            {
-                <input type="text" id="total" name="total" class="form-control" style="display: none" value="@ViewBag.li.CostoVentaTotal" />
-            }
-            else
-            {
-                <input type="text" id="total" name="total" style="display: none" class="form-control" />
-            }
-
+            </div>
         </div>
     </div>
     <br />
-    <div class="row">
+    <div id="tamanio" data-i="@i"></div>
+    <div>
         <div class="col-md-2">
             <a href="javascript:guardarSa()" class="btn btn-outline-success">Realizar Venta</a>
         </div>
     </div>
-
 </div>

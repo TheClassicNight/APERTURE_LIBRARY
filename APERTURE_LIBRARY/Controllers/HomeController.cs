@@ -59,12 +59,6 @@ namespace APERTURE_LIBRARY.Controllers
             return View(lst);
         }
 
-        public ActionResult Sales()
-        {
-            var lst = db.Ventas.Where(x => x.Activo == true).ToList();
-            return View(lst);
-        }
-
         public ActionResult Lendings()
         {
             var lst = db.Prestamos.Where(x => x.Activo == true).ToList();
@@ -161,18 +155,10 @@ namespace APERTURE_LIBRARY.Controllers
 
         public ActionResult SalesForm()
         {
-            var ID = Request.Params["IdVE"];
-            if (ID != null)
-            {
-                int id = int.Parse(ID);
-                var li = db.Ventas.Where(x => x.IdVE == id).FirstOrDefault();
-                ViewBag.li = li;
-            }
-
-            //Elementos para llave foranea
-            ViewBag.Clientes = db.Clientes.Where(x => x.Activo == true).ToList();
-            ViewBag.Libros = db.Libros.Where(x => x.Activo == true).ToList();
-            ViewBag.Personal = db.Personal.Where(x => x.Activo == true).ToList();
+            //llenar viewbags con libros, personal y clientes
+            ViewBag.Libros = db.Libros.ToList();
+            ViewBag.Personal = db.Personal.ToList();
+            ViewBag.Clientes = db.Clientes.ToList();
             return View();
         }
 
@@ -361,36 +347,50 @@ namespace APERTURE_LIBRARY.Controllers
             return Json("");
         }
 
-        public JsonResult guardarSa(int? IdVE, int CantidadLibroVenta, int? Empleado, int? Cliente, int? Libro)
+        public JsonResult guardarSa(int? IdVE, int idCliente, int idPersonal, int[] arrayids, int[] arraycantidades)
         {
+            var books = db.Libros.ToList();
             if (IdVE != null)
             {
-                var Art = db.Ventas.Where(x => x.IdVE == IdVE).FirstOrDefault();
-                Art.CantidadLibroVenta = CantidadLibroVenta;
-                //Calculo de Ventas
-                var RE = db.Libros.Find(Libro);
-                Art.CostoVentaSubtotal = CantidadLibroVenta * RE.CostoLibros;
-                Art.CostoVentaTotal = Art.CostoVentaSubtotal + (Art.CostoVentaSubtotal * 0.08);
-                RE.CantidadLibros = RE.CantidadLibros - CantidadLibroVenta;
-                Art.idPersonal = Empleado;
-                Art.idCliente = Cliente;
-                Art.idLibro = Libro;
+                var Venta = db.Ventas.Where(x => x.IdVE == IdVE).FirstOrDefault();
+                Venta.idCliente = idCliente;
+                Venta.idPersonal = idPersonal;
+                var limit = arrayids.Length;
+                for (int i = 0; i < limit; i++)
+                {
+                    var VentasLibro = new VentasLibro();
+                    VentasLibro.idVentas = (int)IdVE;
+                    VentasLibro.idLibro = arrayids[i];
+                    VentasLibro.CantidadLibroVenta = arraycantidades[i];
+                    db.VentasLibro.Add(VentasLibro);
+                    //restar la cantidad de libros vendidos a la cantidad de libros en existencia
+                    var libro = books.Where(x => x.IdLibro == arrayids[i]).FirstOrDefault();
+                    libro.CantidadLibros = libro.CantidadLibros - arraycantidades[i];
+                }
                 db.SaveChanges();
             }
             else
             {
-                Ventas Art = new Ventas();
-                var RE = db.Libros.Find(Libro);
-                //Calculo de Ventas
-                Art.CantidadLibroVenta = CantidadLibroVenta;
-                Art.CostoVentaSubtotal = CantidadLibroVenta * RE.CostoLibros;
-                Art.CostoVentaTotal = Art.CostoVentaSubtotal + (Art.CostoVentaSubtotal * 0.08);
-                RE.CantidadLibros = RE.CantidadLibros - CantidadLibroVenta;
-                Art.Activo = true;
-                Art.idPersonal = Empleado;
-                Art.idCliente = Cliente;
-                Art.idLibro = Libro;
-                db.Ventas.Add(Art);
+                Ventas venta = new Ventas();
+                //no se incluye el id, porque es autoincrementable, se genera solo
+                venta.idCliente = idCliente;
+                venta.idPersonal = idPersonal;
+                venta.FechaVenta = DateTime.Now.ToString();
+                db.Ventas.Add(venta);
+                db.SaveChanges();
+                var limit = arrayids.Length;
+                for (int i = 0; i < limit; i++)
+                {
+                    var VentasLibro = new VentasLibro();
+                    VentasLibro.idVentas = venta.IdVE;
+                    VentasLibro.idLibro = arrayids[i];
+                    VentasLibro.CantidadLibroVenta = arraycantidades[i];
+                    //restamos la cantidad de libros vendidos a la cantidad de libros en existencia
+                    var libro = books.Where(x => x.IdLibro == arrayids[i]).FirstOrDefault();
+                    libro.CantidadLibros = libro.CantidadLibros - arraycantidades[i];
+                    db.VentasLibro.Add(VentasLibro);
+                }
+                //una vez realizadas las operaciones, guardamos los cambios
                 db.SaveChanges();
             }
             return Json("");
@@ -479,14 +479,6 @@ namespace APERTURE_LIBRARY.Controllers
             Chec.Activo = false;
             db.SaveChanges();
             return RedirectToAction("EntracesAndExits", "home");
-        }
-
-        public ActionResult EliminarSa(int? IdVE)
-        {
-            var Venta = db.Ventas.Where(x => x.IdVE == IdVE).FirstOrDefault();
-            Venta.Activo = false;
-            db.SaveChanges();
-            return RedirectToAction("Sales", "home");
         }
 
 

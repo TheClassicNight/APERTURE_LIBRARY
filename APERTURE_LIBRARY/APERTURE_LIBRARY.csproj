@@ -14,7 +14,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>APERTURE_LIBRARY</RootNamespace>
     <AssemblyName>APERTURE_LIBRARY</AssemblyName>
-    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
     <UseIISExpress>true</UseIISExpress>
     <Use64BitIISExpress />
@@ -52,6 +52,7 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Data.Entity" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Runtime.Serialization" />
@@ -62,6 +63,7 @@
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Abstractions" />
+    <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Web.Routing" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Configuration" />
@@ -105,6 +107,7 @@
     <Reference Include="Newtonsoft.Json">
       <HintPath>..\packages\Newtonsoft.Json.12.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
+    <Reference Include="System.Xml.Linq" />
     <Reference Include="WebGrease">
       <Private>True</Private>
       <HintPath>..\packages\WebGrease.1.6.0\lib\WebGrease.dll</HintPath>
@@ -157,9 +160,6 @@
     <Compile Include="Models\Prestamos.cs">
       <DependentUpon>Library.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Reporte.cs">
-      <DependentUpon>Library.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\TipoLibros.cs">
       <DependentUpon>Library.tt</DependentUpon>
     </Compile>
@@ -167,6 +167,9 @@
       <DependentUpon>Library.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Ventas.cs">
+      <DependentUpon>Library.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\VentasLibro.cs">
       <DependentUpon>Library.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\ViewModel\BooksTypeClass.cs" />
@@ -270,7 +273,6 @@
     <Content Include="Views\Home\EmployeeForm.cshtml" />
     <Content Include="Views\Home\EntracesAndExitsForm.cshtml" />
     <Content Include="Views\Home\EntracesAndExits.cshtml" />
-    <Content Include="Views\Home\Sales.cshtml" />
     <Content Include="Views\Home\Lendings.cshtml" />
     <Content Include="Views\Home\LendingsForm.cshtml" />
     <Content Include="Views\Home\SalesForm.cshtml" />
