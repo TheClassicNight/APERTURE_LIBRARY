@@ -65,6 +65,32 @@ namespace APERTURE_LIBRARY.Controllers
             return View(lst);
         }
         
+        public ActionResult Report()
+        {
+            var lst = db.Ventas.ToList();
+            return View(lst);
+        }
+
+        public ActionResult ReportComponents()
+        {
+
+            var ID = Request.Params["IdVE"];
+            if (ID != null)
+            {
+                int id = int.Parse(ID);
+                var li = db.VentasLibro.Where(x => x.idVentas == id).ToList();
+                return View(li); 
+            }
+            else
+            {
+
+                return View(new List<VentasLibro>());
+
+            }
+
+        }
+
+
         /// Forms
 
         public ActionResult BooksTypeForm()
@@ -180,6 +206,25 @@ namespace APERTURE_LIBRARY.Controllers
             ViewBag.TiposPrestamos = db.TiposPrestamos.Where(x => x.Activo == true).ToList();
             return View();
         }
+
+        public ActionResult ReportForm()
+        {
+
+            var ID = Request.Params["IdVE"];
+            if (ID != null)
+            {
+                int id = int.Parse(ID);
+                var li = db.Ventas.Where(x => x.IdVE == id).FirstOrDefault();
+                ViewBag.li = li;
+            }
+
+            //llenar viewbags con libros, personal y clientes
+            ViewBag.Libros = db.Libros.ToList();
+            ViewBag.Personal = db.Personal.ToList();
+            ViewBag.Clientes = db.Clientes.ToList();
+            return View();
+        }
+
 
         /// Añadir en BD
 

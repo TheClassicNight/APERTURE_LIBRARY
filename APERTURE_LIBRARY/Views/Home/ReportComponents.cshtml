@@ -1,0 +1,18 @@
+﻿<div class="bg-secondary text-center rounded p-4">
+    <h2>Componentes</h2>
+    <table class="table table-hover" id="MyTable">
+        <tr>
+            <th>Libros</th>
+            <th>Cantidad</th>
+            <th>Precio</th>
+        </tr>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Libros.NombreLibro</td>
+                <td>@item.CantidadLibroVenta</td>
+                <td>@item.Libros.CostoLibros</td>
+            </tr>
+        }
+    </table>
+</div>

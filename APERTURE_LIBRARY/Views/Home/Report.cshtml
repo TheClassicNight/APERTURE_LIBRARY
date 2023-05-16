@@ -1,0 +1,22 @@
+﻿<div class="bg-secondary text-center rounded p-4">
+    <h2>Reporte</h2>
+    <table class="table table-hover" id="MyTable">
+        <tr>
+            <th>No. Venta</th>
+            <th>Cliente</th>
+            <th>Empleado</th>
+            <th>Fecha</th>
+            <th>Componentes</th>
+        </tr>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.IdVE</td>
+                <td>@item.Clientes.NombreCli</td>
+                <td>@item.Personal.NombrePer</td>
+                <td>@item.FechaVenta</td>
+                <td><a href="~/home/ReportComponents?IdVE=@item.IdVE" class="btn btn-info">Componentes</a></td>
+            </tr>
+        }
+    </table>
+</div>

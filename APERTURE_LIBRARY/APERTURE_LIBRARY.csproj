@@ -14,7 +14,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>APERTURE_LIBRARY</RootNamespace>
     <AssemblyName>APERTURE_LIBRARY</AssemblyName>
-    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
     <UseIISExpress>true</UseIISExpress>
     <Use64BitIISExpress />
@@ -276,6 +276,9 @@
     <Content Include="Views\Home\Lendings.cshtml" />
     <Content Include="Views\Home\LendingsForm.cshtml" />
     <Content Include="Views\Home\SalesForm.cshtml" />
+    <Content Include="Views\Home\ReportForm.cshtml" />
+    <Content Include="Views\Home\Report.cshtml" />
+    <Content Include="Views\Home\ReportComponents.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
