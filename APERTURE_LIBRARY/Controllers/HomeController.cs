@@ -391,8 +391,8 @@ namespace APERTURE_LIBRARY.Controllers
             }
             return Json("");
         }
-
-        public JsonResult guardarSa(int? IdVE, int idCliente, int idPersonal, int[] arrayids, int[] arraycantidades)
+        public int Total;
+        public JsonResult guardarSa(int? IdVE, int idCliente, int idPersonal, int[] arrayids, int[] arraycantidades, int Total)
         {
             var books = db.Libros.ToList();
             if (IdVE != null)
@@ -400,6 +400,7 @@ namespace APERTURE_LIBRARY.Controllers
                 var Venta = db.Ventas.Where(x => x.IdVE == IdVE).FirstOrDefault();
                 Venta.idCliente = idCliente;
                 Venta.idPersonal = idPersonal;
+                Venta.Total = Total;
                 var limit = arrayids.Length;
                 for (int i = 0; i < limit; i++)
                 {
@@ -421,6 +422,7 @@ namespace APERTURE_LIBRARY.Controllers
                 venta.idCliente = idCliente;
                 venta.idPersonal = idPersonal;
                 venta.FechaVenta = DateTime.Now.ToString();
+                venta.Total = Total;
                 db.Ventas.Add(venta);
                 db.SaveChanges();
                 var limit = arrayids.Length;

@@ -6,6 +6,7 @@
             <th>Cliente</th>
             <th>Empleado</th>
             <th>Fecha</th>
+            <th>Total</th>
             <th>Componentes</th>
         </tr>
         @foreach (var item in Model)
@@ -15,6 +16,7 @@
                 <td>@item.Clientes.NombreCli</td>
                 <td>@item.Personal.NombrePer</td>
                 <td>@item.FechaVenta</td>
+                <td>@item.Total</td>
                 <td><a href="~/home/ReportComponents?IdVE=@item.IdVE" class="btn btn-info">Componentes</a></td>
             </tr>
         }

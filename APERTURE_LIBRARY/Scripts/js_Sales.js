@@ -66,7 +66,9 @@ function guardarSa() {
             idPersonal: document.querySelector('#idPersonal option:checked').value,
             //mandamos los dos arrays
             arrayids: arrayids,
-            arraycantidades: arraycantidades
+            arraycantidades: arraycantidades,
+            Total: calcularTotal(total)
+
         },
         success: function (data) {
 

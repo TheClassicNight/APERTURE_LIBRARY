@@ -100,8 +100,10 @@
           </Key>
           <Property Name="IdVE" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="FechaVenta" Type="varchar" MaxLength="50" />
+          <Property Name="Activo" Type="bit" />
           <Property Name="idPersonal" Type="int" />
           <Property Name="idCliente" Type="int" />
+          <Property Name="Total" Type="int" />
         </EntityType>
         <EntityType Name="VentasLibro">
           <Key>
@@ -109,6 +111,7 @@
           </Key>
           <Property Name="IdVELib" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="CantidadLibroVenta" Type="int" />
+          <Property Name="Activo" Type="bit" />
           <Property Name="idVentas" Type="int" />
           <Property Name="idLibro" Type="int" />
         </EntityType>
@@ -398,8 +401,10 @@
           </Key>
           <Property Name="IdVE" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="FechaVenta" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Activo" Type="Boolean" />
           <Property Name="idPersonal" Type="Int32" />
           <Property Name="idCliente" Type="Int32" />
+          <Property Name="Total" Type="Int32" />
           <NavigationProperty Name="Clientes" Relationship="Self.FK_iDCliente_VE" FromRole="Ventas" ToRole="Clientes" />
           <NavigationProperty Name="Personal" Relationship="Self.FK_iDPersonal_VE" FromRole="Ventas" ToRole="Personal" />
           <NavigationProperty Name="VentasLibro" Relationship="Self.FK_iDVentas_VELib" FromRole="Ventas" ToRole="VentasLibro" />
@@ -410,6 +415,7 @@
           </Key>
           <Property Name="IdVELib" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="CantidadLibroVenta" Type="Int32" />
+          <Property Name="Activo" Type="Boolean" />
           <Property Name="idVentas" Type="Int32" />
           <Property Name="idLibro" Type="Int32" />
           <NavigationProperty Name="Libros" Relationship="Self.FK_iDlibro_VELib" FromRole="VentasLibro" ToRole="Libros" />
@@ -693,8 +699,10 @@
               <MappingFragment StoreEntitySet="Ventas">
                 <ScalarProperty Name="IdVE" ColumnName="IdVE" />
                 <ScalarProperty Name="FechaVenta" ColumnName="FechaVenta" />
+                <ScalarProperty Name="Activo" ColumnName="Activo" />
                 <ScalarProperty Name="idPersonal" ColumnName="idPersonal" />
                 <ScalarProperty Name="idCliente" ColumnName="idCliente" />
+                <ScalarProperty Name="Total" ColumnName="Total" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -703,6 +711,7 @@
               <MappingFragment StoreEntitySet="VentasLibro">
                 <ScalarProperty Name="IdVELib" ColumnName="IdVELib" />
                 <ScalarProperty Name="CantidadLibroVenta" ColumnName="CantidadLibroVenta" />
+                <ScalarProperty Name="Activo" ColumnName="Activo" />
                 <ScalarProperty Name="idVentas" ColumnName="idVentas" />
                 <ScalarProperty Name="idLibro" ColumnName="idLibro" />
               </MappingFragment>
@@ -725,7 +734,7 @@
         <DesignerProperty Name="EnablePluralization" Value="false" />
         <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
         <DesignerProperty Name="UseLegacyProvider" Value="true" />
-        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
       </DesignerInfoPropertySet>
     </Options>
     <!-- Diagram content (shape and connector positions) -->
